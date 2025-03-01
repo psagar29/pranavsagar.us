@@ -10,37 +10,35 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
   />
-  <!-- GSAP (optional for subtle animations) -->
+  <!-- GSAP (optional) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <!-- Lottie (for Homer Simpson JSON animation) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
   <style>
-    /**************************************************
-     * GLOBAL THEME & BASE STYLES
-     **************************************************/
     :root {
-      --primary-color: #ffd700;      /* Gold */
-      --secondary-color: #ffffff;    /* White */
-      --text-color: #ffffff;         /* Normal text */
-      --bg-color: #000000;          /* Black */
+      --primary-color: #ffd700; /* Gold */
+      --secondary-color: #ffffff; /* White */
+      --text-color: #ffffff;      /* Normal text */
+      --bg-color: #000000;       /* Black */
       --dock-bg: rgba(255, 255, 255, 0.05);
       --fade-duration: 0.8s;
     }
 
     html {
-      scroll-behavior: smooth; /* smoother scrolling */
+      scroll-behavior: smooth; 
     }
     * {
-      margin: 0; 
-      padding: 0; 
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
     body {
       font-family: 'Courier New', monospace;
       color: var(--text-color);
-      /* Single gradient from top to bottom so everything blends */
+
+      /* The golden gradient at top & bottom */
       background: linear-gradient(
         180deg,
         rgba(255, 215, 0, 0.2) 0%,
@@ -48,8 +46,34 @@
         #000000 85%,
         rgba(255, 215, 0, 0.2) 100%
       );
-      overflow-x: hidden;
-      cursor: none; /* Hide system pointer */
+      position: relative;
+      min-height: 100vh;
+      cursor: none; /* Hide default cursor */
+    }
+
+    /* The grid lines go in a pseudo-element on top of that gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        );
+      background-color: transparent; 
+      /* We let the gradient behind it show through. */
     }
 
     /* Custom Scrollbar */
@@ -61,9 +85,7 @@
       border-radius: 4px;
     }
 
-    /**************************************************
-     * FADE-IN ON SCROLL
-     **************************************************/
+    /* Fade-in on scroll */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -74,24 +96,20 @@
       transform: translateY(0);
     }
 
-    /**************************************************
-     * CUSTOM CURSOR
-     **************************************************/
+    /* Custom circle cursor */
     .cursor {
       position: fixed;
       z-index: 9999;
       width: 30px;
       height: 30px;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /**************************************************
-     * INTRO / SPLASH SCREEN
-     **************************************************/
+    /* Intro / splash screen */
     .intro-animation {
       position: fixed;
       top: 0; 
@@ -146,9 +164,7 @@
       box-shadow: 0 0 15px var(--primary-color);
     }
 
-    /**************************************************
-     * HERO SECTION
-     **************************************************/
+    /* Hero Section */
     #hero {
       min-height: 100vh;
       display: flex;
@@ -168,6 +184,10 @@
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto 30px auto;
+      transition: transform 0.3s ease;
+    }
+    .hero-photo:hover {
+      transform: scale(1.1);
     }
     .hero-photo img {
       width: 100%;
@@ -182,43 +202,50 @@
       letter-spacing: 2px;
       position: relative;
     }
+
+    /* White blinking line typewriter */
     .hero-typed {
       font-size: 1.5rem;
       color: var(--secondary-color);
-      height: 2rem;
+      min-height: 2rem;
       margin-bottom: 30px;
-    }
-    .typing-cursor {
       display: inline-block;
-      width: 1px;
-      background-color: var(--primary-color);
-      margin-left: 2px;
-      animation: blink 0.7s infinite;
-      vertical-align: bottom;
+      border-right: 2px solid #fff; 
+      animation: blinkCursor 0.8s steps(1) infinite normal;
+      overflow: hidden;
+      white-space: nowrap;
     }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+    @keyframes blinkCursor {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #fff; }
     }
-    .signature {
-      width: 150px; 
-      height: 60px;
+
+    /* Batman animation under typed text */
+    .batman-animation {
+      width: 200px;
+      height: 50px;
       margin: 20px auto;
       position: relative;
+      overflow: hidden;
     }
-    .signature svg path {
-      fill: none;
-      stroke: var(--primary-color);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 500;
-      stroke-dashoffset: 500;
-      animation: sign 3s forwards;
+    .batman-animation::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 400%; 
+      height: 100%;
+
+      /* Replace with your actual Batman icon */
+      background: url('batman-icon.png') repeat-x center / 50px auto;
+      filter: hue-rotate(40deg) brightness(1.3) saturate(2);
+      animation: batScroll 3s linear infinite;
+      opacity: 0.7;
     }
-    @keyframes sign {
-      to { stroke-dashoffset: 0; }
+    @keyframes batScroll {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
     }
+
     .cta-buttons {
       display: flex;
       gap: 20px;
@@ -243,8 +270,6 @@
       color: var(--bg-color);
       box-shadow: 0 0 20px var(--primary-color);
     }
-
-    /* This wrapper around “Know more about me” + Homer JSON */
     .know-more-wrapper {
       display: flex;
       align-items: center;
@@ -255,12 +280,10 @@
       width: 50px;
       height: 50px;
       overflow: hidden;
-      cursor: pointer;
+      pointer-events: none;
     }
 
-    /**************************************************
-     * SKILLS SECTION (Marquee)
-     **************************************************/
+    /* Skills Section (Marquee) */
     #skills {
       padding: 100px 20px;
       text-align: center;
@@ -279,11 +302,15 @@
     .skills-marquee {
       display: inline-block;
       white-space: nowrap;
-      animation: scroll-limited 30s linear infinite;
+      animation: scroll-limited 20s linear infinite; 
+    }
+    @keyframes scroll-limited {
+      0%   { transform: translateX(35%); }
+      100% { transform: translateX(-35%); }
     }
     .skill-logo {
       display: inline-block;
-      margin: 0 50px;
+      margin: 0 40px;
       vertical-align: middle;
     }
     .skill-logo img {
@@ -291,14 +318,10 @@
       width: auto;
       filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg) brightness(1);
     }
-    @keyframes scroll-limited {
-      0%   { transform: translateX(50%); }
-      100% { transform: translateX(-50%); }
-    }
 
-    /**************************************************
-     * EDUCATION SECTION
-     **************************************************/
+    /* Education, Experience, Projects, Contact remain structurally same */
+
+    /* Education */
     #education {
       padding: 80px 20px;
       margin-top: 60px;
@@ -348,9 +371,7 @@
       font-weight: bold;
     }
 
-    /**************************************************
-     * EXPERIENCE SECTION
-     **************************************************/
+    /* Experience */
     #experience {
       padding: 80px 20px;
       margin-top: 60px;
@@ -382,25 +403,27 @@
       color: var(--primary-color);
     }
     .experience-item .company {
-      font-size: 1.2rem; margin-bottom: 5px;
+      font-size: 1.2rem; 
+      margin-bottom: 5px;
     }
     .experience-item .location {
-      font-style: italic; margin-bottom: 5px;
+      font-style: italic; 
+      margin-bottom: 5px;
       color: var(--secondary-color);
     }
     .experience-item .date {
-      font-size: 0.9rem; margin-bottom: 10px;
+      font-size: 0.9rem; 
+      margin-bottom: 10px;
     }
     .experience-item .description {
       line-height: 1.6;
     }
     .experience-item ul {
-      padding-left: 20px; margin-top: 10px;
+      padding-left: 20px; 
+      margin-top: 10px;
     }
 
-    /**************************************************
-     * PROJECTS SECTION
-     **************************************************/
+    /* Projects */
     #projects {
       padding: 80px 20px;
       margin-top: 60px;
@@ -412,14 +435,14 @@
       margin-bottom: 30px;
     }
     .projects-content {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1200px; 
+      margin: 0 auto;
     }
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 30px;
     }
-    /* Entire project card is clickable => anchor tag */
     .project-card {
       background-color: rgba(0,0,0,0.5);
       border: 1px solid var(--primary-color);
@@ -438,7 +461,6 @@
     .project-card:hover {
       transform: scale(1.03);
     }
-    /* White "god's light" overlay */
     .project-card::before {
       content: '';
       position: absolute;
@@ -498,13 +520,10 @@
       font-size: 0.8rem;
     }
 
-    /**************************************************
-     * CONTACT SECTION
-     **************************************************/
+    /* Contact */
     #contact {
       padding: 80px 20px;
       margin-top: 60px;
-      background: transparent;
     }
     #contact .section-title {
       font-size: 2.2rem;
@@ -538,7 +557,7 @@
     .form-control {
       width: 100%;
       padding: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0,0,0,0.5);
       border: 1px solid var(--primary-color);
       color: var(--text-color);
       transition: all 0.3s ease;
@@ -615,9 +634,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
     }
 
-    /**************************************************
-     * COPYRIGHT TEXT
-     **************************************************/
+    /* Copyright */
     .copyright {
       text-align: center;
       margin: 30px 0 30px 0;
@@ -626,9 +643,7 @@
       opacity: 0.7;
     }
 
-    /**************************************************
-     * BACK TO TOP (optional)
-     **************************************************/
+    /* Back to Top */
     .back-to-top {
       position: fixed; 
       bottom: 90px; 
@@ -653,9 +668,7 @@
       transform: translateY(-5px);
     }
 
-    /**************************************************
-     * MAC-STYLE DOCK
-     **************************************************/
+    /* Mac-Style Dock */
     .mac-dock {
       position: fixed; 
       bottom: 10px; 
@@ -664,7 +677,7 @@
       display: flex;
       background-color: var(--dock-bg);
       border-radius: 30px;
-      padding: 14px 28px; /* smaller (previous) size */
+      padding: 14px 28px; 
       gap: 24px;
       z-index: 1000;
       box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
@@ -680,9 +693,10 @@
     }
     .mac-dock a {
       color: var(--secondary-color);
-      font-size: 26px; /* smaller icons */
+      font-size: 26px; 
       position: relative;
       transition: transform 0.2s ease, color 0.2s ease;
+      text-decoration: none;
     }
     .mac-dock a:hover {
       transform: scale(1.4);
@@ -713,9 +727,6 @@
       background-color: rgba(255,255,255,0.1);
     }
 
-    /**************************************************
-     * MEDIA QUERIES
-     **************************************************/
     @media (max-width: 768px) {
       .hero-title { 
         font-size: 2.5rem; 
@@ -755,7 +766,7 @@
   <!-- Glitch/glyph hover sound -->
   <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
 
-  <!-- Single circle cursor -->
+  <!-- Custom circle cursor -->
   <div class="cursor"></div>
 
   <!-- Intro Screen -->
@@ -775,19 +786,13 @@
           <img src="IMG_2433.png" alt="Profile" />
         </div>
         <h1 class="hero-title">PRANAV SAGAR</h1>
-        <div id="typewriter" class="hero-typed"></div>
-        <div class="signature">
-          <svg viewBox="0 0 500 200">
-            <path
-              d="M 50 100 C 50 80, 100 50, 150 100 S 250 150, 300 100 S 350 50, 400 100"
-            />
-          </svg>
-        </div>
 
-        <!-- Modified CTA Buttons: removed 'View Projects' button, replaced with 'Know more about me' + Homer JSON -->
+        <!-- Blinking typed text + Batman animation -->
+        <div id="typewriter" class="hero-typed"></div>
+        <div class="batman-animation"></div>
+
         <div class="cta-buttons">
-          <!-- 'Know more' as a clickable element linking to aboutme.html -->
-          <div class="cta-button know-more-wrapper" onclick="location.href='aboutme.html?skipIntro=1'">
+          <div class="cta-button know-more-wrapper" id="know-more-btn" onclick="location.href='aboutme.html?skipIntro=1'">
             <span>Know more about me</span>
             <div class="homer-animation-container" id="homer-animation"></div>
           </div>
@@ -796,52 +801,41 @@
       </div>
     </section>
 
-    <!-- (Removed ABOUT SECTION entirely as requested) -->
-
     <!-- Skills Section -->
     <section id="skills" class="fade-in">
-      <h2 class="section-title">Technical Skills</h2>
+      <h2 class="section-title">Skills I've Learned</h2>
       <div class="skills-marquee-container">
         <div class="skills-marquee">
-          <!-- Gold tinted icons -->
+          <!-- EXACT logos: Azure, C#, C++, Python, MATLAB, JavaScript, Oracle, MongoDB -->
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919852.png" alt="Java" />
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-azure-282602.png" alt="Azure" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" alt="C#" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" alt="C++" />
           </div>
           <div class="skill-logo">
             <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919837.png" alt="C++" />
-          </div>
-          <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919823.png" alt="C#" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="MATLAB" />
           </div>
           <div class="skill-logo">
             <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919851.png" alt="React" />
-          </div>
-          <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968322.png" alt="TypeScript" />
-          </div>
-          <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919825.png" alt="Node.js" />
+            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969233.png" alt="Oracle" />
           </div>
           <div class="skill-logo">
             <img src="https://cdn-icons-png.flaticon.com/512/919/919853.png" alt="MongoDB" />
-          </div>
-          <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919836.png" alt="MySQL" />
-          </div>
-          <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/1006/1006627.png" alt="AWS" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Education Section -->
+    <!-- Education -->
     <section id="education" class="fade-in">
       <h2 class="section-title">Education</h2>
       <div class="education-content">
@@ -859,7 +853,7 @@
       </div>
     </section>
 
-    <!-- Experience Section -->
+    <!-- Experience -->
     <section id="experience" class="fade-in">
       <h2 class="section-title">Work Experience</h2>
       <div class="experience-content">
@@ -894,7 +888,7 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section id="projects" class="fade-in">
       <h2 class="section-title">Projects</h2>
       <div class="projects-content">
@@ -907,7 +901,7 @@
               </div>
               <h3>Database Management System</h3>
               <p>A comprehensive DBMS built using Java and SQL.</p>
-              <p>A robust system that handles data organization, storage, and retrieval with advanced query capabilities.</p>
+              <p>Handles data organization, storage, and retrieval with advanced query capabilities.</p>
               <div class="tech-stack">
                 <span>Java</span>
                 <span>SQL</span>
@@ -923,8 +917,7 @@
                 <i class="fas fa-wallet"></i>
               </div>
               <h3>Expense Tracker</h3>
-              <p>A React-based application for tracking personal expenses.</p>
-              <p>Helps users track, categorize, and visualize their expenses with detailed reports and insights.</p>
+              <p>A React-based application for tracking personal expenses, with real-time insights.</p>
               <div class="tech-stack">
                 <span>React</span>
                 <span>JavaScript</span>
@@ -940,7 +933,7 @@
                 <i class="fas fa-comments"></i>
               </div>
               <h3>Real-time Chat App</h3>
-              <p>A Socket.io based real-time messaging application with typing indicators, read receipts, and file sharing.</p>
+              <p>A Socket.io-based messaging application with typing indicators, read receipts, file sharing.</p>
               <div class="tech-stack">
                 <span>Node.js</span>
                 <span>Socket.io</span>
@@ -956,7 +949,7 @@
                 <i class="fas fa-car"></i>
               </div>
               <h3>Project Spyn</h3>
-              <p>An autonomous vehicle navigation system with obstacle avoidance and path planning in dynamic environments.</p>
+              <p>An autonomous vehicle navigation system with obstacle avoidance and path planning.</p>
               <div class="tech-stack">
                 <span>MATLAB</span>
                 <span>Robotics</span>
@@ -972,10 +965,10 @@
                 <i class="fas fa-traffic-light"></i>
               </div>
               <h3>Traffic Control System</h3>
-              <p>A sequential machine design that optimizes traffic flow by adjusting signal timing based on current & historical data.</p>
+              <p>A sequential machine design that optimizes traffic flow using current & historical data.</p>
               <div class="tech-stack">
-                <span>Sequential Logic</span>
                 <span>C++</span>
+                <span>Sequential Logic</span>
                 <span>Simulation</span>
               </div>
             </div>
@@ -984,7 +977,7 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" class="fade-in">
       <h2 class="section-title">Contact Me</h2>
       <div class="contact-content">
@@ -1044,7 +1037,7 @@
     </section>
   </main>
 
-  <!-- Mac-Style Dock -->
+  <!-- Dock -->
   <div class="mac-dock" id="dock">
     <a href="#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
     <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
@@ -1065,19 +1058,15 @@
     <i class="fas fa-arrow-up"></i>
   </div>
 
-  <!-- JavaScript -->
   <script>
-    /* On DOMContentLoaded, optionally skip the intro if skipIntro=1 is in the URL */
     document.addEventListener('DOMContentLoaded', () => {
       const introAnimation = document.getElementById('intro-animation');
       const urlParams = new URLSearchParams(window.location.search);
       const skipIntro = urlParams.get('skipIntro');
 
       if (skipIntro === '1') {
-        // Hide intro immediately
         introAnimation.style.display = 'none';
       } else {
-        // Otherwise, set up the normal "Click to Enter" flow
         const enterButton = document.getElementById('enter-button');
         enterButton.addEventListener('click', () => {
           introAnimation.style.opacity = '0';
@@ -1087,7 +1076,7 @@
         });
       }
 
-      /* TYPING ANIMATION (Hero) */
+      /* TYPEWRITER */
       const typewriter = document.getElementById('typewriter');
       const words = ["Arizona State", "Computer Science", "Gamer", "Entrepreneur", "Developer"];
       let wordIndex = 0;
@@ -1119,7 +1108,6 @@
           }
         }
       }
-
       setTimeout(typeHeroText, 500);
 
       /* FADE-IN ON SCROLL */
@@ -1151,10 +1139,8 @@
 
     /* GLITCH SOUND ON HOVER */
     const hoverSound = document.getElementById('hover-sound');
-    const interactiveEls = document.querySelectorAll(
-      'a, button, .experience-item, .education-item, .project-card, .form-control'
-    );
-    interactiveEls.forEach((el) => {
+    const glitchEls = document.querySelectorAll('a, button, .project-card');
+    glitchEls.forEach((el) => {
       el.addEventListener('mouseenter', () => {
         cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
         if (hoverSound) {
@@ -1163,24 +1149,35 @@
         }
       });
       el.addEventListener('mouseleave', () => {
-        cursor.style.backgroundColor = '#fff';
+        cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
       });
     });
 
-    /* DOCK DRAG (horizontal only) */
+    /* "God's Light" pointer for .education-item, .experience-item, .project-card */
+    const specialHoverEls = document.querySelectorAll('.education-item, .experience-item, .project-card');
+    specialHoverEls.forEach((element) => {
+      element.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+        cursor.style.boxShadow = '0 0 30px 10px rgba(255,255,255,0.5)';
+      });
+      element.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursor.style.boxShadow = 'none';
+      });
+    });
+
+    /* Draggable Dock */
     const dock = document.getElementById('dock');
     let isDragging = false;
     let offsetX = 0;
 
     dock.addEventListener('mousedown', (e) => {
-      // Only start drag if clicked within the dock area, not on a link
       if (e.target.closest('a')) return;
       isDragging = true;
       dock.style.transform = 'none';
       offsetX = e.clientX - dock.offsetLeft;
       e.preventDefault();
     });
-
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       const newLeft = e.clientX - offsetX;
@@ -1188,12 +1185,11 @@
       const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
       dock.style.left = clampedLeft + 'px';
     });
-
     document.addEventListener('mouseup', () => {
       isDragging = false;
     });
 
-    /* BACK TO TOP */
+    /* Back to Top */
     const backToTop = document.querySelector('.back-to-top');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 200) {
@@ -1206,20 +1202,23 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /* HOMER SIMPSON JSON ANIMATION (plays on hover) */
+    /* Homer Simpson JSON on "Know More" button */
     const homerAnimation = lottie.loadAnimation({
       container: document.getElementById('homer-animation'),
       renderer: 'svg',
       loop: true,
       autoplay: false,
-      path: 'icons8-homer-simpson.json' /* Ensure this JSON file is in the same folder or adjust path */
+      path: 'icons8-homer-simpson.json'
     });
-
-    const homerContainer = document.getElementById('homer-animation');
-    homerContainer.addEventListener('mouseenter', () => {
+    const knowMoreBtn = document.getElementById('know-more-btn');
+    knowMoreBtn.addEventListener('mouseenter', () => {
       homerAnimation.play();
+      if (hoverSound) {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(() => {});
+      }
     });
-    homerContainer.addEventListener('mouseleave', () => {
+    knowMoreBtn.addEventListener('mouseleave', () => {
       homerAnimation.stop();
     });
   </script>

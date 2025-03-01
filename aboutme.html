@@ -10,22 +10,17 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
   />
-
-  <!-- GSAP (optional for subtle animations) -->
+  <!-- GSAP (optional) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-
-  <!-- Lottie (if you want to use any JSON animations here as well) -->
+  <!-- Lottie (optional) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
   <style>
-    /**************************************************
-     * GLOBAL THEME & BASE STYLES
-     **************************************************/
     :root {
-      --primary-color: #ffd700;      /* Gold */
-      --secondary-color: #ffffff;    /* White */
-      --text-color: #ffffff;         /* Normal text */
-      --bg-color: #000000;          /* Black */
+      --primary-color: #ffd700;
+      --secondary-color: #ffffff;
+      --text-color: #ffffff;
+      --bg-color: #000000;
       --dock-bg: rgba(255, 255, 255, 0.05);
       --fade-duration: 0.8s;
     }
@@ -39,9 +34,11 @@
       box-sizing: border-box;
     }
 
+    /* Golden gradient + black background */
     body {
       font-family: 'Courier New', monospace;
       color: var(--text-color);
+
       background: linear-gradient(
         180deg,
         rgba(255, 215, 0, 0.2) 0%,
@@ -49,22 +46,36 @@
         #000000 85%,
         rgba(255, 215, 0, 0.2) 100%
       );
-      overflow-x: hidden;
-      cursor: none; /* We'll use a custom cursor */
+      position: relative;
+      min-height: 100vh;
+      cursor: none; /* custom cursor */
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--primary-color);
-      border-radius: 4px;
+    /* Grid lines in a pseudo-element */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        );
+      background-color: transparent;
     }
 
-    /**************************************************
-     * FADE-IN ON SCROLL
-     **************************************************/
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -75,24 +86,20 @@
       transform: translateY(0);
     }
 
-    /**************************************************
-     * CUSTOM CURSOR
-     **************************************************/
+    /* Custom circle cursor */
     .cursor {
       position: fixed;
       z-index: 9999;
       width: 30px;
       height: 30px;
-      background-color: #fff;
+      background-color: rgba(255,255,255,0.5);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /**************************************************
-     * ABOUT ME SECTION
-     **************************************************/
+    /* About Me Section */
     #about {
       min-height: 100vh;
       display: flex;
@@ -104,22 +111,39 @@
     }
     .about-container {
       display: flex;
-      flex-wrap: wrap; /* Stacks on smaller screens */
+      flex-wrap: wrap;
       gap: 40px;
       align-items: flex-start;
       width: 100%;
     }
-    .about-photo {
-      width: 300px;
-      height: 300px;
+
+    /* 5-image swipable stack */
+    .image-stack {
+      position: relative;
+      width: 420px;
+      height: 420px;
+      flex-shrink: 0;
       border: 3px solid var(--primary-color);
-      flex-shrink: 0; 
+      overflow: hidden;
     }
-    .about-photo img {
+    .stack-photo {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.4s ease;
+      cursor: grab;
+    }
+    .stack-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      pointer-events: none;
     }
+
     .about-content {
       flex: 1; 
       display: flex;
@@ -139,8 +163,14 @@
     .about-text p {
       margin-bottom: 20px;
     }
+    .fun-facts-list {
+      margin-top: 10px;
+      list-style-type: disc;
+      margin-left: 20px;
+      line-height: 1.6;
+    }
 
-    /* Social links area */
+    /* Social links */
     .social-links {
       display: flex; 
       gap: 15px; 
@@ -166,9 +196,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
     }
 
-    /**************************************************
-     * MAC-STYLE DOCK
-     **************************************************/
+    /* Mac Dock */
     .mac-dock {
       position: fixed; 
       bottom: 10px; 
@@ -227,9 +255,7 @@
       background-color: rgba(255,255,255,0.1);
     }
 
-    /**************************************************
-     * COPYRIGHT TEXT
-     **************************************************/
+    /* Copyright */
     .copyright {
       text-align: center;
       margin: 50px 0 30px 0;
@@ -238,9 +264,6 @@
       opacity: 0.7;
     }
 
-    /**************************************************
-     * BACK TO TOP BUTTON (optional)
-     **************************************************/
     .back-to-top {
       position: fixed; 
       bottom: 90px; 
@@ -265,35 +288,45 @@
       transform: translateY(-5px);
     }
 
-    /**************************************************
-     * MEDIA QUERIES
-     **************************************************/
     @media (max-width: 768px) {
       .about-container {
         flex-direction: column;
         align-items: center;
       }
-      .about-photo {
-        margin-bottom: 20px;
+      .image-stack {
+        width: 300px; 
+        height: 300px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Glitch/glyph hover sound -->
+  <!-- glitch-sound -->
   <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
 
-  <!-- Custom circle cursor -->
+  <!-- custom cursor -->
   <div class="cursor"></div>
 
-  <!-- MAIN CONTENT -->
   <main>
     <section id="about" class="fade-in">
       <div class="about-container">
-        <!-- Square Picture with Gold Border -->
-        <div class="about-photo">
-          <!-- Replace 'about-square.jpg' with your actual image file name -->
-          <img src="about-square.jpg" alt="Profile Picture" />
+        <!-- Swipable stack of 5 images -->
+        <div class="image-stack" id="image-stack">
+          <div class="stack-photo">
+            <img src="photo1.jpg" alt="Photo 1" />
+          </div>
+          <div class="stack-photo">
+            <img src="photo2.jpg" alt="Photo 2" />
+          </div>
+          <div class="stack-photo">
+            <img src="photo3.jpg" alt="Photo 3" />
+          </div>
+          <div class="stack-photo">
+            <img src="photo4.jpg" alt="Photo 4" />
+          </div>
+          <div class="stack-photo">
+            <img src="photo5.jpg" alt="Photo 5" />
+          </div>
         </div>
 
         <div class="about-content">
@@ -302,9 +335,18 @@
             <p>Hello! I'm Pranav Sagar, a Computer Science student at Arizona State University with a passion for technology and innovation. I specialize in full-stack development, database management, and creating user-centric applications.</p>
             <p>With experience in both academic and professional settings, I've developed a strong foundation in various programming languages and technologies. I enjoy tackling complex problems and turning ideas into functional, elegant solutions.</p>
             <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.</p>
+
+            <h3 style="color: var(--primary-color); margin-top: 20px;">Fun Facts</h3>
+            <ul class="fun-facts-list">
+              <li>Traveling is a big passion of mine, and I've visited over 10 different countries in the past few years.</li>
+              <li>Music is huge for me—I play multiple instruments (especially guitar, piano, and drums).</li>
+              <li>I love sci-fi movies/books (Interstellar is a favorite) and exploring futuristic tech and space.</li>
+              <li>I'm fluent in English, Hindi, and Punjabi.</li>
+              <li>I’m also a fitness enthusiast who loves working out.</li>
+            </ul>
           </div>
 
-          <!-- Social Links -->
+          <!-- Social links -->
           <div class="social-links">
             <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank"
               ><i class="fab fa-linkedin-in"></i
@@ -327,9 +369,8 @@
     </section>
   </main>
 
-  <!-- Mac-Style Dock -->
+  <!-- Dock -->
   <div class="mac-dock" id="dock">
-    <!-- Link back to index with skipIntro=1 so we don't see the splash again -->
     <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
     <a href="index.html?skipIntro=1#about" data-tooltip="About"><i class="fas fa-user"></i></a>
     <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
@@ -344,12 +385,11 @@
     © 2025 Pranav Sagar. All Rights Reserved.
   </div>
 
-  <!-- Back to Top Button -->
+  <!-- Back to Top -->
   <div class="back-to-top">
     <i class="fas fa-arrow-up"></i>
   </div>
 
-  <!-- JavaScript -->
   <script>
     /* FADE-IN ON SCROLL */
     document.addEventListener('DOMContentLoaded', () => {
@@ -379,11 +419,9 @@
       cursor.style.transform = 'translate(-50%, -50%) scale(1)';
     });
 
-    /* GLITCH SOUND ON HOVER (reuse glitch-sound.mp3 if present) */
+    /* Glitch sound on hover */
     const hoverSound = document.getElementById('hover-sound');
-    const interactiveEls = document.querySelectorAll(
-      'a, .about-photo, .social-links a'
-    );
+    const interactiveEls = document.querySelectorAll('a');
     interactiveEls.forEach((el) => {
       el.addEventListener('mouseenter', () => {
         cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
@@ -393,24 +431,21 @@
         }
       });
       el.addEventListener('mouseleave', () => {
-        cursor.style.backgroundColor = '#fff';
+        cursor.style.backgroundColor = 'rgba(255,255,255,0.5)';
       });
     });
 
-    /* MAC-STYLE DOCK DRAGGABLE (horizontal only) */
+    /* DRAGGABLE DOCK */
     const dock = document.getElementById('dock');
     let isDragging = false;
     let offsetX = 0;
-
     dock.addEventListener('mousedown', (e) => {
-      // Only start drag if not clicking directly on a link
       if (e.target.closest('a')) return;
       isDragging = true;
       dock.style.transform = 'none';
       offsetX = e.clientX - dock.offsetLeft;
       e.preventDefault();
     });
-
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       const newLeft = e.clientX - offsetX;
@@ -418,12 +453,11 @@
       const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
       dock.style.left = clampedLeft + 'px';
     });
-
     document.addEventListener('mouseup', () => {
       isDragging = false;
     });
 
-    /* BACK TO TOP */
+    /* Back to Top */
     const backToTop = document.querySelector('.back-to-top');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 200) {
@@ -435,6 +469,80 @@
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    /**********************************************
+     * SWIPABLE 5-IMAGE STACK
+     **********************************************/
+    const stackContainer = document.getElementById('image-stack');
+    const stackPhotos = Array.from(stackContainer.querySelectorAll('.stack-photo'));
+
+    function arrangeStack() {
+      stackPhotos.forEach((photo, i) => {
+        photo.style.zIndex = stackPhotos.length - i;
+        photo.style.transform = 'translate(0, 0) rotate(0deg)';
+      });
+    }
+    arrangeStack();
+
+    let isPointerDown = false;
+    let startX = 0;
+    let currentX = 0;
+    let currentPhoto = null;
+
+    function pointerDown(e) {
+      if (!e.target.classList.contains('stack-photo')) return;
+      isPointerDown = true;
+      currentPhoto = e.target;
+      currentPhoto.style.cursor = 'grabbing';
+      startX = e.clientX || e.touches?.[0]?.clientX;
+      currentX = startX;
+    }
+    function pointerMove(e) {
+      if (!isPointerDown || !currentPhoto) return;
+      const x = e.clientX || e.touches?.[0]?.clientX;
+      currentX = x;
+      const deltaX = currentX - startX;
+      const rotation = deltaX / 20;
+      currentPhoto.style.transform = `translate(${deltaX}px, 0) rotate(${rotation}deg)`;
+    }
+    function pointerUp(e) {
+      if (!isPointerDown || !currentPhoto) return;
+      isPointerDown = false;
+      currentPhoto.style.cursor = 'grab';
+
+      const deltaX = currentX - startX;
+      const threshold = 100; 
+
+      if (Math.abs(deltaX) > threshold) {
+        const direction = deltaX > 0 ? 1 : -1;
+        currentPhoto.style.transition = 'transform 0.4s ease';
+        currentPhoto.style.transform = `translate(${direction * 1000}px, 0) rotate(${direction * 25}deg)`;
+        currentPhoto.addEventListener('transitionend', onTransitionEnd);
+      } else {
+        // Snap back
+        currentPhoto.style.transition = 'transform 0.4s ease';
+        currentPhoto.style.transform = 'translate(0, 0) rotate(0deg)';
+        currentPhoto.addEventListener('transitionend', () => {
+          currentPhoto.style.transition = '';
+        }, { once: true });
+      }
+    }
+    function onTransitionEnd() {
+      this.removeEventListener('transitionend', onTransitionEnd);
+      this.style.transition = '';
+      stackContainer.appendChild(this);
+      stackPhotos.push(stackPhotos.shift());
+      arrangeStack();
+    }
+
+    document.addEventListener('mousedown', pointerDown);
+    document.addEventListener('mousemove', pointerMove);
+    document.addEventListener('mouseup', pointerUp);
+
+    // Touch
+    document.addEventListener('touchstart', pointerDown, {passive:true});
+    document.addEventListener('touchmove', pointerMove, {passive:true});
+    document.addEventListener('touchend', pointerUp, {passive:true});
   </script>
 </body>
 </html>
