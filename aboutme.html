@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>About Me | Pranav Sagar</title>
+
+  <!-- Font Awesome for icons (dock, social, etc.) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+
+  <!-- GSAP (optional for subtle animations) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+  <!-- Lottie (if you want to use any JSON animations here as well) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+
+  <style>
+    /**************************************************
+     * GLOBAL THEME & BASE STYLES
+     **************************************************/
+    :root {
+      --primary-color: #ffd700;      /* Gold */
+      --secondary-color: #ffffff;    /* White */
+      --text-color: #ffffff;         /* Normal text */
+      --bg-color: #000000;          /* Black */
+      --dock-bg: rgba(255, 255, 255, 0.05);
+      --fade-duration: 0.8s;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      color: var(--text-color);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 215, 0, 0.2) 0%,
+        #000000 15%,
+        #000000 85%,
+        rgba(255, 215, 0, 0.2) 100%
+      );
+      overflow-x: hidden;
+      cursor: none; /* We'll use a custom cursor */
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+      border-radius: 4px;
+    }
+
+    /**************************************************
+     * FADE-IN ON SCROLL
+     **************************************************/
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /**************************************************
+     * CUSTOM CURSOR
+     **************************************************/
+    .cursor {
+      position: fixed;
+      z-index: 9999;
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+    }
+
+    /**************************************************
+     * ABOUT ME SECTION
+     **************************************************/
+    #about {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-container {
+      display: flex;
+      flex-wrap: wrap; /* Stacks on smaller screens */
+      gap: 40px;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .about-photo {
+      width: 300px;
+      height: 300px;
+      border: 3px solid var(--primary-color);
+      flex-shrink: 0; 
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-content {
+      flex: 1; 
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .about-text p {
+      margin-bottom: 20px;
+    }
+
+    /* Social links area */
+    .social-links {
+      display: flex; 
+      gap: 15px; 
+      margin-top: 30px;
+    }
+    .social-links a {
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      width: 40px; 
+      height: 40px;
+      background-color: rgba(0,0,0,0.5);
+      border: 1px solid var(--primary-color);
+      border-radius: 50%;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
+    }
+
+    /**************************************************
+     * MAC-STYLE DOCK
+     **************************************************/
+    .mac-dock {
+      position: fixed; 
+      bottom: 10px; 
+      left: 50%; 
+      transform: translateX(-50%);
+      display: flex;
+      background-color: var(--dock-bg);
+      border-radius: 30px;
+      padding: 14px 28px;
+      gap: 24px;
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
+      backdrop-filter: blur(10px);
+    }
+    .mac-dock::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 30px;
+      box-shadow: 0 0 20px var(--primary-color);
+      opacity: 0.15;
+    }
+    .mac-dock a {
+      color: var(--secondary-color);
+      font-size: 26px;
+      position: relative;
+      transition: transform 0.2s ease, color 0.2s ease;
+      text-decoration: none;
+    }
+    .mac-dock a:hover {
+      transform: scale(1.4);
+      color: var(--primary-color);
+    }
+    .mac-dock a::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 56px; 
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: var(--secondary-color);
+      padding: 5px 8px;
+      border-radius: 5px;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+    }
+    .mac-dock a:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+    .mac-dock:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    /**************************************************
+     * COPYRIGHT TEXT
+     **************************************************/
+    .copyright {
+      text-align: center;
+      margin: 50px 0 30px 0;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+      opacity: 0.7;
+    }
+
+    /**************************************************
+     * BACK TO TOP BUTTON (optional)
+     **************************************************/
+    .back-to-top {
+      position: fixed; 
+      bottom: 90px; 
+      right: 20px;
+      width: 40px; 
+      height: 40px;
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      border-radius: 50%;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+
+    /**************************************************
+     * MEDIA QUERIES
+     **************************************************/
+    @media (max-width: 768px) {
+      .about-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-photo {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Glitch/glyph hover sound -->
+  <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
+
+  <!-- Custom circle cursor -->
+  <div class="cursor"></div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section id="about" class="fade-in">
+      <div class="about-container">
+        <!-- Square Picture with Gold Border -->
+        <div class="about-photo">
+          <!-- Replace 'about-square.jpg' with your actual image file name -->
+          <img src="about-square.jpg" alt="Profile Picture" />
+        </div>
+
+        <div class="about-content">
+          <h2 class="section-title">About Me</h2>
+          <div class="about-text">
+            <p>Hello! I'm Pranav Sagar, a Computer Science student at Arizona State University with a passion for technology and innovation. I specialize in full-stack development, database management, and creating user-centric applications.</p>
+            <p>With experience in both academic and professional settings, I've developed a strong foundation in various programming languages and technologies. I enjoy tackling complex problems and turning ideas into functional, elegant solutions.</p>
+            <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.</p>
+          </div>
+
+          <!-- Social Links -->
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://instagram.com" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://github.com" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="https://twitter.com" target="_blank"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="https://facebook.com" target="_blank"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mac-Style Dock -->
+  <div class="mac-dock" id="dock">
+    <!-- Link back to index with skipIntro=1 so we don't see the splash again -->
+    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
+    <a href="index.html?skipIntro=1#about" data-tooltip="About"><i class="fas fa-user"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
+    <a href="index.html?skipIntro=1#education" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
+    <a href="index.html?skipIntro=1#experience" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
+    <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <!-- Copyright -->
+  <div class="copyright">
+    © 2025 Pranav Sagar. All Rights Reserved.
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    /* FADE-IN ON SCROLL */
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeIns = document.querySelectorAll('.fade-in');
+      function revealOnScroll() {
+        fadeIns.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 100) {
+            el.classList.add('visible');
+          }
+        });
+      }
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();
+    });
+
+    /* CUSTOM CURSOR */
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    });
+    document.addEventListener('mouseup', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    /* GLITCH SOUND ON HOVER (reuse glitch-sound.mp3 if present) */
+    const hoverSound = document.getElementById('hover-sound');
+    const interactiveEls = document.querySelectorAll(
+      'a, .about-photo, .social-links a'
+    );
+    interactiveEls.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
+        if (hoverSound) {
+          hoverSound.currentTime = 0;
+          hoverSound.play().catch(() => {});
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.backgroundColor = '#fff';
+      });
+    });
+
+    /* MAC-STYLE DOCK DRAGGABLE (horizontal only) */
+    const dock = document.getElementById('dock');
+    let isDragging = false;
+    let offsetX = 0;
+
+    dock.addEventListener('mousedown', (e) => {
+      // Only start drag if not clicking directly on a link
+      if (e.target.closest('a')) return;
+      isDragging = true;
+      dock.style.transform = 'none';
+      offsetX = e.clientX - dock.offsetLeft;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const newLeft = e.clientX - offsetX;
+      const maxLeft = window.innerWidth - dock.offsetWidth;
+      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      dock.style.left = clampedLeft + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    /* BACK TO TOP */
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
