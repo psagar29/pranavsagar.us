@@ -1136,7 +1136,7 @@
       <div class="contact-content">
         <div class="contact-form">
           <div class="success-message" id="success-message">Message sent successfully! I'll get back to you soon.</div>
-          <form id="contact-form" action="https://formspree.io/f/contact@pranavsagar.us" method="POST">
+          <form id="contact-form" action="https://formspree.io/f/xjkgnzzp" method="POST">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" class="form-control" required/>
@@ -1168,7 +1168,7 @@
           </div>
           <div class="contact-item">
             <i class="fas fa-globe"></i>
-            <a href="https://pranavsagar0209.wixsite.com/my-site" target="_blank"
+            <a href="https://pranavsagar.us" target="_blank"
               >Personal Website</a>
           </div>
           <h3>Connect With Me</h3>
@@ -1427,22 +1427,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeIcon = themeToggle.querySelector('i');
   let isDarkMode = true; // Default is dark mode
   
-  themeToggle.addEventListener('click', () => {
-    if (isDarkMode) {
-     
-    } else {
-      // Switch to dark mode
-      document.documentElement.style.setProperty('--bg-color', '#000000');
-      document.documentElement.style.setProperty('--text-color', '#ffffff');
-      document.documentElement.style.setProperty('--secondary-color', '#ffffff');
-      document.body.style.background = 'linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, #000000 15%, #000000 85%, rgba(255, 215, 0, 0.2) 100%)';
-      document.querySelector('.copyright').style.color = '#ffffff';
-      document.querySelector('.mac-dock').style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
-    }
-    isDarkMode = !isDarkMode;
-  });
   
   /* Resume toggle */
   const resumeLink = document.getElementById('resume-link');

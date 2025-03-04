@@ -560,26 +560,8 @@
   </div>
 
   <script>
+    /* FADE-IN ON SCROLL */
     document.addEventListener('DOMContentLoaded', () => {
-      // Loading bar animation
-      const loadingBar = document.createElement('div');
-      loadingBar.classList.add('loading-bar');
-      document.body.appendChild(loadingBar);
-      
-      // Remove loading bar after animation completes
-      setTimeout(() => {
-        loadingBar.remove();
-      }, 1500);
-      
-      // Make sure the dock is visible
-      const dock = document.getElementById('dock');
-      if (dock) {
-        dock.style.display = 'flex';
-        dock.style.visibility = 'visible';
-        dock.style.opacity = '1';
-      }
-      
-      /* FADE-IN ON SCROLL */
       const fadeIns = document.querySelectorAll('.fade-in');
       function revealOnScroll() {
         fadeIns.forEach((el) => {
@@ -591,115 +573,70 @@
       }
       window.addEventListener('scroll', revealOnScroll);
       revealOnScroll();
+    });
 
-      /* CUSTOM CURSOR */
-      const cursor = document.querySelector('.cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      });
-      document.addEventListener('mousedown', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-      });
-      document.addEventListener('mouseup', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      });
+    /* CUSTOM CURSOR */
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    });
+    document.addEventListener('mouseup', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
 
-      /* GLITCH SOUND ON HOVER */
-      const hoverSound = document.getElementById('hover-sound');
-      const glitchEls = document.querySelectorAll('a, button, .experience-item');
-      glitchEls.forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-          cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
-          if (hoverSound) {
-            hoverSound.currentTime = 0;
-            hoverSound.play().catch(() => {});
-          }
-        });
-        el.addEventListener('mouseleave', () => {
-          cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-        });
-      });
-
-      /* SPECIAL HOVER EFFECT FOR ITEMS */
-      const specialHoverEls = document.querySelectorAll('.experience-item');
-      specialHoverEls.forEach((element) => {
-        element.addEventListener('mouseenter', () => {
-          cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-          cursor.style.boxShadow = '0 0 20px 5px rgba(255,255,255,0.3)';
-        });
-        element.addEventListener('mouseleave', () => {
-          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-          cursor.style.boxShadow = 'none';
-        });
-      });
-
-      /* DRAGGABLE DOCK */
-      let isDragging = false;
-      let offsetX = 0;
-
-      dock.addEventListener('mousedown', (e) => {
-        if (e.target.closest('a')) return;
-        isDragging = true;
-        dock.style.transform = 'none';
-        offsetX = e.clientX - dock.offsetLeft;
-        e.preventDefault();
-      });
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const newLeft = e.clientX - offsetX;
-        const maxLeft = window.innerWidth - dock.offsetWidth;
-        const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-        dock.style.left = clampedLeft + 'px';
-      });
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-      });
-
-      /* Back to Top */
-      const backToTop = document.querySelector('.back-to-top');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
+    /* Glitch sound on hover */
+    const hoverSound = document.getElementById('hover-sound');
+    const interactiveEls = document.querySelectorAll('a');
+    interactiveEls.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
+        if (hoverSound) {
+          hoverSound.currentTime = 0;
+          hoverSound.play().catch(() => {});
         }
       });
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.backgroundColor = 'rgba(255,255,255,0.5)';
       });
+    });
 
-      /* Add some GSAP animations if available */
-      if (typeof gsap !== 'undefined') {
-        // Stagger animation for experience items
-        gsap.from('.experience-item', {
-          duration: 0.8,
-          opacity: 0,
-          y: 50,
-          stagger: 0.2,
-          ease: 'power3.out',
-          delay: 0.3
-        });
-        
-        // Skill tags animation
-        gsap.from('.skill-tag', {
-          duration: 0.4,
-          opacity: 0,
-          y: 10,
-          stagger: 0.05,
-          ease: 'power2.out',
-          delay: 1
-        });
-        
-        // Dock animation
-        gsap.from('.mac-dock', {
-          duration: 1,
-          y: 50,
-          opacity: 0,
-          ease: 'elastic.out(1, 0.5)',
-          delay: 0.5
-        });
+    /* DRAGGABLE DOCK */
+    const dock = document.getElementById('dock');
+    let isDragging = false;
+    let offsetX = 0;
+    dock.addEventListener('mousedown', (e) => {
+      if (e.target.closest('a')) return;
+      isDragging = true;
+      dock.style.transform = 'none';
+      offsetX = e.clientX - dock.offsetLeft;
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const newLeft = e.clientX - offsetX;
+      const maxLeft = window.innerWidth - dock.offsetWidth;
+      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      dock.style.left = clampedLeft + 'px';
+    });
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    /* Back to Top */
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
       }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>
