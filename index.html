@@ -10,7 +10,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
   />
-  <!-- GSAP (optional) -->
+  <!-- GSAP (for animations) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <!-- Lottie (for Homer Simpson JSON animation) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
@@ -23,6 +23,7 @@
       --bg-color: #000000;       /* Black */
       --dock-bg: rgba(255, 255, 255, 0.05);
       --fade-duration: 0.8s;
+      --accent-color: #ff8c00; /* Dark orange for accents */
     }
 
     html {
@@ -83,6 +84,9 @@
     ::-webkit-scrollbar-thumb {
       background-color: var(--primary-color);
       border-radius: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0.3);
     }
 
     /* Fade-in on scroll */
@@ -184,10 +188,12 @@
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto 30px auto;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
     }
     .hero-photo:hover {
       transform: scale(1.1);
+      box-shadow: 0 0 25px var(--primary-color);
     }
     .hero-photo img {
       width: 100%;
@@ -201,6 +207,7 @@
       color: var(--primary-color);
       letter-spacing: 2px;
       position: relative;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
     }
 
     /* White blinking line typewriter */
@@ -292,135 +299,42 @@
       font-size: 2.2rem;
       margin-bottom: 20px;
       color: var(--primary-color);
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
     .skills-marquee-container {
       position: relative;
       overflow: hidden;
       width: 100%;
       margin: 40px auto 0 auto;
+      padding: 20px 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
     .skills-marquee {
       display: inline-block;
       white-space: nowrap;
-      animation: scroll-limited 20s linear infinite; 
+      animation: infinite-scroll 40s linear infinite;
+      padding-left: 100%;
     }
-    @keyframes scroll-limited {
-      0%   { transform: translateX(35%); }
-      100% { transform: translateX(-35%); }
+    @keyframes infinite-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
     .skill-logo {
       display: inline-block;
       margin: 0 40px;
       vertical-align: middle;
+      transition: all 0.3s ease;
+    }
+    .skill-logo:hover {
+      transform: scale(1.2) translateY(-10px);
+      filter: drop-shadow(0 0 8px var(--primary-color));
     }
     .skill-logo img {
       height: 50px; 
       width: auto;
-      filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg) brightness(1);
-    }
-
-    /* Education, Experience, Projects, Contact remain structurally same */
-
-    /* Education */
-    #education {
-      padding: 80px 20px;
-      margin-top: 60px;
-    }
-    #education .section-title {
-      font-size: 2.2rem;
-      color: var(--primary-color);
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .education-content {
-      max-width: 800px; 
-      margin: 0 auto;
-    }
-    .education-item {
-      margin-bottom: 40px;
-      padding: 20px;
-      border: 1px solid var(--primary-color);
-      border-radius: 5px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .education-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
-    }
-    .education-item h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--primary-color);
-    }
-    .education-item .school {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .education-item .year {
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      margin-bottom: 10px;
-    }
-    .education-item .gpa {
-      display: inline-block;
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-
-    /* Experience */
-    #experience {
-      padding: 80px 20px;
-      margin-top: 60px;
-    }
-    #experience .section-title {
-      font-size: 2.2rem;
-      color: var(--primary-color);
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .experience-content {
-      max-width: 800px; 
-      margin: 0 auto;
-    }
-    .experience-item {
-      margin-bottom: 40px;
-      padding: 20px;
-      border: 1px solid var(--primary-color);
-      border-radius: 5px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .experience-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
-    }
-    .experience-item h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--primary-color);
-    }
-    .experience-item .company {
-      font-size: 1.2rem; 
-      margin-bottom: 5px;
-    }
-    .experience-item .location {
-      font-style: italic; 
-      margin-bottom: 5px;
-      color: var(--secondary-color);
-    }
-    .experience-item .date {
-      font-size: 0.9rem; 
-      margin-bottom: 10px;
-    }
-    .experience-item .description {
-      line-height: 1.6;
-    }
-    .experience-item ul {
-      padding-left: 20px; 
-      margin-top: 10px;
+      filter: brightness(1.2);
     }
 
     /* Projects */
@@ -433,6 +347,7 @@
       color: var(--primary-color);
       text-align: center;
       margin-bottom: 30px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
     .projects-content {
       max-width: 1200px; 
@@ -450,7 +365,7 @@
       overflow: hidden;
       position: relative;
       height: 400px;
-      transition: transform 0.4s;
+      transition: transform 0.4s, box-shadow 0.3s;
       cursor: pointer;
       text-decoration: none; 
       color: var(--text-color);
@@ -460,6 +375,7 @@
     }
     .project-card:hover {
       transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 15px var(--primary-color);
     }
     .project-card::before {
       content: '';
@@ -494,6 +410,10 @@
       display: flex; 
       justify-content: center; 
       align-items: center;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover .project-card-image {
+      transform: translateY(-5px);
     }
     .project-card-image i {
       font-size: 3rem; 
@@ -518,6 +438,142 @@
       margin-bottom: 5px;
       border-radius: 3px;
       font-size: 0.8rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .tech-stack span:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      transform: translateY(-2px);
+    }
+
+    /* Resume Section */
+    #resume {
+      padding: 50px 20px;
+      margin-top: 60px;
+      display: none; /* Initially hidden, toggled via JS */
+    }
+    #resume .section-title {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    }
+    .resume-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid var(--primary-color);
+    }
+
+    /* Education */
+    #education {
+      padding: 30px 0;
+    }
+    #education .section-title {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    .education-content {
+      max-width: 100%; 
+    }
+    .education-item {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .education-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
+    }
+    .education-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    .education-item .school {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .education-item .year {
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+      margin-bottom: 10px;
+    }
+    .education-item .gpa {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* Experience */
+    #experience {
+      padding: 30px 0;
+    }
+    #experience .section-title {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    .experience-content {
+      max-width: 100%; 
+    }
+    .experience-item {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    .experience-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
+    }
+    .experience-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    .experience-item .company {
+      font-size: 1.2rem; 
+      margin-bottom: 5px;
+    }
+    .experience-item .location {
+      font-style: italic; 
+      margin-bottom: 5px;
+      color: var(--secondary-color);
+    }
+    .experience-item .date {
+      font-size: 0.9rem; 
+      margin-bottom: 10px;
+    }
+    .experience-item .description {
+      line-height: 1.6;
+    }
+    .experience-item ul {
+      padding-left: 20px; 
+      margin-top: 10px;
+    }
+    .experience-item li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .experience-item li::before {
+      content: '▹';
+      position: absolute;
+      left: -15px;
+      color: var(--primary-color);
     }
 
     /* Contact */
@@ -530,6 +586,7 @@
       color: var(--primary-color);
       text-align: center;
       margin-bottom: 30px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
     .contact-content {
       max-width: 800px; 
@@ -541,10 +598,18 @@
     .contact-form {
       flex: 1; 
       min-width: 300px;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
     .contact-info {
       flex: 1; 
       min-width: 300px;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 25px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
     }
     .form-group {
       margin-bottom: 20px;
@@ -561,6 +626,7 @@
       border: 1px solid var(--primary-color);
       color: var(--text-color);
       transition: all 0.3s ease;
+      border-radius: 4px;
     }
     .form-control:focus {
       outline: none;
@@ -581,6 +647,7 @@
       position: relative; 
       overflow: hidden;
       transition: all 0.3s ease;
+      border-radius: 4px;
     }
     .submit-button:hover {
       background-color: var(--primary-color);
@@ -596,6 +663,10 @@
       margin-bottom: 15px; 
       display: flex; 
       align-items: center;
+      transition: transform 0.2s;
+    }
+    .contact-item:hover {
+      transform: translateX(5px);
     }
     .contact-item i {
       margin-right: 10px; 
@@ -634,10 +705,22 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
     }
 
+    /* Success message for form submission */
+    .success-message {
+      display: none;
+      background-color: rgba(0, 128, 0, 0.2);
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
     /* Copyright */
     .copyright {
       text-align: center;
-      margin: 30px 0 30px 0;
+      margin: 30px 0 70px 0; /* Increased bottom margin for dock */
       font-size: 0.9rem;
       color: var(--secondary-color);
       opacity: 0.7;
@@ -666,6 +749,7 @@
     }
     .back-to-top:hover {
       transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
     }
 
     /* Mac-Style Dock */
@@ -675,13 +759,16 @@
       left: 50%; 
       transform: translateX(-50%);
       display: flex;
-      background-color: var(--dock-bg);
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 30px;
       padding: 14px 28px; 
       gap: 24px;
       z-index: 1000;
       box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      visibility: visible;
+      opacity: 1;
     }
     .mac-dock::before {
       content: '';
@@ -689,17 +776,21 @@
       top: 0; left: 0; right: 0; bottom: 0;
       border-radius: 30px;
       box-shadow: 0 0 20px var(--primary-color);
-      opacity: 0.15;
+      opacity: 0.2;
+      pointer-events: none;
     }
     .mac-dock a {
       color: var(--secondary-color);
       font-size: 26px; 
       position: relative;
-      transition: transform 0.2s ease, color 0.2s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
     }
     .mac-dock a:hover {
-      transform: scale(1.4);
+      transform: scale(1.4) translateY(-10px);
+      color: var(--primary-color);
+    }
+    .mac-dock a.active {
       color: var(--primary-color);
     }
     .mac-dock a::after {
@@ -724,25 +815,68 @@
       transform: translateX(-50%) scale(1);
     }
     .mac-dock:hover {
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(0,0,0,0.7);
+      padding: 14px 38px;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0,0,0,0.5);
+      border: 1px solid var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle i {
+      color: var(--primary-color);
+      font-size: 18px;
+    }
+    .theme-toggle:hover {
+      transform: rotate(30deg);
+      background-color: var(--primary-color);
+    }
+    .theme-toggle:hover i {
+      color: var(--bg-color);
+    }
+
+    /* Loading Animation */
+    .loading-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background-color: var(--primary-color);
+      z-index: 9999;
+      animation: loadingAnimation 1.5s ease-in-out forwards;
+    }
+    @keyframes loadingAnimation {
+      0% { width: 0%; }
+      50% { width: 50%; }
+      100% { width: 100%; }
     }
 
     @media (max-width: 768px) {
       .hero-title { 
-        font-size: 2.5rem; 
-      }
-      .hero-typed { 
-        font-size: 1.2rem; 
-      }
-      .section-title { 
         font-size: 2rem; 
       }
       .mac-dock {
-        padding: 12px 24px; 
+        padding: 12px 24px;
         gap: 20px;
       }
       .mac-dock a { 
         font-size: 22px; 
+      }
+      .contact-content {
+        flex-direction: column;
       }
     }
     @media (max-width: 480px) {
@@ -759,15 +893,27 @@
         width: 150px; 
         height: 150px;
       }
+      .theme-toggle {
+        position: static;
+        margin: 10px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Loading Bar -->
+  <div class="loading-bar"></div>
+
   <!-- Glitch/glyph hover sound -->
   <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
 
   <!-- Custom circle cursor -->
   <div class="cursor"></div>
+
+  <!-- Theme toggle -->
+  <div class="theme-toggle" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
 
   <!-- Intro Screen -->
   <div class="intro-animation" id="intro-animation">
@@ -800,94 +946,86 @@
         </div>
       </div>
     </section>
-
+    
     <!-- Skills Section -->
     <section id="skills" class="fade-in">
       <h2 class="section-title">Skills I've Learned</h2>
       <div class="skills-marquee-container">
         <div class="skills-marquee">
-          <!-- EXACT logos: Azure, C#, C++, Python, MATLAB, JavaScript, Oracle, MongoDB -->
+          <!-- Using official logos with proper paths -->
           <div class="skill-logo">
-            <img src="https://cdn.iconscout.com/icon/free/png-256/free-azure-282602.png" alt="Azure" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" alt="C#" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" alt="C++" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
           </div>
           <div class="skill-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="MATLAB" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt="MATLAB" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969233.png" alt="Oracle" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" />
           </div>
           <div class="skill-logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/919/919853.png" alt="MongoDB" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" alt="Sass" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" alt="Redux" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS" />
+          </div>
+          <div class="skill-logo">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" alt="Webpack" />
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Education -->
-    <section id="education" class="fade-in">
-      <h2 class="section-title">Education</h2>
-      <div class="education-content">
-        <div class="education-item">
-          <h3>Bachelor of Science in Computer Science</h3>
-          <div class="school">Arizona State University, Tempe, AZ</div>
-          <div class="year">Expected May 2025</div>
-          <div class="gpa">4.0 GPA</div>
-        </div>
-        <div class="education-item">
-          <h3>High School Diploma</h3>
-          <div class="school">Delhi International Public School, New Delhi</div>
-          <div class="year">Graduated in 2022</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="fade-in">
-      <h2 class="section-title">Work Experience</h2>
-      <div class="experience-content">
-        <div class="experience-item">
-          <h3>Marketing & Sales Intern</h3>
-          <div class="company">Aramark</div>
-          <div class="location">Tempe, Arizona</div>
-          <div class="date">July 2023 - Present</div>
-          <div class="description">
-            <ul>
-              <li>Developed and executed social media campaigns that increased student engagement by 15%.</li>
-              <li>Implemented process automation that improved workflow efficiency by 25%.</li>
-              <li>Created and distributed marketing materials that increased meal plan awareness by 20%.</li>
-              <li>Implemented data-driven decision-making processes for marketing and sales operations.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="experience-item">
-          <h3>IT Manager</h3>
-          <div class="company">E To S Legal Services</div>
-          <div class="location">New Delhi, India</div>
-          <div class="date">May 2023 - July 2023</div>
-          <div class="description">
-            <ul>
-              <li>Maintained the firm's technology infrastructure and provided technical support to staff.</li>
-              <li>Implemented cybersecurity protocols that enhanced data protection and privacy.</li>
-              <li>Assisted in creating and maintaining digital case management systems.</li>
-              <li>Collaborated with legal teams to optimize technology solutions for client services.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
     <!-- Projects -->
     <section id="projects" class="fade-in">
       <h2 class="section-title">Projects</h2>
@@ -900,8 +1038,7 @@
                 <i class="fas fa-database"></i>
               </div>
               <h3>Database Management System</h3>
-              <p>A comprehensive DBMS built using Java and SQL.</p>
-              <p>Handles data organization, storage, and retrieval with advanced query capabilities.</p>
+              <p>A comprehensive DBMS built using Java and SQL. Handles data organization, storage, and retrieval with query capabilities.</p>
               <div class="tech-stack">
                 <span>Java</span>
                 <span>SQL</span>
@@ -911,7 +1048,7 @@
           </a>
 
           <!-- Example Project 2 -->
-          <a class="project-card" href="#" target="_blank">
+          <a class="project-card" href="https://github.com/psagar29/Expense_tracker" target="_blank">
             <div class="project-content">
               <div class="project-card-image">
                 <i class="fas fa-wallet"></i>
@@ -927,7 +1064,7 @@
           </a>
 
           <!-- Example Project 3 -->
-          <a class="project-card" href="#" target="_blank">
+          <a class="project-card" href="https://github.com/psagar29/chat_bot" target="_blank">
             <div class="project-content">
               <div class="project-card-image">
                 <i class="fas fa-comments"></i>
@@ -943,7 +1080,7 @@
           </a>
 
           <!-- Example Project 4 -->
-          <a class="project-card" href="#" target="_blank">
+          <a class="project-card" href="https://github.com/psagar29/Project_spyn" target="_blank">
             <div class="project-content">
               <div class="project-card-image">
                 <i class="fas fa-car"></i>
@@ -959,7 +1096,7 @@
           </a>
 
           <!-- Example Project 5 -->
-          <a class="project-card" href="#" target="_blank">
+          <a class="project-card" href="https://github.com/psagar29/Utopia_traffic" target="_blank">
             <div class="project-content">
               <div class="project-card-image">
                 <i class="fas fa-traffic-light"></i>
@@ -973,6 +1110,22 @@
               </div>
             </div>
           </a>
+           <!-- Example Project 6-->
+           <a class="project-card" href="https://github.com/psagar29/pranavsagar.us" target="_blank">
+            <div class="project-content">
+              <div class="project-card-image">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h3>Portfolio Website</h3>
+              <p>Designed and developed a responsive portfolio website with interactive elements and modern design aesthetics.</p>
+              <div class="tech-stack">
+                <span>HTML5</span>
+      <span>CSS3</span>
+      <span>JavaScript</span>
+      <span>GSAP</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -982,22 +1135,23 @@
       <h2 class="section-title">Contact Me</h2>
       <div class="contact-content">
         <div class="contact-form">
-          <form id="contact-form">
+          <div class="success-message" id="success-message">Message sent successfully! I'll get back to you soon.</div>
+          <form id="contact-form" action="https://formspree.io/f/contact@pranavsagar.us" method="POST">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" required/>
+              <input type="text" id="name" name="name" class="form-control" required/>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" required/>
+              <input type="email" id="email" name="email" class="form-control" required/>
             </div>
             <div class="form-group">
               <label for="subject">Subject</label>
-              <input type="text" id="subject" class="form-control" required/>
+              <input type="text" id="subject" name="subject" class="form-control" required/>
             </div>
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" class="form-control" required></textarea>
+              <textarea id="message" name="message" class="form-control" required></textarea>
             </div>
             <button type="submit" class="submit-button">Send Message</button>
           </form>
@@ -1025,7 +1179,7 @@
             <a href="https://github.com/psagar29" target="_blank"
               ><i class="fab fa-github"></i
             ></a>
-            <a href="https://twitter.com/Pranavsagar29" target="_blank"
+            <a href="https://twitter.com/pranav29" target="_blank"
               ><i class="fab fa-twitter"></i
             ></a>
             <a href="https://www.instagram.com/perhapspranav" target="_blank"
@@ -1037,190 +1191,398 @@
     </section>
   </main>
 
-  <!-- Dock -->
-  <div class="mac-dock" id="dock">
-    <a href="#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
-    <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
-    <a href="#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
-    <a href="#education" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
-    <a href="#experience" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
-    <a href="#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
-    <a href="#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
-  </div>
-
   <!-- Copyright -->
   <div class="copyright">
     © 2025 Pranav Sagar. All Rights Reserved.
   </div>
 
+  <!-- Dock -->
+  <div class="mac-dock" id="dock">
+    <a href="#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
+    <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
+    <a href="#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
+    <a href="education.html?skipIntro=1#education" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html?skipIntro=1" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
+    <a href="#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
+  </div>
+  
+
   <!-- Back to Top Button -->
-  <div class="back-to-top">
+  <div class="back-to-top" id="back-to-top">
     <i class="fas fa-arrow-up"></i>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const introAnimation = document.getElementById('intro-animation');
-      const urlParams = new URLSearchParams(window.location.search);
-      const skipIntro = urlParams.get('skipIntro');
+document.addEventListener('DOMContentLoaded', () => {
+  // Make sure the dock is visible - using getElementById just once at the top
+  const dock = document.getElementById('dock');
+  if (dock) {
+    dock.style.display = 'flex';
+    dock.style.visibility = 'visible';
+    dock.style.opacity = '1';
+  }
+  
+  // Handle intro animation and skip intro parameter
+  const introAnimation = document.getElementById('intro-animation');
+  const urlParams = new URLSearchParams(window.location.search);
+  const skipIntro = urlParams.get('skipIntro');
 
-      if (skipIntro === '1') {
+  if (skipIntro === '1') {
+    introAnimation.style.display = 'none';
+  } else {
+    const enterButton = document.getElementById('enter-button');
+    enterButton.addEventListener('click', () => {
+      introAnimation.style.opacity = '0';
+      setTimeout(() => {
         introAnimation.style.display = 'none';
+      }, 1000);
+    });
+  }
+
+  /* TYPEWRITER */
+  const typewriter = document.getElementById('typewriter');
+  const words = ["Arizona State", "Computer Science", "Gamer", "Entrepreneur", "Developer"];
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isErasing = false;
+
+  function typeHeroText() {
+    const current = words[wordIndex];
+    if (!isErasing) {
+      if (charIndex < current.length) {
+        typewriter.textContent += current.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeHeroText, 100);
       } else {
-        const enterButton = document.getElementById('enter-button');
-        enterButton.addEventListener('click', () => {
-          introAnimation.style.opacity = '0';
-          setTimeout(() => {
-            introAnimation.style.display = 'none';
-          }, 1000);
-        });
+        setTimeout(() => {
+          isErasing = true;
+          typeHeroText();
+        }, 1500);
       }
-
-      /* TYPEWRITER */
-      const typewriter = document.getElementById('typewriter');
-      const words = ["Arizona State", "Computer Science", "Gamer", "Entrepreneur", "Developer"];
-      let wordIndex = 0;
-      let charIndex = 0;
-      let isErasing = false;
-
-      function typeHeroText() {
-        const current = words[wordIndex];
-        if (!isErasing) {
-          if (charIndex < current.length) {
-            typewriter.textContent += current.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeHeroText, 100);
-          } else {
-            setTimeout(() => {
-              isErasing = true;
-              typeHeroText();
-            }, 1500);
-          }
-        } else {
-          if (charIndex > 0) {
-            typewriter.textContent = current.substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(typeHeroText, 70);
-          } else {
-            isErasing = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(typeHeroText, 400);
-          }
-        }
-      }
-      setTimeout(typeHeroText, 500);
-
-      /* FADE-IN ON SCROLL */
-      const fadeIns = document.querySelectorAll('.fade-in');
-      function revealOnScroll() {
-        fadeIns.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight - 100) {
-            el.classList.add('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', revealOnScroll);
-      revealOnScroll();
-    });
-
-    /* CUSTOM CURSOR */
-    const cursor = document.querySelector('.cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    document.addEventListener('mousedown', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    document.addEventListener('mouseup', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-
-    /* GLITCH SOUND ON HOVER */
-    const hoverSound = document.getElementById('hover-sound');
-    const glitchEls = document.querySelectorAll('a, button, .project-card');
-    glitchEls.forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
-        if (hoverSound) {
-          hoverSound.currentTime = 0;
-          hoverSound.play().catch(() => {});
-        }
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-      });
-    });
-
-    /* "God's Light" pointer for .education-item, .experience-item, .project-card */
-    const specialHoverEls = document.querySelectorAll('.education-item, .experience-item, .project-card');
-    specialHoverEls.forEach((element) => {
-      element.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
-        cursor.style.boxShadow = '0 0 30px 10px rgba(255,255,255,0.5)';
-      });
-      element.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursor.style.boxShadow = 'none';
-      });
-    });
-
-    /* Draggable Dock */
-    const dock = document.getElementById('dock');
-    let isDragging = false;
-    let offsetX = 0;
-
-    dock.addEventListener('mousedown', (e) => {
-      if (e.target.closest('a')) return;
-      isDragging = true;
-      dock.style.transform = 'none';
-      offsetX = e.clientX - dock.offsetLeft;
-      e.preventDefault();
-    });
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const newLeft = e.clientX - offsetX;
-      const maxLeft = window.innerWidth - dock.offsetWidth;
-      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      dock.style.left = clampedLeft + 'px';
-    });
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    /* Back to Top */
-    const backToTop = document.querySelector('.back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) {
-        backToTop.classList.add('visible');
+    } else {
+      if (charIndex > 0) {
+        typewriter.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(typeHeroText, 70);
       } else {
-        backToTop.classList.remove('visible');
+        isErasing = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(typeHeroText, 400);
+      }
+    }
+  }
+  setTimeout(typeHeroText, 500);
+
+  /* FADE-IN ON SCROLL */
+  const fadeIns = document.querySelectorAll('.fade-in');
+  function revealOnScroll() {
+    fadeIns.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        el.classList.add('visible');
       }
     });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
 
-    /* Homer Simpson JSON on "Know More" button */
-    const homerAnimation = lottie.loadAnimation({
-      container: document.getElementById('homer-animation'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: false,
-      path: 'icons8-homer-simpson.json'
-    });
-    const knowMoreBtn = document.getElementById('know-more-btn');
-    knowMoreBtn.addEventListener('mouseenter', () => {
-      homerAnimation.play();
+  /* CUSTOM CURSOR */
+  const cursor = document.querySelector('.cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+  });
+  document.addEventListener('mouseup', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
+
+  /* GLITCH SOUND ON HOVER */
+  const hoverSound = document.getElementById('hover-sound');
+  const glitchEls = document.querySelectorAll('a, button, .project-card');
+  glitchEls.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
       if (hoverSound) {
         hoverSound.currentTime = 0;
         hoverSound.play().catch(() => {});
       }
     });
-    knowMoreBtn.addEventListener('mouseleave', () => {
-      homerAnimation.stop();
+    el.addEventListener('mouseleave', () => {
+      cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
     });
+  });
+
+  /* "God's Light" pointer for project cards */
+  const specialHoverEls = document.querySelectorAll('.project-card');
+  specialHoverEls.forEach((element) => {
+    element.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+      cursor.style.boxShadow = '0 0 30px 10px rgba(255,255,255,0.5)';
+    });
+    element.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.boxShadow = 'none';
+    });
+  });
+
+  /* Draggable Dock - removed dock redeclaration here */
+  let isDragging = false;
+  let offsetX = 0;
+
+  dock.addEventListener('mousedown', (e) => {
+    if (e.target.closest('a')) return;
+    isDragging = true;
+    dock.style.transform = 'none';
+    offsetX = e.clientX - dock.offsetLeft;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const newLeft = e.clientX - offsetX;
+    const maxLeft = window.innerWidth - dock.offsetWidth;
+    const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+    dock.style.left = clampedLeft + 'px';
+  });
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  /* Back to Top */
+  const backToTop = document.querySelector('.back-to-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* Homer Simpson JSON on "Know More" button */
+  const homerAnimation = lottie.loadAnimation({
+    container: document.getElementById('homer-animation'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: false,
+    path: 'icons8-homer-simpson.json'
+  });
+  const knowMoreBtn = document.getElementById('know-more-btn');
+  knowMoreBtn.addEventListener('mouseenter', () => {
+    homerAnimation.play();
+    if (hoverSound) {
+      hoverSound.currentTime = 0;
+      hoverSound.play().catch(() => {});
+    }
+  });
+  knowMoreBtn.addEventListener('mouseleave', () => {
+    homerAnimation.stop();
+  });
+
+  /* Form Submission Handler */
+  const contactForm = document.getElementById('contact-form');
+  const successMessage = document.getElementById('success-message');
+  
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(contactForm);
+    
+    try {
+      // Replace with your form handling endpoint
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Show success message
+        successMessage.style.display = 'block';
+        contactForm.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 5000);
+      } else {
+        console.error('Form submission error:', await response.text());
+        alert('There was a problem sending your message. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('There was a problem sending your message. Please try again later.');
+    }
+  });
+
+  /* Theme Toggle */
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = themeToggle.querySelector('i');
+  let isDarkMode = true; // Default is dark mode
+  
+  themeToggle.addEventListener('click', () => {
+    if (isDarkMode) {
+     
+    } else {
+      // Switch to dark mode
+      document.documentElement.style.setProperty('--bg-color', '#000000');
+      document.documentElement.style.setProperty('--text-color', '#ffffff');
+      document.documentElement.style.setProperty('--secondary-color', '#ffffff');
+      document.body.style.background = 'linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, #000000 15%, #000000 85%, rgba(255, 215, 0, 0.2) 100%)';
+      document.querySelector('.copyright').style.color = '#ffffff';
+      document.querySelector('.mac-dock').style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+    }
+    isDarkMode = !isDarkMode;
+  });
+  
+  /* Resume toggle */
+  const resumeLink = document.getElementById('resume-link');
+  
+  // Create a resume section dynamically
+  const resumeSection = document.createElement('section');
+  resumeSection.id = 'resume';
+  resumeSection.className = 'fade-in';
+  resumeSection.style.display = 'none';
+  resumeSection.innerHTML = `
+    <h2 class="section-title">Resume</h2>
+    <div class="resume-content">
+      <!-- Education -->
+      <div id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="education-content">
+          <div class="education-item">
+            <h3>Bachelor of Science in Computer Science</h3>
+            <div class="school">Arizona State University, Tempe, AZ</div>
+            <div class="year">Expected May 2025</div>
+            <div class="gpa">4.0 GPA</div>
+          </div>
+          <div class="education-item">
+            <h3>High School Diploma</h3>
+            <div class="school">Delhi International Public School, New Delhi</div>
+            <div class="year">Graduated in 2022</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div id="experience">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="experience-content">
+          <div class="experience-item">
+            <h3>Marketing & Sales Intern</h3>
+            <div class="company">Aramark</div>
+            <div class="location">Tempe, Arizona</div>
+            <div class="date">July 2023 - Present</div>
+            <div class="description">
+              <ul>
+                <li>Developed and executed social media campaigns that increased student engagement by 15%.</li>
+                <li>Implemented process automation that improved workflow efficiency by 25%.</li>
+                <li>Created and distributed marketing materials that increased meal plan awareness by 20%.</li>
+                <li>Implemented data-driven decision-making processes for marketing and sales operations.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="experience-item">
+            <h3>IT Manager</h3>
+            <div class="company">E To S Legal Services</div>
+            <div class="location">New Delhi, India</div>
+            <div class="date">May 2023 - July 2023</div>
+            <div class="description">
+              <ul>
+                <li>Maintained the firm's technology infrastructure and provided technical support to staff.</li>
+                <li>Implemented cybersecurity protocols that enhanced data protection and privacy.</li>
+                <li>Assisted in creating and maintaining digital case management systems.</li>
+                <li>Collaborated with legal teams to optimize technology solutions for client services.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Insert after projects section
+  const projectsSection = document.getElementById('projects');
+  projectsSection.after(resumeSection);
+  
+  // Toggle resume section visibility
+  let resumeVisible = false;
+  resumeLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    resumeVisible = !resumeVisible;
+    
+    if (resumeVisible) {
+      resumeSection.style.display = 'block';
+      resumeLink.classList.add('active');
+      
+      // Scroll to the resume section
+      setTimeout(() => {
+        resumeSection.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      resumeSection.style.display = 'none';
+      resumeLink.classList.remove('active');
+    }
+  });
+
+  /* Add some GSAP animations */
+  if (typeof gsap !== 'undefined') {
+    // Simple animations for elements
+    gsap.to('.hero-title', {
+      duration: 1.5,
+      opacity: 1,
+      y: 0,
+      ease: 'power3.out',
+      delay: 0.5
+    });
+    
+    // Dock animation
+    gsap.from('.mac-dock', {
+      duration: 1,
+      y: 50,
+      opacity: 0,
+      ease: 'elastic.out(1, 0.5)',
+      delay: 1
+    });
+    
+    // Active section highlighting in dock
+    const sections = ['hero', 'skills', 'projects', 'contact'];
+    
+    window.addEventListener('scroll', () => {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionElement = document.getElementById(section);
+        const sectionTop = sectionElement.offsetTop;
+        const sectionHeight = sectionElement.clientHeight;
+        
+        if (window.pageYOffset >= sectionTop - 200 && 
+            window.pageYOffset < sectionTop + sectionHeight - 200) {
+          current = section;
+        }
+      });
+      
+      document.querySelectorAll('.mac-dock a').forEach(a => {
+        a.classList.remove('active');
+        
+        const href = a.getAttribute('href');
+        if (href && href === `#${current}`) {
+          a.classList.add('active');
+        }
+      });
+    });
+  }
+});
   </script>
 </body>
 </html>

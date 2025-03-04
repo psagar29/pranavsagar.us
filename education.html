@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Education | Pranav Sagar</title>
+
+  <!-- Font Awesome for icons (dock, social, etc.) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <!-- GSAP (optional) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <!-- Lottie (optional) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #ffd700; /* Gold */
+      --secondary-color: #ffffff; /* White */
+      --text-color: #ffffff;      /* Normal text */
+      --bg-color: #000000;       /* Black */
+      --dock-bg: rgba(255, 255, 255, 0.05);
+      --fade-duration: 0.8s;
+      --accent-color: #ff8c00; /* Dark orange for accents */
+    }
+
+    html {
+      scroll-behavior: smooth; 
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      color: var(--text-color);
+
+      /* The golden gradient at top & bottom */
+      background: linear-gradient(
+        180deg,
+        rgba(255, 215, 0, 0.2) 0%,
+        #000000 15%,
+        #000000 85%,
+        rgba(255, 215, 0, 0.2) 100%
+      );
+      position: relative;
+      min-height: 100vh;
+      cursor: none; /* Hide default cursor */
+    }
+
+    /* The grid lines go in a pseudo-element on top of that gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+
+      background-image:
+        repeating-linear-gradient(
+          to right,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(128,128,128,0.2) 0 1px,
+          transparent 1px 40px
+        );
+      background-color: transparent; 
+      /* We let the gradient behind it show through. */
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--primary-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Fade-in on scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom circle cursor */
+    .cursor {
+      position: fixed;
+      z-index: 9999;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Education Section */
+    #education-page {
+      min-height: 100vh;
+      padding: 100px 20px 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: var(--primary-color);
+      text-align: center;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    }
+
+    .education-container {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .education-item {
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--primary-color);
+      border-radius: 10px;
+      padding: 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .education-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px var(--primary-color);
+    }
+
+    .education-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff;
+      clip-path: circle(0% at 50% 50%);
+      transition: clip-path 0.5s ease;
+      opacity: 0.05; 
+      z-index: 0;
+    }
+
+    .education-item:hover::before {
+      clip-path: circle(150% at 50% 50%);
+      opacity: 0.1;
+    }
+
+    .degree {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .school {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .location {
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      opacity: 0.8;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .date {
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary-color);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gpa {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-left: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .description {
+      line-height: 1.6;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .courses {
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .courses h3 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .course-tag {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary-color);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .course-tag:hover {
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      transform: translateY(-2px);
+    }
+
+    .achievements {
+      margin-top: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .achievements h3 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .achievements ul {
+      padding-left: 20px;
+    }
+
+    .achievements li {
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .achievements li::before {
+      content: '▹';
+      position: absolute;
+      left: -15px;
+      color: var(--primary-color);
+    }
+
+    /* Timeline dots connecting education items */
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      height: 100%;
+      width: 2px;
+      background-color: var(--primary-color);
+      opacity: 0.5;
+    }
+
+    .timeline .education-item {
+      position: relative;
+      margin-left: 50px;
+    }
+
+    .timeline .education-item::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: -45px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+
+    /* Mac-Style Dock */
+    .mac-dock {
+      position: fixed; 
+      bottom: 10px; 
+      left: 50%; 
+      transform: translateX(-50%);
+      display: flex;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 30px;
+      padding: 14px 28px; 
+      gap: 24px;
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      visibility: visible;
+      opacity: 1;
+    }
+    .mac-dock::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 30px;
+      box-shadow: 0 0 20px var(--primary-color);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .mac-dock a {
+      color: var(--secondary-color);
+      font-size: 26px; 
+      position: relative;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .mac-dock a:hover {
+      transform: scale(1.4) translateY(-10px);
+      color: var(--primary-color);
+    }
+    .mac-dock a.active {
+      color: var(--primary-color);
+    }
+    .mac-dock a::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 56px; 
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: var(--secondary-color);
+      padding: 5px 8px;
+      border-radius: 5px;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+    }
+    .mac-dock a:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+    .mac-dock:hover {
+      background-color: rgba(0,0,0,0.7);
+      padding: 14px 38px;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed; 
+      bottom: 90px; 
+      right: 20px;
+      width: 40px; 
+      height: 40px;
+      background-color: var(--primary-color);
+      color: var(--bg-color);
+      border-radius: 50%;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    /* Copyright */
+    .copyright {
+      text-align: center;
+      margin: 50px 0 70px 0;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+      opacity: 0.7;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      .degree {
+        font-size: 1.5rem;
+      }
+      .school {
+        font-size: 1.2rem;
+      }
+      .mac-dock {
+        padding: 12px 20px;
+        gap: 18px;
+      }
+      .mac-dock a {
+        font-size: 22px;
+      }
+      .timeline .education-item {
+        margin-left: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.8rem;
+      }
+      .education-item {
+        padding: 20px;
+      }
+      .degree {
+        font-size: 1.3rem;
+      }
+      .date, .gpa {
+        display: block;
+        margin-bottom: 10px;
+      }
+      .gpa {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+      .timeline::before {
+        left: 10px;
+      }
+      .timeline .education-item {
+        margin-left: 30px;
+      }
+      .timeline .education-item::after {
+        left: -25px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Bar -->
+  <div class="loading-bar"></div>
+
+  <!-- Glitch/glyph hover sound -->
+  <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
+
+  <!-- Custom circle cursor -->
+  <div class="cursor"></div>
+
+  <!-- Main Content -->
+  <main>
+    <section id="education-page" class="fade-in">
+      <h1 class="section-title">Education Journey</h1>
+      
+      <div class="education-container timeline">
+        <!-- ASU Education -->
+        <div class="education-item">
+          <h2 class="degree">Bachelor of Science in Computer Science</h2>
+          <div class="school">Arizona State University</div>
+          <div class="location">Tempe, Arizona</div>
+          <div class="date">Expected May 2026</div>
+          <div class="gpa">4.0 GPA</div>
+          
+          <div class="description">
+            <p>Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, algorithm development, and database management. My studies provide a strong foundation in theoretical principles as well as practical skills that I apply in my projects.</p>
+          </div>
+          
+          <div class="courses">
+            <h3>Key Coursework</h3>
+            <div class="course-tags">
+              <span class="course-tag">Data Structures & Algorithms</span>
+              <span class="course-tag">Object-Oriented Programming</span>
+              <span class="course-tag">Database Systems</span>
+              <span class="course-tag">Computer Organization</span>
+              <span class="course-tag">Web Development</span>
+              <span class="course-tag">Software Engineering</span>
+              <span class="course-tag">Operating Systems</span>
+              <span class="course-tag">Computer Networks</span>
+            </div>
+          </div>
+          
+          <div class="achievements">
+            <h3>Achievements</h3>
+            <ul>
+              <li>Maintaining perfect 4.0 GPA throughout my academic career</li>
+              <li>Active member of the Computer Science Student Association</li>
+              <li>Participated in the ASU Hackathon 2024, placing in the top 10</li>
+              <li>Dean's List recognition for academic excellence</li>
+              <li>Recipient of the Outstanding Computer Science Student Award</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- High School Education -->
+        <div class="education-item">
+          <h2 class="degree">High School Diploma</h2>
+          <div class="school">Delhi International Public School</div>
+          <div class="location">New Delhi, India</div>
+          <div class="date">Graduated July 2022</div>
+          <div class="gpa">4.0 GPA</div>
+          
+          <div class="description">
+            <p>Completed my high school education with a focus on Mathematics, Computer Science, and Physics. Developed a strong foundation in analytical thinking and problem-solving skills that prepared me for my university studies.</p>
+          </div>
+          
+          <div class="courses">
+            <h3>Key Coursework</h3>
+            <div class="course-tags">
+              <span class="course-tag">Advanced Mathematics</span>
+              <span class="course-tag">Computer Science</span>
+              <span class="course-tag">Physics</span>
+              <span class="course-tag">English</span>
+              <span class="course-tag">Chemistry</span>
+            </div>
+          </div>
+          
+          <div class="achievements">
+            <h3>Achievements</h3>
+            <ul>
+              <li>Graduated with highest honors</li>
+              <li>Captain of the Science Olympiad Team</li>
+              <li>First prize in the Interschool Coding Competition</li>
+              <li>Participated in National Mathematics Olympiad</li>
+              <li>School representative for regional technology conferences</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Certifications -->
+        <div class="education-item">
+          <h2 class="degree">Professional Certifications</h2>
+          <div class="school">Online Learning Platforms</div>
+          <div class="description">
+            <p>In addition to my formal education, I've pursued various professional certifications to enhance my skills and stay current with industry trends and technologies.</p>
+          </div>
+          
+          <div class="courses">
+            <h3>Certifications</h3>
+            <div class="course-tags">
+              <span class="course-tag">AWS Certified Cloud Practitioner</span>
+              <span class="course-tag">Microsoft Azure Fundamentals</span>
+              <span class="course-tag">MongoDB Database Administrator</span>
+              <span class="course-tag">React Developer Certification</span>
+              <span class="course-tag">Python for Data Science</span>
+              <span class="course-tag">Introduction to Machine Learning</span>
+            </div>
+          </div>
+          
+          <div class="achievements">
+            <h3>Online Courses</h3>
+            <ul>
+              <li>Data Structures and Algorithms Specialization (Coursera)</li>
+              <li>Full Stack Web Development (Udemy)</li>
+              <li>Introduction to Artificial Intelligence (edX)</li>
+              <li>Mobile App Development with React Native (Pluralsight)</li>
+              <li>Database Design and SQL (Khan Academy)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dock -->
+  <div class="mac-dock" id="dock">
+    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
+    <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
+    <a href="education.html" data-tooltip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
+    <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <!-- Copyright -->
+  <div class="copyright">
+    © 2025 Pranav Sagar. All Rights Reserved.
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Make sure the dock is visible
+      const dock = document.getElementById('dock');
+      if (dock) {
+        dock.style.display = 'flex';
+        dock.style.visibility = 'visible';
+        dock.style.opacity = '1';
+      }
+      
+      /* FADE-IN ON SCROLL */
+      const fadeIns = document.querySelectorAll('.fade-in');
+      function revealOnScroll() {
+        fadeIns.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 100) {
+            el.classList.add('visible');
+          }
+        });
+      }
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();
+
+      /* CUSTOM CURSOR */
+      const cursor = document.querySelector('.cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      document.addEventListener('mousedown', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+      });
+      document.addEventListener('mouseup', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+
+      /* GLITCH SOUND ON HOVER */
+      const hoverSound = document.getElementById('hover-sound');
+      const glitchEls = document.querySelectorAll('a, button, .education-item');
+      glitchEls.forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
+          if (hoverSound) {
+            hoverSound.currentTime = 0;
+            hoverSound.play().catch(() => {});
+          }
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+        });
+      });
+
+      /* DRAGGABLE DOCK */
+      let isDragging = false;
+      let offsetX = 0;
+
+      dock.addEventListener('mousedown', (e) => {
+        if (e.target.closest('a')) return;
+        isDragging = true;
+        dock.style.transform = 'none';
+        offsetX = e.clientX - dock.offsetLeft;
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const newLeft = e.clientX - offsetX;
+        const maxLeft = window.innerWidth - dock.offsetWidth;
+        const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        dock.style.left = clampedLeft + 'px';
+      });
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      /* Back to Top */
+      const backToTop = document.querySelector('.back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* Add some GSAP animations if available */
+      if (typeof gsap !== 'undefined') {
+        // Stagger animation for education items
+        gsap.from('.education-item', {
+          duration: 0.8,
+          opacity: 0,
+          y: 50,
+          stagger: 0.2,
+          ease: 'power3.out',
+          delay: 0.3
+        });
+        
+        // Dock animation
+        gsap.from('.mac-dock', {
+          duration: 1,
+          y: 50,
+          opacity: 0,
+          ease: 'elastic.out(1, 0.5)',
+          delay: 0.5
+        });
+      }
+    });
+  </script>
+</body>
+</html>
