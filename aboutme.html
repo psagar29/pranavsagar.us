@@ -134,14 +134,44 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 0.4s ease;
+      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
       cursor: grab;
+      will-change: transform;
     }
     .stack-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       pointer-events: none;
+    }
+
+    /* Swipe indicator */
+    .swipe-indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .swipe-indicator svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--primary-color);
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+    }
+    .swipe-indicator span {
+      color: var(--primary-color);
+      font-size: 0.8rem;
+      margin-top: 5px;
+      text-shadow: 0 0 3px rgba(0,0,0,0.8);
+    }
+    .swipe-indicator.hidden {
+      opacity: 0;
     }
 
     .about-content {
@@ -327,6 +357,14 @@
           <div class="stack-photo">
             <img src="photo5.jpg" alt="Photo 5" />
           </div>
+          
+          <!-- Swipe indicator -->
+          <div class="swipe-indicator" id="swipe-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+            </svg>
+            <span>Swipe to view more</span>
+          </div>
         </div>
 
         <div class="about-content">
@@ -342,7 +380,7 @@
               <li>Music is huge for me—I play multiple instruments (especially guitar, tabla, and drums).</li>
               <li>I love sci-fi movies/books (Interstellar is a favorite) and exploring futuristic tech and space.</li>
               <li>I'm fluent in English, Hindi, and Punjabi.</li>
-              <li>I’m also a fitness enthusiast who loves working out.</li>
+              <li>I'm also a fitness enthusiast who loves working out.</li>
             </ul>
           </div>
 
@@ -475,74 +513,197 @@
      **********************************************/
     const stackContainer = document.getElementById('image-stack');
     const stackPhotos = Array.from(stackContainer.querySelectorAll('.stack-photo'));
+    const swipeIndicator = document.getElementById('swipe-indicator');
+    
+    let swipeTimeout;
+    
+    function showSwipeIndicator() {
+      swipeIndicator.classList.remove('hidden');
+      clearTimeout(swipeTimeout);
+      swipeTimeout = setTimeout(() => {
+        swipeIndicator.classList.add('hidden');
+      }, 3000);
+    }
+    
+    // Show indicator initially
+    showSwipeIndicator();
 
     function arrangeStack() {
       stackPhotos.forEach((photo, i) => {
         photo.style.zIndex = stackPhotos.length - i;
         photo.style.transform = 'translate(0, 0) rotate(0deg)';
+        photo.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        
+        // Add slight offset to create a stack effect
+        if (i > 0) {
+          const offset = i * 2;
+          photo.style.transform = `translate(${offset}px, ${offset}px) rotate(${offset/2}deg)`;
+        }
       });
+      
+      // After a short delay, remove the transition to allow smooth dragging
+      setTimeout(() => {
+        stackPhotos.forEach(photo => {
+          photo.style.transition = '';
+        });
+      }, 400);
     }
     arrangeStack();
 
     let isPointerDown = false;
     let startX = 0;
+    let startY = 0;
     let currentX = 0;
+    let currentY = 0;
+    let initialTransform = '';
     let currentPhoto = null;
+    let velocity = 0;
+    let lastX = 0;
+    let lastTimestamp = 0;
 
     function pointerDown(e) {
-      if (!e.target.classList.contains('stack-photo')) return;
+      if (!e.target.closest('.stack-photo')) return;
       isPointerDown = true;
-      currentPhoto = e.target;
+      currentPhoto = e.target.closest('.stack-photo');
       currentPhoto.style.cursor = 'grabbing';
+      currentPhoto.style.transition = '';
+      
       startX = e.clientX || e.touches?.[0]?.clientX;
+      startY = e.clientY || e.touches?.[0]?.clientY;
       currentX = startX;
+      currentY = startY;
+      initialTransform = currentPhoto.style.transform;
+      
+      lastX = startX;
+      lastTimestamp = Date.now();
+      velocity = 0;
+      
+      // Hide swipe indicator when user starts interacting
+      swipeIndicator.classList.add('hidden');
+      clearTimeout(swipeTimeout);
+      
+      e.preventDefault();
     }
+    
     function pointerMove(e) {
       if (!isPointerDown || !currentPhoto) return;
+      
       const x = e.clientX || e.touches?.[0]?.clientX;
+      const y = e.clientY || e.touches?.[0]?.clientY;
+      
+      // Calculate velocity with adjusted sensitivity to match site
+      const now = Date.now();
+      const dt = now - lastTimestamp;
+      if (dt > 0) {
+        // Reduced velocity factor for more consistent feel with rest of site
+        velocity = (x - lastX) / (dt * 1.5);
+      }
+      lastX = x;
+      lastTimestamp = now;
+      
       currentX = x;
+      currentY = y;
+      
       const deltaX = currentX - startX;
-      const rotation = deltaX / 20;
-      currentPhoto.style.transform = `translate(${deltaX}px, 0) rotate(${rotation}deg)`;
+      const deltaY = currentY - startY;
+      
+      // Adjusted rotation factor to match site feel
+      const rotation = deltaX / 25;
+      
+      // Reduced vertical movement for consistency
+      const translateY = deltaY / 8;
+      
+      currentPhoto.style.transform = `translate(${deltaX}px, ${translateY}px) rotate(${rotation}deg)`;
+      
+      // Adjusted shadow effect for consistency
+      currentPhoto.style.boxShadow = `0 ${5 + Math.abs(deltaX/30)}px ${15 + Math.abs(deltaX/15)}px rgba(0,0,0,0.3)`;
+      
+      e.preventDefault();
     }
+    
     function pointerUp(e) {
       if (!isPointerDown || !currentPhoto) return;
       isPointerDown = false;
       currentPhoto.style.cursor = 'grab';
 
       const deltaX = currentX - startX;
-      const threshold = 100; 
-
-      if (Math.abs(deltaX) > threshold) {
-        const direction = deltaX > 0 ? 1 : -1;
-        currentPhoto.style.transition = 'transform 0.4s ease';
-        currentPhoto.style.transform = `translate(${direction * 1000}px, 0) rotate(${direction * 25}deg)`;
+      const threshold = 80;
+      
+      // Adjusted speed factor to match site feel
+      const speedFactor = 6; // Reduced from 10
+      const effectiveSwipe = deltaX + (velocity * speedFactor);
+      
+      if (Math.abs(effectiveSwipe) > threshold) {
+        const direction = effectiveSwipe > 0 ? 1 : -1;
+        currentPhoto.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        currentPhoto.style.transform = `translate(${direction * window.innerWidth}px, ${direction * 50}px) rotate(${direction * 30}deg)`;
         currentPhoto.addEventListener('transitionend', onTransitionEnd);
       } else {
-        // Snap back
-        currentPhoto.style.transition = 'transform 0.4s ease';
-        currentPhoto.style.transform = 'translate(0, 0) rotate(0deg)';
+        // Snap back with elastic effect
+        currentPhoto.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5)';
+        currentPhoto.style.transform = initialTransform;
+        currentPhoto.style.boxShadow = '';
         currentPhoto.addEventListener('transitionend', () => {
           currentPhoto.style.transition = '';
+          currentPhoto.style.boxShadow = '';
+          
+          // Show swipe indicator again after user interaction
+          showSwipeIndicator();
         }, { once: true });
       }
+      
+      e.preventDefault();
     }
-    function onTransitionEnd() {
+    
+    function onTransitionEnd(e) {
+      if (e.propertyName !== 'transform') return;
+      
       this.removeEventListener('transitionend', onTransitionEnd);
       this.style.transition = '';
+      this.style.boxShadow = '';
+      
+      // Move to end of stack
       stackContainer.appendChild(this);
-      stackPhotos.push(stackPhotos.shift());
+      
+      // Update array order
+      const firstPhoto = stackPhotos.shift();
+      stackPhotos.push(firstPhoto);
+      
+      // Rearrange with animation
       arrangeStack();
+      
+      // Show swipe indicator again
+      showSwipeIndicator();
     }
 
-    document.addEventListener('mousedown', pointerDown);
-    document.addEventListener('mousemove', pointerMove);
-    document.addEventListener('mouseup', pointerUp);
+    // Use passive: false to properly handle preventDefault
+    stackContainer.addEventListener('mousedown', pointerDown, {passive: false});
+    document.addEventListener('mousemove', pointerMove, {passive: false});
+    document.addEventListener('mouseup', pointerUp, {passive: false});
 
-    // Touch
-    document.addEventListener('touchstart', pointerDown, {passive:true});
-    document.addEventListener('touchmove', pointerMove, {passive:true});
-    document.addEventListener('touchend', pointerUp, {passive:true});
+    // Touch events
+    stackContainer.addEventListener('touchstart', pointerDown, {passive: false});
+    document.addEventListener('touchmove', pointerMove, {passive: false});
+    document.addEventListener('touchend', pointerUp, {passive: false});
+    
+    // Add animation to swipe indicator
+    function animateSwipeIndicator() {
+      const indicator = document.querySelector('.swipe-indicator svg');
+      if (!indicator) return;
+      
+      gsap.to(indicator, {
+        x: 10,
+        duration: 0.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut"
+      });
+    }
+    
+    // Initialize the animation
+    if (typeof gsap !== 'undefined') {
+      animateSwipeIndicator();
+    }
   </script>
 </body>
 </html>
