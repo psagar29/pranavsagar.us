@@ -27,7 +27,7 @@
 
     html {
       scroll-behavior: smooth;
-      background-color: #000000;
+      background-color: #000000; /* Ensure the html background is black */
     }
     * {
       margin: 0;
@@ -321,7 +321,14 @@
     }
 
     @media (max-width: 768px) {
+      /* Fixed the mobile background issue */
+      html, body {
+        background-color: #000000;
+        min-height: 100vh;
+      }
+      
       body {
+        /* Modified the gradient to ensure black background dominates */
         background: linear-gradient(
           180deg,
           rgba(255, 215, 0, 0.15) 0%,
@@ -329,6 +336,7 @@
           #000000 90%,
           rgba(255, 215, 0, 0.15) 100%
         );
+        background-attachment: fixed; /* Fixes background to viewport */
       }
       
       body::before {
@@ -337,6 +345,7 @@
         position: fixed;
         top: 0;
         left: 0;
+        background-color: transparent; /* Ensure this is transparent */
       }
       
       .image-stack {
