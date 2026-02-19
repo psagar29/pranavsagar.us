@@ -5,737 +5,658 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>About Me | Pranav Sagar</title>
 
-  <!-- Font Awesome for icons (dock, social, etc.) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  />
-  <!-- GSAP (optional) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-  <!-- Lottie (optional) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
-      --primary-color: #ffd700;
-      --secondary-color: #ffffff;
-      --text-color: #ffffff;
-      --bg-color: #000000;
-      --dock-bg: rgba(255, 255, 255, 0.05);
-      --fade-duration: 0.8s;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --primary-dark: #4f46e5;
+      --accent: #8b5cf6;
+      --accent-light: #a78bfa;
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --bg-glass: rgba(255,255,255,0.45);
+      --bg-glass-strong: rgba(255,255,255,0.65);
+      --bg-glass-card: rgba(255,255,255,0.5);
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-light: #94a3b8;
+      --border: rgba(0,0,0,0.06);
+      --border-glass: rgba(255,255,255,0.6);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+      --shadow-xl: 0 25px 60px rgba(0,0,0,0.12);
+      --shadow-glass: 0 8px 32px rgba(31,38,135,0.08);
+      --radius: 20px;
+      --radius-lg: 28px;
     }
 
-    html {
-      scroll-behavior: smooth;
-      background-color: #000000; /* Ensure the html background is black */
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
-    /* Golden gradient + black background */
     body {
-      font-family: 'Courier New', monospace;
-      color: var(--text-color);
-      background-color: #000000;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 215, 0, 0.2) 0%,
-        #000000 15%,
-        #000000 85%,
-        rgba(255, 215, 0, 0.2) 100%
-      );
-      position: relative;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
       min-height: 100vh;
-      cursor: none; /* custom cursor */
-      overflow-x: hidden; /* Prevent horizontal scrolling */
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Grid lines in a pseudo-element */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; 
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-
-      background-image:
-        repeating-linear-gradient(
-          to right,
-          rgba(128,128,128,0.2) 0 1px,
-          transparent 1px 40px
-        ),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(128,128,128,0.2) 0 1px,
-          transparent 1px 40px
-        );
-      background-color: transparent;
+    /* Grain texture */
+    body::after {
+      content: ""; position: fixed; inset: 0;
+      pointer-events: none; z-index: 9998; opacity: 0.012;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* Gradient mesh background */
+    .bg-mesh {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.08), transparent),
+        radial-gradient(ellipse 60% 80% at 90% 80%, rgba(139,92,246,0.06), transparent),
+        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(236,72,153,0.03), transparent);
     }
 
-    /* Custom circle cursor */
+    /* Floating orbs */
+    .orb { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: -1; }
+    .orb-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+      top: -250px; right: -250px;
+      animation: oF1 22s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
+      bottom: -150px; left: -200px;
+      animation: oF2 28s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(236,72,153,0.06), transparent 70%);
+      top: 40%; left: 40%;
+      animation: oF3 20s ease-in-out infinite;
+    }
+    @keyframes oF1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-100px,80px) scale(1.1)} 66%{transform:translate(50px,-50px) scale(0.95)} }
+    @keyframes oF2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(80px,-100px) scale(1.05)} 66%{transform:translate(-60px,60px) scale(0.9)} }
+    @keyframes oF3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-35%,-65%) scale(1.2)} }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    /* Custom cursor - hidden on touch */
     .cursor {
-      position: fixed;
-      z-index: 9999;
-      width: 30px;
-      height: 30px;
-      background-color: rgba(255,255,255,0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      position: fixed; z-index: 10000;
+      width: 20px; height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor.hover { width: 50px; height: 50px; background: rgba(99,102,241,0.1); border-color: var(--accent); }
+    @media (hover: none) { .cursor { display: none !important; } }
+
+    /* Loading bar */
+    .loading-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), #ec4899);
+      z-index: 10001;
+      animation: loadBar 1.2s ease-out forwards;
+    }
+    @keyframes loadBar { 0%{width:0} 60%{width:70%} 100%{width:100%;opacity:0} }
+
+    /* Glass classes */
+    .glass {
+      background: var(--bg-glass-card);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-glass), inset 0 1px 0 rgba(255,255,255,0.6);
+      border-radius: var(--radius);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
+      border-radius: var(--radius);
     }
 
-    /* About Me Section */
+    /* About Section */
     #about {
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: flex-start;
-      padding: 100px 20px;
+      justify-content: center;
+      padding: 100px 40px 80px;
       max-width: 1200px;
       margin: 0 auto;
     }
     .about-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
+      gap: 60px;
       align-items: flex-start;
       width: 100%;
     }
 
-    /* 5-image swipable stack */
-    .image-stack {
-      position: relative;
-      width: 420px;
-      height: 720px;
+    /* Image Carousel */
+    .carousel-wrapper {
       flex-shrink: 0;
-      border: 3px solid var(--primary-color);
-      overflow: hidden;
+      width: 400px;
+      position: relative;
     }
-    .stack-photo {
-      position: absolute;
-      top: 0; left: 0;
+    .carousel-container {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: scale(1.02);
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* Carousel Controls */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.7);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .carousel-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+    }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    /* Carousel Dots */
+    .carousel-dots {
       display: flex;
       justify-content: center;
-      align-items: center;
-      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-      cursor: grab;
-      will-change: transform;
+      gap: 8px;
+      margin-top: 16px;
     }
-    .stack-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      pointer-events: none;
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--text-light);
+      opacity: 0.4;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
     }
-
-    /* Swipe indicator */
-    .swipe-indicator {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
-    }
-    .swipe-indicator svg {
-      width: 40px;
-      height: 40px;
-      fill: var(--primary-color);
-      filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
-    }
-    .swipe-indicator span {
-      color: var(--primary-color);
-      font-size: 0.8rem;
-      margin-top: 5px;
-      text-shadow: 0 0 3px rgba(0,0,0,0.8);
-    }
-    .swipe-indicator.hidden {
-      opacity: 0;
+    .carousel-dot.active {
+      opacity: 1;
+      background: var(--primary);
+      width: 24px;
+      border-radius: 4px;
     }
 
-    .about-content {
-      flex: 1; 
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+    /* About Content */
+    .about-content { flex: 1; }
+    .about-card {
+      padding: 36px;
+    }
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: ''; width: 30px; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
     }
     .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: var(--primary-color);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--text); margin-bottom: 24px;
     }
     .about-text {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-top: 10px;
+      font-size: 1rem; line-height: 1.8;
+      color: var(--text-secondary);
     }
-    .about-text p {
-      margin-bottom: 20px;
+    .about-text p { margin-bottom: 18px; }
+
+    .fun-facts-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--text); margin: 30px 0 16px;
     }
     .fun-facts-list {
-      margin-top: 10px;
-      list-style-type: disc;
-      margin-left: 20px;
+      list-style: none; padding: 0;
+    }
+    .fun-facts-list li {
+      padding: 10px 0 10px 28px;
+      position: relative;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
       line-height: 1.6;
+      border-bottom: 1px solid var(--border);
+    }
+    .fun-facts-list li:last-child { border-bottom: none; }
+    .fun-facts-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 16px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
     }
 
-    /* Social links */
+    /* Social Links */
     .social-links {
-      display: flex; 
-      gap: 15px; 
-      margin-top: 30px;
+      display: flex; gap: 12px; margin-top: 30px;
     }
     .social-links a {
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      width: 40px; 
-      height: 40px;
-      background-color: rgba(0,0,0,0.5);
-      border: 1px solid var(--primary-color);
-      border-radius: 50%;
-      color: var(--primary-color);
-      transition: all 0.3s ease;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
       text-decoration: none;
+      transition: all 0.3s;
+      background: rgba(255,255,255,0.5);
     }
     .social-links a:hover {
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 10px var(--primary-color);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border-color: transparent;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(99,102,241,0.3);
     }
 
     /* Mac Dock */
     .mac-dock {
-      position: fixed; 
-      bottom: 10px; 
-      left: 50%; 
-      transform: translateX(-50%);
+      position: fixed; bottom: 16px;
+      left: 50%; transform: translateX(-50%);
       display: flex;
-      background-color: var(--dock-bg);
-      border-radius: 30px;
-      padding: 14px 28px;
-      gap: 24px;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border-radius: 22px;
+      padding: 10px 20px; gap: 6px;
       z-index: 1000;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
-      backdrop-filter: blur(10px);
-    }
-    .mac-dock::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 30px;
-      box-shadow: 0 0 20px var(--primary-color);
-      opacity: 0.15;
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px rgba(31,38,135,0.1), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.03);
     }
     .mac-dock a {
-      color: var(--secondary-color);
-      font-size: 26px;
+      color: var(--text-secondary); font-size: 20px;
       position: relative;
-      transition: transform 0.2s ease, color 0.2s ease;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
       text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px; border-radius: 12px;
     }
     .mac-dock a:hover {
-      transform: scale(1.4);
-      color: var(--primary-color);
+      color: var(--primary);
+      background: rgba(99,102,241,0.1);
+      transform: translateY(-8px) scale(1.2);
     }
+    .mac-dock a.active { color: var(--primary); background: rgba(99,102,241,0.1); }
     .mac-dock a::after {
       content: attr(data-tooltip);
-      position: absolute;
-      bottom: 56px; 
-      left: 50%;
-      transform: translateX(-50%) scale(0.8);
-      background-color: rgba(0, 0, 0, 0.8);
-      color: var(--secondary-color);
-      padding: 5px 8px;
-      border-radius: 5px;
-      opacity: 0;
-      pointer-events: none;
-      white-space: nowrap;
+      position: absolute; bottom: 52px; left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--text); color: #fff;
+      padding: 6px 12px; border-radius: 8px;
+      opacity: 0; pointer-events: none; white-space: nowrap;
+      font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500;
       transition: opacity 0.2s, transform 0.2s;
-      font-size: 0.8rem;
-      font-family: 'Courier New', monospace;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .mac-dock a:hover::after {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-    .mac-dock:hover {
-      background-color: rgba(255,255,255,0.1);
-    }
+    .mac-dock a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* Copyright */
     .copyright {
       text-align: center;
-      margin: 50px 0 30px 0;
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      opacity: 0.7;
+      padding: 30px 20px 110px;
+      font-size: 0.85rem;
+      color: var(--text-light);
     }
 
+    /* Back to Top */
     .back-to-top {
-      position: fixed; 
-      bottom: 90px; 
-      right: 20px;
-      width: 40px; 
-      height: 40px;
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      border-radius: 50%;
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      position: fixed; bottom: 90px; right: 24px;
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border-radius: 14px;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
       z-index: 999;
+      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
     }
-    .back-to-top.visible {
-      opacity: 1;
-    }
-    .back-to-top:hover {
-      transform: translateY(-5px);
-    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0); }
+    .back-to-top:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
 
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(40px); }
+    .reveal.active {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+    .s1{transition-delay:.1s!important} .s2{transition-delay:.2s!important}
+    .s3{transition-delay:.3s!important} .s4{transition-delay:.4s!important}
+
+    /* ========= MOBILE ========= */
     @media (max-width: 768px) {
-      /* Fixed the mobile background issue */
-      html, body {
-        background-color: #000000;
-        min-height: 100vh;
+      #about {
+        padding: 80px 16px 60px;
       }
-      
-      body {
-        /* Modified the gradient to ensure black background dominates */
-        background: linear-gradient(
-          180deg,
-          rgba(255, 215, 0, 0.15) 0%,
-          #000000 10%,
-          #000000 90%,
-          rgba(255, 215, 0, 0.15) 100%
-        );
-        background-attachment: fixed; /* Fixes background to viewport */
+      .about-container {
+        flex-direction: column;
+        gap: 32px;
       }
-      
-      body::before {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: transparent; /* Ensure this is transparent */
-      }
-      
-      .image-stack {
+      .carousel-wrapper {
         width: 100%;
-        max-width: 300px;
-        height: 300px;
-        margin: 0 auto 30px auto;
+        max-width: 100%;
+        margin: 0 auto;
       }
-      
-      .copyright {
-        margin: 30px 0 60px 0;
-        padding-bottom: 20px;
+      .carousel-container {
+        border-radius: var(--radius);
+      }
+      .carousel-btn {
+        width: 48px; height: 48px;
+        font-size: 1rem;
+      }
+      .carousel-btn.prev { left: 8px; }
+      .carousel-btn.next { right: 8px; }
+      .carousel-dot {
+        width: 10px; height: 10px;
+      }
+      .carousel-dot.active {
+        width: 28px;
+      }
+      .about-card {
+        padding: 24px;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .section-label {
+        font-size: 0.75rem;
+      }
+      .about-text {
+        font-size: 0.95rem;
+      }
+      .fun-facts-list li {
+        font-size: 0.9rem;
+      }
+      .social-links a {
+        width: 42px; height: 42px;
+      }
+      .mac-dock {
+        padding: 8px 12px; gap: 2px;
+        border-radius: 18px;
+        bottom: 10px;
+      }
+      .mac-dock a {
+        font-size: 17px;
+        width: 38px; height: 38px;
+        border-radius: 10px;
+      }
+      .mac-dock a:hover { transform: translateY(-4px) scale(1.1); }
+      .mac-dock a::after { display: none; }
+      .back-to-top {
+        bottom: 80px; right: 16px;
+        width: 40px; height: 40px;
+        border-radius: 12px;
+      }
+      .copyright { padding-bottom: 90px; }
+      .orb-1 { width: 350px; height: 350px; top: -100px; right: -100px; }
+      .orb-2 { width: 300px; height: 300px; }
+      .orb-3 { display: none; }
+    }
+    @media (max-width: 480px) {
+      #about {
+        padding: 70px 12px 50px;
+      }
+      .carousel-wrapper {
+        max-width: 100%;
+      }
+      .about-card {
+        padding: 20px;
+      }
+      .section-title {
+        font-size: 1.7rem;
+      }
+      .about-text {
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+      .fun-facts-list li {
+        font-size: 0.85rem;
+        padding: 8px 0 8px 24px;
+      }
+      .fun-facts-title {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- glitch-sound -->
-  <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
-
-  <!-- custom cursor -->
-  <div class="cursor"></div>
+  <div class="bg-mesh"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="loading-bar"></div>
+  <div class="cursor" id="cursor"></div>
 
   <main>
-    <section id="about" class="fade-in">
+    <section id="about">
       <div class="about-container">
-        <!-- Swipable stack of 5 images -->
-        <div class="image-stack" id="image-stack">
-          <div class="stack-photo">
-            <img src="photo1.png" alt="Photo 1" />
+        <!-- Image Carousel -->
+        <div class="carousel-wrapper reveal">
+          <div class="carousel-container" id="carousel">
+            <div class="carousel-slide active"><img src="photo1.png" alt="Photo 1"/></div>
+            <div class="carousel-slide"><img src="photo2.jpg" alt="Photo 2"/></div>
+            <div class="carousel-slide"><img src="photo3.jpg" alt="Photo 3"/></div>
+            <div class="carousel-slide"><img src="photo4.jpg" alt="Photo 4"/></div>
+            <div class="carousel-slide"><img src="photo5.jpg" alt="Photo 5"/></div>
+            <button class="carousel-btn prev" id="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" id="carousel-next"><i class="fas fa-chevron-right"></i></button>
           </div>
-          <div class="stack-photo">
-            <img src="photo2.jpg" alt="Photo 2" />
-          </div>
-          <div class="stack-photo">
-            <img src="photo3.jpg" alt="Photo 3" />
-          </div>
-          <div class="stack-photo">
-            <img src="photo4.jpg" alt="Photo 4" />
-          </div>
-          <div class="stack-photo">
-            <img src="photo5.jpg" alt="Photo 5" />
-          </div>
-          
-          <!-- Swipe indicator -->
-          <div class="swipe-indicator" id="swipe-indicator">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
-            </svg>
-            <span>Swipe to view more</span>
+          <div class="carousel-dots" id="carousel-dots">
+            <button class="carousel-dot active" data-index="0"></button>
+            <button class="carousel-dot" data-index="1"></button>
+            <button class="carousel-dot" data-index="2"></button>
+            <button class="carousel-dot" data-index="3"></button>
+            <button class="carousel-dot" data-index="4"></button>
           </div>
         </div>
 
+        <!-- About Content -->
         <div class="about-content">
-          <h2 class="section-title">About Me</h2>
-          <div class="about-text">
-            <p>Hello! I'm Pranav Sagar, a Computer Science student at Arizona State University with a passion for technology and innovation. I specialize in full-stack development, database management, and creating user-centric applications.</p>
-            <p>With experience in both academic and professional settings, I've developed a strong foundation in various programming languages and technologies. I enjoy tackling complex problems and turning ideas into functional, elegant solutions.</p>
-            <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.</p>
+          <div class="about-card glass-strong reveal s1">
+            <div class="section-label">Get To Know Me</div>
+            <h2 class="section-title">About Me</h2>
+            <div class="about-text">
+              <p>Hello! I'm Pranav Sagar, a Computer Science student at Arizona State University with a passion for technology and innovation. I specialize in full-stack development, AI systems, and creating user-centric applications that solve real problems.</p>
+              <p>With experience in both academic and professional settings, I've built production-grade AI platforms, published open-source libraries, and developed desktop applications. I enjoy tackling complex problems and turning ambitious ideas into functional, elegant solutions.</p>
+              <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.</p>
+            </div>
 
-            <h3 style="color: var(--primary-color); margin-top: 20px;">Fun Facts</h3>
+            <h3 class="fun-facts-title">Fun Facts</h3>
             <ul class="fun-facts-list">
-              <li>Traveling is a big passion of mine, and I've visited over 10 different countries in the past few years.</li>
-              <li>Music is huge for me—I play multiple instruments (especially guitar, tabla, and drums).</li>
-              <li>I love sci-fi movies/books (Interstellar is a favorite) and exploring futuristic tech and space.</li>
-              <li>I'm fluent in English, Hindi, and Punjabi.</li>
-              <li>I'm also a fitness enthusiast who loves working out.</li>
+              <li>Traveled to over 10 different countries in the past few years</li>
+              <li>Play multiple instruments — guitar, tabla, and drums</li>
+              <li>Sci-fi enthusiast — Interstellar is an all-time favorite</li>
+              <li>Fluent in English, Hindi, and Punjabi</li>
+              <li>Fitness enthusiast who loves working out</li>
             </ul>
-          </div>
 
-          <!-- Social links -->
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank"
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-            <a href="https://instagram.com/perhapspranav" target="_blank"
-              ><i class="fab fa-instagram"></i
-            ></a>
-            <a href="https://github.com/psagar29" target="_blank"
-              ><i class="fab fa-github"></i
-            ></a>
-            <a href="https://twitter.com/pranavsagar29" target="_blank"
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a href="https://www.facebook.com/perhapspranav" target="_blank"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/perhapspranav" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://github.com/psagar29" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://twitter.com/pranavsagar29" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.facebook.com/perhapspranav" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Dock -->
+  <div class="copyright">&copy; 2026 Pranav Sagar. All Rights Reserved.</div>
+
   <div class="mac-dock" id="dock">
-    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
-    <a href="index.html?skipIntro=1#about" data-tooltip="About"><i class="fas fa-user"></i></a>
-    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
-    <a href="education.html?skipIntro=1#education" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html?skipIntro=1#experience" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
-    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
+    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-house"></i></a>
+    <a href="#" data-tooltip="About" class="active"><i class="fas fa-user"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-code"></i></a>
+    <a href="education.html?skipIntro=1" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html?skipIntro=1" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-folder-open"></i></a>
     <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
   </div>
 
-  <!-- Copyright -->
-  <div class="copyright">
-    © 2025 Pranav Sagar. All Rights Reserved.
-  </div>
-
-  <!-- Back to Top -->
-  <div class="back-to-top">
-    <i class="fas fa-arrow-up"></i>
-  </div>
+  <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></div>
 
   <script>
-    /* FADE-IN ON SCROLL */
-    document.addEventListener('DOMContentLoaded', () => {
-      const fadeIns = document.querySelectorAll('.fade-in');
-      function revealOnScroll() {
-        fadeIns.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight - 100) {
-            el.classList.add('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', revealOnScroll);
-      revealOnScroll();
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  /* ===== CURSOR (desktop only, smooth with rAF) ===== */
+  const cursor = document.getElementById('cursor');
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    /* CUSTOM CURSOR */
-    const cursor = document.querySelector('.cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+  if (!isTouchDevice && cursor) {
+    let cx = 0, cy = 0, px = 0, py = 0;
+    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    (function animCursor() {
+      px += (cx - px) * 0.12;
+      py += (cy - py) * 0.12;
+      cursor.style.left = px + 'px';
+      cursor.style.top = py + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button, .about-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
-    document.addEventListener('mousedown', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    document.addEventListener('mouseup', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
+  }
 
-    /* Glitch sound on hover */
-    const hoverSound = document.getElementById('hover-sound');
-    const interactiveEls = document.querySelectorAll('a');
-    interactiveEls.forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
-        if (hoverSound) {
-          hoverSound.currentTime = 0;
-          hoverSound.play().catch(() => {});
-        }
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.backgroundColor = 'rgba(255,255,255,0.5)';
-      });
-    });
-
-    /* DRAGGABLE DOCK */
-    const dock = document.getElementById('dock');
-    let isDragging = false;
-    let offsetX = 0;
-    dock.addEventListener('mousedown', (e) => {
-      if (e.target.closest('a')) return;
-      isDragging = true;
-      dock.style.transform = 'none';
-      offsetX = e.clientX - dock.offsetLeft;
-      e.preventDefault();
-    });
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const newLeft = e.clientX - offsetX;
-      const maxLeft = window.innerWidth - dock.offsetWidth;
-      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      dock.style.left = clampedLeft + 'px';
-    });
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    /* Back to Top */
-    const backToTop = document.querySelector('.back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
+  /* ===== SCROLL REVEAL ===== */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('active');
+        obs.unobserve(e.target);
       }
     });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    /**********************************************
-     * SWIPABLE 5-IMAGE STACK
-     **********************************************/
-    const stackContainer = document.getElementById('image-stack');
-    const stackPhotos = Array.from(stackContainer.querySelectorAll('.stack-photo'));
-    const swipeIndicator = document.getElementById('swipe-indicator');
-    
-    let swipeTimeout;
-    
-    function showSwipeIndicator() {
-      swipeIndicator.classList.remove('hidden');
-      clearTimeout(swipeTimeout);
-      swipeTimeout = setTimeout(() => {
-        swipeIndicator.classList.add('hidden');
-      }, 3000);
+  /* ===== IMAGE CAROUSEL ===== */
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  let currentSlide = 0;
+  let autoplayTimer;
+
+  function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    resetAutoplay();
+  }
+
+  prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+  nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+  });
+
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => goToSlide(currentSlide + 1), 4000);
+  }
+  resetAutoplay();
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  const carousel = document.getElementById('carousel');
+  carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1);
     }
-    
-    // Show indicator initially
-    showSwipeIndicator();
+  }, { passive: true });
 
-    function arrangeStack() {
-      stackPhotos.forEach((photo, i) => {
-        photo.style.zIndex = stackPhotos.length - i;
-        photo.style.transform = 'translate(0, 0) rotate(0deg)';
-        photo.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)';
-        
-        // Add slight offset to create a stack effect
-        if (i > 0) {
-          const offset = i * 2;
-          photo.style.transform = `translate(${offset}px, ${offset}px) rotate(${offset/2}deg)`;
-        }
+  /* ===== SUBTLE PARALLAX ON ORBS (via scroll) ===== */
+  let ticking = false;
+  const orb1 = document.querySelector('.orb-1');
+  const orb2 = document.querySelector('.orb-2');
+  const orb3 = document.querySelector('.orb-3');
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        if (orb1) orb1.style.transform = `translateY(${scrollY * -0.08}px)`;
+        if (orb2) orb2.style.transform = `translateY(${scrollY * 0.12}px)`;
+        if (orb3) orb3.style.transform = `translate(-50%, -50%) translateY(${scrollY * -0.05}px)`;
+        ticking = false;
       });
-      
-      // After a short delay, remove the transition to allow smooth dragging
-      setTimeout(() => {
-        stackPhotos.forEach(photo => {
-          photo.style.transition = '';
-        });
-      }, 400);
+      ticking = true;
     }
-    arrangeStack();
+  }, { passive: true });
 
-    let isPointerDown = false;
-    let startX = 0;
-    let startY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let initialTransform = '';
-    let currentPhoto = null;
-    let velocity = 0;
-    let lastX = 0;
-    let lastTimestamp = 0;
-
-    function pointerDown(e) {
-      if (!e.target.closest('.stack-photo')) return;
-      isPointerDown = true;
-      currentPhoto = e.target.closest('.stack-photo');
-      currentPhoto.style.cursor = 'grabbing';
-      currentPhoto.style.transition = '';
-      
-      startX = e.clientX || e.touches?.[0]?.clientX;
-      startY = e.clientY || e.touches?.[0]?.clientY;
-      currentX = startX;
-      currentY = startY;
-      initialTransform = currentPhoto.style.transform;
-      
-      lastX = startX;
-      lastTimestamp = Date.now();
-      velocity = 0;
-      
-      // Hide swipe indicator when user starts interacting
-      swipeIndicator.classList.add('hidden');
-      clearTimeout(swipeTimeout);
-      
-      e.preventDefault();
-    }
-    
-    function pointerMove(e) {
-      if (!isPointerDown || !currentPhoto) return;
-      
-      const x = e.clientX || e.touches?.[0]?.clientX;
-      const y = e.clientY || e.touches?.[0]?.clientY;
-      
-      // Calculate velocity with adjusted sensitivity to match site
-      const now = Date.now();
-      const dt = now - lastTimestamp;
-      if (dt > 0) {
-        // Reduced velocity factor for more consistent feel with rest of site
-        velocity = (x - lastX) / (dt * 1.5);
-      }
-      lastX = x;
-      lastTimestamp = now;
-      
-      currentX = x;
-      currentY = y;
-      
-      const deltaX = currentX - startX;
-      const deltaY = currentY - startY;
-      
-      // Adjusted rotation factor to match site feel
-      const rotation = deltaX / 25;
-      
-      // Reduced vertical movement for consistency
-      const translateY = deltaY / 8;
-      
-      currentPhoto.style.transform = `translate(${deltaX}px, ${translateY}px) rotate(${rotation}deg)`;
-      
-      // Adjusted shadow effect for consistency
-      currentPhoto.style.boxShadow = `0 ${5 + Math.abs(deltaX/30)}px ${15 + Math.abs(deltaX/15)}px rgba(0,0,0,0.3)`;
-      
-      e.preventDefault();
-    }
-    
-    function pointerUp(e) {
-      if (!isPointerDown || !currentPhoto) return;
-      isPointerDown = false;
-      currentPhoto.style.cursor = 'grab';
-
-      const deltaX = currentX - startX;
-      const threshold = 80;
-      
-      // Adjusted speed factor to match site feel
-      const speedFactor = 6; // Reduced from 10
-      const effectiveSwipe = deltaX + (velocity * speedFactor);
-      
-      if (Math.abs(effectiveSwipe) > threshold) {
-        const direction = effectiveSwipe > 0 ? 1 : -1;
-        currentPhoto.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
-        currentPhoto.style.transform = `translate(${direction * window.innerWidth}px, ${direction * 50}px) rotate(${direction * 30}deg)`;
-        currentPhoto.addEventListener('transitionend', onTransitionEnd);
-      } else {
-        // Snap back with elastic effect
-        currentPhoto.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5)';
-        currentPhoto.style.transform = initialTransform;
-        currentPhoto.style.boxShadow = '';
-        currentPhoto.addEventListener('transitionend', () => {
-          currentPhoto.style.transition = '';
-          currentPhoto.style.boxShadow = '';
-          
-          // Show swipe indicator again after user interaction
-          showSwipeIndicator();
-        }, { once: true });
-      }
-      
-      e.preventDefault();
-    }
-    
-    function onTransitionEnd(e) {
-      if (e.propertyName !== 'transform') return;
-      
-      this.removeEventListener('transitionend', onTransitionEnd);
-      this.style.transition = '';
-      this.style.boxShadow = '';
-      
-      // Move to end of stack
-      stackContainer.appendChild(this);
-      
-      // Update array order
-      const firstPhoto = stackPhotos.shift();
-      stackPhotos.push(firstPhoto);
-      
-      // Rearrange with animation
-      arrangeStack();
-      
-      // Show swipe indicator again
-      showSwipeIndicator();
-    }
-
-    // Use passive: false to properly handle preventDefault
-    stackContainer.addEventListener('mousedown', pointerDown, {passive: false});
-    document.addEventListener('mousemove', pointerMove, {passive: false});
-    document.addEventListener('mouseup', pointerUp, {passive: false});
-
-    // Touch events
-    stackContainer.addEventListener('touchstart', pointerDown, {passive: false});
-    document.addEventListener('touchmove', pointerMove, {passive: false});
-    document.addEventListener('touchend', pointerUp, {passive: false});
-    
-    // Add animation to swipe indicator
-    function animateSwipeIndicator() {
-      const indicator = document.querySelector('.swipe-indicator svg');
-      if (!indicator) return;
-      
-      gsap.to(indicator, {
-        x: 10,
-        duration: 0.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
-    }
-    
-    // Initialize the animation
-    if (typeof gsap !== 'undefined') {
-      animateSwipeIndicator();
-    }
+  /* ===== BACK TO TOP ===== */
+  const backToTop = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 200);
+  }, { passive: true });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+});
   </script>
 </body>
 </html>

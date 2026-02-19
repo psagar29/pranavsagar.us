@@ -5,504 +5,392 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Education | Pranav Sagar</title>
 
-  <!-- Font Awesome for icons (dock, social, etc.) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  />
-  <!-- GSAP (optional) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-  <!-- Lottie (optional) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
-      --primary-color: #ffd700; /* Gold */
-      --secondary-color: #ffffff; /* White */
-      --text-color: #ffffff;      /* Normal text */
-      --bg-color: #000000;       /* Black */
-      --dock-bg: rgba(255, 255, 255, 0.05);
-      --fade-duration: 0.8s;
-      --accent-color: #ff8c00; /* Dark orange for accents */
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #8b5cf6;
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-light: #94a3b8;
+      --border: rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+      --shadow-xl: 0 20px 60px rgba(0,0,0,0.1);
+      --shadow-glass: 0 8px 32px rgba(31,38,135,0.08);
+      --radius: 20px;
+      --radius-lg: 24px;
     }
-
-    html {
-      scroll-behavior: smooth; 
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
-      font-family: 'Courier New', monospace;
-      color: var(--text-color);
-
-      /* The golden gradient at top & bottom */
-      background: linear-gradient(
-        180deg,
-        rgba(255, 215, 0, 0.2) 0%,
-        #000000 15%,
-        #000000 85%,
-        rgba(255, 215, 0, 0.2) 100%
-      );
-      position: relative;
-      min-height: 100vh;
-      cursor: none; /* Hide default cursor */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text); background: var(--bg);
+      min-height: 100vh; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0;
+      pointer-events: none; z-index: 9998; opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    /* The grid lines go in a pseudo-element on top of that gradient */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-
-      background-image:
-        repeating-linear-gradient(
-          to right,
-          rgba(128,128,128,0.2) 0 1px,
-          transparent 1px 40px
-        ),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(128,128,128,0.2) 0 1px,
-          transparent 1px 40px
-        );
-      background-color: transparent; 
-      /* We let the gradient behind it show through. */
+    /* Background mesh */
+    .bg-mesh {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.08), transparent),
+        radial-gradient(ellipse 60% 80% at 90% 80%, rgba(139,92,246,0.06), transparent),
+        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(236,72,153,0.03), transparent);
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(80px);
+      pointer-events: none; z-index: -1; opacity: 0.35;
     }
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--primary-color);
-      border-radius: 4px;
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%);
+      top: -150px; left: -100px;
+      animation: orbF1 20s ease-in-out infinite;
     }
-    ::-webkit-scrollbar-track {
-      background-color: rgba(0, 0, 0, 0.3);
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
+      bottom: -80px; right: -100px;
+      animation: orbF2 25s ease-in-out infinite;
     }
+    @keyframes orbF1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(60px,40px); } }
+    @keyframes orbF2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,-60px); } }
 
-    /* Fade-in on scroll */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity var(--fade-duration) ease, transform var(--fade-duration) ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
 
-    /* Custom circle cursor */
     .cursor {
-      position: fixed;
-      z-index: 9999;
-      width: 30px;
-      height: 30px;
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
+      position: fixed; z-index: 10000;
+      width: 20px; height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 50%; pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      transition: width 0.3s, height 0.3s, background-color 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor.hover { width: 50px; height: 50px; background: rgba(99,102,241,0.1); }
+    @media (hover: none) { .cursor { display: none !important; } }
+
+    .loading-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 10001;
+      animation: loadBar 1.2s ease-out forwards;
+    }
+    @keyframes loadBar { 0% { width: 0; } 60% { width: 70%; } 100% { width: 100%; opacity: 0; } }
+
+    /* Glass strong class */
+    .glass-strong {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
+      border-radius: 20px;
     }
 
-    /* Education Section */
+    /* Education Page */
     #education-page {
       min-height: 100vh;
-      padding: 100px 20px 50px;
-      max-width: 1200px;
+      padding: 100px 40px 80px;
+      max-width: 900px;
       margin: 0 auto;
     }
-
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 12px;
+    }
     .section-title {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: var(--primary-color);
-      text-align: center;
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--text);
+    }
+    .section-divider {
+      width: 50px; height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      margin: 20px auto 0; border-radius: 2px;
     }
 
-    .education-container {
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-    }
-
-    .education-item {
-      background-color: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--primary-color);
-      border-radius: 10px;
-      padding: 30px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .education-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px var(--primary-color);
-    }
-
-    .education-item::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #fff;
-      clip-path: circle(0% at 50% 50%);
-      transition: clip-path 0.5s ease;
-      opacity: 0.05; 
-      z-index: 0;
-    }
-
-    .education-item:hover::before {
-      clip-path: circle(150% at 50% 50%);
-      opacity: 0.1;
-    }
-
-    .degree {
-      font-size: 1.8rem;
-      color: var(--primary-color);
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .school {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .location {
-      font-size: 1.1rem;
-      color: var(--secondary-color);
-      opacity: 0.8;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .date {
-      display: inline-block;
-      background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--primary-color);
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .gpa {
-      display: inline-block;
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-left: 15px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .description {
-      line-height: 1.6;
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .courses {
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .courses h3 {
-      font-size: 1.2rem;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-
-    .course-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .course-tag {
-      background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--primary-color);
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
-
-    .course-tag:hover {
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      transform: translateY(-2px);
-    }
-
-    .achievements {
-      margin-top: 25px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .achievements h3 {
-      font-size: 1.2rem;
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-
-    .achievements ul {
-      padding-left: 20px;
-    }
-
-    .achievements li {
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .achievements li::before {
-      content: '▹';
-      position: absolute;
-      left: -15px;
-      color: var(--primary-color);
-    }
-
-    /* Timeline dots connecting education items */
+    /* Timeline */
     .timeline {
       position: relative;
+      padding-left: 40px;
     }
-
     .timeline::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 20px;
-      height: 100%;
-      width: 2px;
-      background-color: var(--primary-color);
-      opacity: 0.5;
+      left: 15px; top: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent), transparent);
+      border-radius: 1px;
     }
 
-    .timeline .education-item {
+    .timeline-item {
       position: relative;
-      margin-left: 50px;
+      margin-bottom: 40px;
     }
-
-    .timeline .education-item::after {
+    .timeline-item::before {
       content: '';
       position: absolute;
-      top: 30px;
-      left: -45px;
-      width: 20px;
-      height: 20px;
+      left: -33px; top: 28px;
+      width: 16px; height: 16px;
       border-radius: 50%;
-      background-color: var(--primary-color);
-      box-shadow: 0 0 10px var(--primary-color);
+      background: var(--bg);
+      border: 3px solid var(--primary);
+      z-index: 2;
+      transition: all 0.3s;
+    }
+    .timeline-item:hover::before {
+      background: var(--primary);
+      box-shadow: 0 0 12px rgba(99,102,241,0.4);
     }
 
-    /* Mac-Style Dock */
-    .mac-dock {
-      position: fixed; 
-      bottom: 10px; 
-      left: 50%; 
-      transform: translateX(-50%);
-      display: flex;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 30px;
-      padding: 14px 28px; 
-      gap: 24px;
-      z-index: 1000;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5), 0 0 10px var(--primary-color);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-      visibility: visible;
-      opacity: 1;
+    .edu-card {
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
     }
-    .mac-dock::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 30px;
-      box-shadow: 0 0 20px var(--primary-color);
-      opacity: 0.2;
+    .edu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
+      border-color: rgba(99,102,241,0.12);
+    }
+
+    /* Glass card shine effect */
+    .edu-card::after {
+      content: ''; position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.8s;
       pointer-events: none;
+    }
+    .edu-card:hover::after { transform: translateX(30%); }
+
+    .edu-card .degree {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .edu-card .school {
+      font-size: 1.1rem; color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .edu-card .location {
+      font-size: 0.9rem; color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .edu-meta {
+      display: flex; gap: 12px; align-items: center;
+      flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .edu-date {
+      padding: 5px 14px;
+      background: rgba(99,102,241,0.06);
+      border: 1px solid rgba(99,102,241,0.1);
+      border-radius: 20px;
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--primary-dark);
+    }
+    .edu-gpa {
+      padding: 5px 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border-radius: 20px;
+      font-size: 0.85rem; font-weight: 600;
+    }
+
+    .edu-card .description {
+      font-size: 0.95rem; line-height: 1.7;
+      color: var(--text-secondary); margin-bottom: 20px;
+    }
+
+    .courses-title, .achievements-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .course-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 24px;
+    }
+    .course-tag {
+      padding: 5px 12px;
+      background: rgba(99,102,241,0.06);
+      border: 1px solid rgba(99,102,241,0.1);
+      border-radius: 8px;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--primary-dark);
+      transition: all 0.2s;
+    }
+    .course-tag:hover {
+      background: var(--primary); color: #fff;
+      border-color: var(--primary); transform: translateY(-2px);
+    }
+
+    .achievements-list {
+      list-style: none; padding: 0;
+    }
+    .achievements-list li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      font-size: 0.9rem; line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .achievements-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 14px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+
+    /* Dock - matches index.html exactly */
+    .mac-dock {
+      position: fixed; bottom: 16px;
+      left: 50%; transform: translateX(-50%);
+      display: flex;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 8px 32px rgba(31,38,135,0.1), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.03);
+      border-radius: 22px;
+      padding: 10px 20px; gap: 6px;
+      z-index: 1000;
     }
     .mac-dock a {
-      color: var(--secondary-color);
-      font-size: 26px; 
+      color: var(--text-secondary); font-size: 20px;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px; border-radius: 12px;
     }
     .mac-dock a:hover {
-      transform: scale(1.4) translateY(-10px);
-      color: var(--primary-color);
+      color: var(--primary);
+      background: rgba(99,102,241,0.1);
+      transform: translateY(-8px) scale(1.2);
     }
-    .mac-dock a.active {
-      color: var(--primary-color);
-    }
+    .mac-dock a.active { color: var(--primary); background: rgba(99,102,241,0.1); }
     .mac-dock a::after {
       content: attr(data-tooltip);
-      position: absolute;
-      bottom: 56px; 
-      left: 50%;
-      transform: translateX(-50%) scale(0.8);
-      background-color: rgba(0, 0, 0, 0.8);
-      color: var(--secondary-color);
-      padding: 5px 8px;
-      border-radius: 5px;
-      opacity: 0;
-      pointer-events: none;
-      white-space: nowrap;
+      position: absolute; bottom: 52px; left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--text); color: #fff;
+      padding: 6px 12px; border-radius: 8px;
+      opacity: 0; pointer-events: none; white-space: nowrap;
+      font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500;
       transition: opacity 0.2s, transform 0.2s;
-      font-size: 0.8rem;
-      font-family: 'Courier New', monospace;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .mac-dock a:hover::after {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-    .mac-dock:hover {
-      background-color: rgba(0,0,0,0.7);
-      padding: 14px 38px;
-    }
+    .mac-dock a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed; 
-      bottom: 90px; 
-      right: 20px;
-      width: 40px; 
-      height: 40px;
-      background-color: var(--primary-color);
-      color: var(--bg-color);
-      border-radius: 50%;
-      display: flex; 
-      justify-content: center; 
-      align-items: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 999;
-    }
-    .back-to-top.visible {
-      opacity: 1;
-    }
-    .back-to-top:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    }
-
-    /* Copyright */
     .copyright {
-      text-align: center;
-      margin: 50px 0 70px 0;
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      opacity: 0.7;
+      text-align: center; padding: 30px 20px 110px;
+      font-size: 0.85rem; color: var(--text-light);
     }
 
-    /* Media Queries */
+    .back-to-top {
+      position: fixed; bottom: 90px; right: 24px;
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff; border-radius: 12px;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s; z-index: 999;
+      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0); }
+    .back-to-top:hover { transform: translateY(-3px); }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.15s; }
+    .stagger-2 { transition-delay: 0.3s; }
+    .stagger-3 { transition-delay: 0.45s; }
+
+    /* Mobile optimization */
     @media (max-width: 768px) {
-      .section-title {
-        font-size: 2rem;
-      }
-      .degree {
-        font-size: 1.5rem;
-      }
-      .school {
-        font-size: 1.2rem;
-      }
+      #education-page { padding: 80px 20px 60px; }
+      .section-title { font-size: 2.2rem; }
+      .timeline { padding-left: 30px; }
+      .timeline::before { left: 10px; }
+      .timeline-item::before { left: -28px; width: 14px; height: 14px; }
+      .edu-card { padding: 24px; width: 100%; }
       .mac-dock {
-        padding: 12px 20px;
-        gap: 18px;
+        padding: 8px 12px; gap: 2px;
+        border-radius: 18px;
+        bottom: 10px;
       }
-      .mac-dock a {
-        font-size: 22px;
-      }
-      .timeline .education-item {
-        margin-left: 40px;
-      }
+      .mac-dock a { font-size: 17px; width: 38px; height: 38px; border-radius: 10px; }
+      .mac-dock a:hover { transform: translateY(-4px) scale(1.1); }
+      .mac-dock a::after { display: none; }
+      .copyright { padding-bottom: 90px; }
+      .back-to-top { bottom: 80px; right: 16px; width: 40px; height: 40px; border-radius: 12px; }
     }
-
     @media (max-width: 480px) {
-      .section-title {
-        font-size: 1.8rem;
-      }
-      .education-item {
-        padding: 20px;
-      }
-      .degree {
-        font-size: 1.3rem;
-      }
-      .date, .gpa {
-        display: block;
-        margin-bottom: 10px;
-      }
-      .gpa {
-        margin-left: 0;
-        margin-top: 10px;
-      }
-      .timeline::before {
-        left: 10px;
-      }
-      .timeline .education-item {
-        margin-left: 30px;
-      }
-      .timeline .education-item::after {
-        left: -25px;
-        width: 15px;
-        height: 15px;
-      }
+      .section-title { font-size: 1.7rem; }
+      .section-header { margin-bottom: 40px; }
+      .timeline { padding-left: 24px; }
+      .timeline::before { left: 6px; }
+      .timeline-item::before { left: -26px; width: 12px; height: 12px; }
+      .edu-card { padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <!-- Loading Bar -->
+  <div class="bg-mesh"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
   <div class="loading-bar"></div>
+  <div class="cursor" id="cursor"></div>
 
-  <!-- Glitch/glyph hover sound -->
-  <audio id="hover-sound" src="glitch-sound.mp3" preload="auto"></audio>
-
-  <!-- Custom circle cursor -->
-  <div class="cursor"></div>
-
-  <!-- Main Content -->
   <main>
-    <section id="education-page" class="fade-in">
-      <h1 class="section-title">Education Journey</h1>
-      
-      <div class="education-container timeline">
-        <!-- ASU Education -->
-        <div class="education-item">
-          <h2 class="degree">Bachelor of Science in Computer Science</h2>
-          <div class="school">Arizona State University</div>
-          <div class="location">Tempe, Arizona</div>
-          <div class="date">Expected May 2026</div>
-          <div class="gpa">4.0 GPA</div>
-          
-          <div class="description">
-            <p>Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, algorithm development, and database management. My studies provide a strong foundation in theoretical principles as well as practical skills that I apply in my projects.</p>
-          </div>
-          
-          <div class="courses">
-            <h3>Key Coursework</h3>
+    <section id="education-page">
+      <div class="section-header reveal">
+        <div class="section-label">My Journey</div>
+        <h1 class="section-title">Education</h1>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="timeline">
+        <!-- ASU -->
+        <div class="timeline-item reveal stagger-1">
+          <div class="edu-card glass-strong">
+            <h2 class="degree">Bachelor of Science in Computer Science</h2>
+            <div class="school">Arizona State University</div>
+            <div class="location">Tempe, Arizona</div>
+            <div class="edu-meta">
+              <span class="edu-date">Expected May 2026</span>
+              <span class="edu-gpa">4.0 GPA</span>
+            </div>
+            <p class="description">Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, AI systems, and database management. Building production applications alongside my studies.</p>
+            <h4 class="courses-title">Key Coursework</h4>
             <div class="course-tags">
               <span class="course-tag">Data Structures & Algorithms</span>
               <span class="course-tag">Object-Oriented Programming</span>
@@ -513,34 +401,29 @@
               <span class="course-tag">Operating Systems</span>
               <span class="course-tag">Computer Networks</span>
             </div>
-          </div>
-          
-          <div class="achievements">
-            <h3>Achievements</h3>
-            <ul>
-              <li>Maintaining perfect 4.0 GPA throughout my academic career</li>
+            <h4 class="achievements-title">Achievements</h4>
+            <ul class="achievements-list">
+              <li>Maintaining perfect 4.0 GPA throughout academic career</li>
               <li>Active member of the Computer Science Student Association</li>
-              <li>Participated in the ASU Hackathon 2024, placing in the top 10</li>
+              <li>Top 10 placement at ASU Hackathon 2024</li>
               <li>Dean's List recognition for academic excellence</li>
-              <li>Recipient of the Outstanding Computer Science Student Award</li>
+              <li>Outstanding Computer Science Student Award</li>
             </ul>
           </div>
         </div>
-        
-        <!-- High School Education -->
-        <div class="education-item">
-          <h2 class="degree">High School Diploma</h2>
-          <div class="school">Delhi International Public School</div>
-          <div class="location">New Delhi, India</div>
-          <div class="date">Graduated July 2022</div>
-          <div class="gpa">4.0 GPA</div>
-          
-          <div class="description">
-            <p>Completed my high school education with a focus on Mathematics, Computer Science, and Physics. Developed a strong foundation in analytical thinking and problem-solving skills that prepared me for my university studies.</p>
-          </div>
-          
-          <div class="courses">
-            <h3>Key Coursework</h3>
+
+        <!-- High School -->
+        <div class="timeline-item reveal stagger-2">
+          <div class="edu-card glass-strong">
+            <h2 class="degree">High School Diploma</h2>
+            <div class="school">Delhi International Public School</div>
+            <div class="location">New Delhi, India</div>
+            <div class="edu-meta">
+              <span class="edu-date">Graduated July 2022</span>
+              <span class="edu-gpa">4.0 GPA</span>
+            </div>
+            <p class="description">Completed high school with a focus on Mathematics, Computer Science, and Physics. Built a strong foundation in analytical thinking and problem-solving.</p>
+            <h4 class="courses-title">Key Coursework</h4>
             <div class="course-tags">
               <span class="course-tag">Advanced Mathematics</span>
               <span class="course-tag">Computer Science</span>
@@ -548,30 +431,24 @@
               <span class="course-tag">English</span>
               <span class="course-tag">Chemistry</span>
             </div>
-          </div>
-          
-          <div class="achievements">
-            <h3>Achievements</h3>
-            <ul>
+            <h4 class="achievements-title">Achievements</h4>
+            <ul class="achievements-list">
               <li>Graduated with highest honors</li>
               <li>Captain of the Science Olympiad Team</li>
-              <li>First prize in the Interschool Coding Competition</li>
-              <li>Participated in National Mathematics Olympiad</li>
+              <li>First prize in Interschool Coding Competition</li>
+              <li>National Mathematics Olympiad participant</li>
               <li>School representative for regional technology conferences</li>
             </ul>
           </div>
         </div>
-        
+
         <!-- Certifications -->
-        <div class="education-item">
-          <h2 class="degree">Professional Certifications</h2>
-          <div class="school">Online Learning Platforms</div>
-          <div class="description">
-            <p>In addition to my formal education, I've pursued various professional certifications to enhance my skills and stay current with industry trends and technologies.</p>
-          </div>
-          
-          <div class="courses">
-            <h3>Certifications</h3>
+        <div class="timeline-item reveal stagger-3">
+          <div class="edu-card glass-strong">
+            <h2 class="degree">Professional Certifications</h2>
+            <div class="school">Online Learning Platforms</div>
+            <p class="description" style="margin-top: 16px;">Continuously pursuing professional certifications to stay current with industry trends and expand my technical expertise.</p>
+            <h4 class="courses-title">Certifications</h4>
             <div class="course-tags">
               <span class="course-tag">AWS Certified Cloud Practitioner</span>
               <span class="course-tag">Microsoft Azure Fundamentals</span>
@@ -580,11 +457,8 @@
               <span class="course-tag">Python for Data Science</span>
               <span class="course-tag">Introduction to Machine Learning</span>
             </div>
-          </div>
-          
-          <div class="achievements">
-            <h3>Online Courses</h3>
-            <ul>
+            <h4 class="achievements-title">Online Courses</h4>
+            <ul class="achievements-list">
               <li>Data Structures and Algorithms Specialization (Coursera)</li>
               <li>Full Stack Web Development (Udemy)</li>
               <li>Introduction to Artificial Intelligence (edX)</li>
@@ -597,106 +471,49 @@
     </section>
   </main>
 
-  <!-- Dock -->
+  <div class="copyright">&copy; 2026 Pranav Sagar. All Rights Reserved.</div>
+
   <div class="mac-dock" id="dock">
-    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-home"></i></a>
+    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-house"></i></a>
     <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
-    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-keyboard"></i></a>
-    <a href="education.html" data-tooltip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
-    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-archive"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-code"></i></a>
+    <a href="#" data-tooltip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html?skipIntro=1" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-folder-open"></i></a>
     <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
   </div>
 
-  <!-- Copyright -->
-  <div class="copyright">
-    © 2025 Pranav Sagar. All Rights Reserved.
-  </div>
-
-  <!-- Back to Top Button -->
-  <div class="back-to-top" id="back-to-top">
-    <i class="fas fa-arrow-up"></i>
-  </div>
+  <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></div>
 
   <script>
-    /* FADE-IN ON SCROLL */
-    document.addEventListener('DOMContentLoaded', () => {
-      const fadeIns = document.querySelectorAll('.fade-in');
-      function revealOnScroll() {
-        fadeIns.forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight - 100) {
-            el.classList.add('visible');
-          }
-        });
-      }
-      window.addEventListener('scroll', revealOnScroll);
-      revealOnScroll();
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  const cursor = document.getElementById('cursor');
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    /* CUSTOM CURSOR */
-    const cursor = document.querySelector('.cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+  if (!isTouchDevice && cursor) {
+    let cx = 0, cy = 0, px = 0, py = 0;
+    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    (function ac() {
+      px += (cx - px) * 0.12; py += (cy - py) * 0.12;
+      cursor.style.left = px + 'px'; cursor.style.top = py + 'px';
+      requestAnimationFrame(ac);
+    })();
+    document.querySelectorAll('a, button, .edu-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
-    document.addEventListener('mousedown', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    });
-    document.addEventListener('mouseup', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
+  }
 
-    /* Glitch sound on hover */
-    const hoverSound = document.getElementById('hover-sound');
-    const interactiveEls = document.querySelectorAll('a');
-    interactiveEls.forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.backgroundColor = 'rgba(255,255,255,0.3)';
-        if (hoverSound) {
-          hoverSound.currentTime = 0;
-          hoverSound.play().catch(() => {});
-        }
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.backgroundColor = 'rgba(255,255,255,0.5)';
-      });
-    });
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); }});
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => obs.observe(el));
 
-    /* DRAGGABLE DOCK */
-    const dock = document.getElementById('dock');
-    let isDragging = false;
-    let offsetX = 0;
-    dock.addEventListener('mousedown', (e) => {
-      if (e.target.closest('a')) return;
-      isDragging = true;
-      dock.style.transform = 'none';
-      offsetX = e.clientX - dock.offsetLeft;
-      e.preventDefault();
-    });
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const newLeft = e.clientX - offsetX;
-      const maxLeft = window.innerWidth - dock.offsetWidth;
-      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      dock.style.left = clampedLeft + 'px';
-    });
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    /* Back to Top */
-    const backToTop = document.querySelector('.back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  const backToTop = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 200));
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+});
   </script>
 </body>
 </html>
