@@ -3,27 +3,22 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5"/>
+  <meta name="color-scheme" content="dark"/>
   <title>Education | Pranav Sagar</title>
+  <style>html,body{background:#0a0a0f;color:#eaeaf0}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
-    :root{--bg:#fafafa;--bg-card:#ffffff;--text:#0a0a0a;--text-sec:#444450;--text-muted:#8a8a9a;--accent:#111;--accent-inv:#fff;--border:rgba(0,0,0,.07);--border-h:rgba(0,0,0,.14);--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--dock-bg:rgba(255,255,255,.85);--dock-border:rgba(0,0,0,.06);--dock-hover:rgba(0,0,0,.05);--shine:rgba(255,255,255,.7);--r:18px}
-    [data-theme="dark"]{--bg:#0a0a0f;--bg-card:#161622;--text:#eaeaf0;--text-sec:#a0a0b0;--text-muted:#555570;--accent:#fff;--accent-inv:#0a0a0f;--border:rgba(255,255,255,.08);--border-h:rgba(255,255,255,.15);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 16px 48px rgba(0,0,0,.5);--dock-bg:rgba(15,15,25,.85);--dock-border:rgba(255,255,255,.06);--dock-hover:rgba(255,255,255,.08);--shine:rgba(255,255,255,.04)}
+    :root{--bg:#0a0a0f;--bg-card:#161622;--text:#eaeaf0;--text-sec:#a0a0b0;--text-muted:#555570;--accent:#fff;--accent-inv:#0a0a0f;--border:rgba(255,255,255,.08);--border-h:rgba(255,255,255,.15);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 16px 48px rgba(0,0,0,.5);--dock-bg:rgba(15,15,25,.85);--dock-border:rgba(255,255,255,.06);--dock-hover:rgba(255,255,255,.08);--shine:rgba(255,255,255,.04);--r:18px}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
-    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
-    ::selection{background:rgba(0,0,0,.08)}
-    [data-theme="dark"] ::selection{background:rgba(255,255,255,.12);color:#fff}
-    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}::-webkit-scrollbar-track{background:transparent}
-    [data-theme="dark"] ::-webkit-scrollbar-thumb{background:#444}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(255,255,255,.12);color:#fff}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#444;border-radius:3px}::-webkit-scrollbar-track{background:transparent}
     a{color:inherit;text-decoration:none}
-    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,119,198,.07) 0%,rgba(180,160,255,.04) 30%,rgba(255,220,150,.025) 50%,transparent 70%);mix-blend-mode:multiply;will-change:transform}
-    [data-theme="dark"] .cursor-light{mix-blend-mode:screen;background:radial-gradient(circle,rgba(100,100,220,.1) 0%,rgba(140,120,240,.05) 30%,transparent 60%)}
+    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(100,100,220,.1) 0%,rgba(140,120,240,.05) 30%,transparent 60%);mix-blend-mode:screen;will-change:transform}
     @media(hover:none){.cursor-light{display:none!important}}
-
-    .theme-toggle{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1001;transition:all .3s;font-size:16px;box-shadow:var(--shadow-sm)}
-    .theme-toggle:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);color:var(--text);border-color:var(--border-h)}
 
     .gc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
     .gc::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(135deg,transparent 40%,var(--shine) 50%,transparent 60%);transform:translateX(-100%);transition:transform .8s;pointer-events:none}
@@ -40,35 +35,33 @@
     .timeline::before{content:'';position:absolute;left:15px;top:0;width:2px;height:100%;background:linear-gradient(180deg,var(--accent),var(--text-muted),transparent);border-radius:1px}
     .timeline-item{position:relative;margin-bottom:40px}
     .timeline-item::before{content:'';position:absolute;left:-33px;top:28px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);z-index:2;transition:all .3s}
-    .timeline-item:hover::before{background:var(--accent);box-shadow:0 0 12px rgba(0,0,0,.15)}
-    .timeline-item:first-child::before{background:var(--accent);box-shadow:0 0 10px rgba(0,0,0,.1)}
+    .timeline-item:hover::before{background:var(--accent);box-shadow:0 0 12px rgba(255,255,255,.15)}
+    .timeline-item:first-child::before{background:var(--accent);box-shadow:0 0 10px rgba(255,255,255,.1)}
 
     .edu-card{padding:32px}
     .edu-card .degree{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;color:var(--text);margin-bottom:8px}
     .edu-card .school{font-size:1.05rem;color:var(--text-sec);margin-bottom:4px}
     .edu-card .location{font-size:.85rem;color:var(--text-muted);margin-bottom:16px}
     .edu-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
-    .edu-date{padding:5px 14px;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:20px;font-size:.83rem;font-weight:500;color:var(--text-sec)}
-    [data-theme="dark"] .edu-date{background:rgba(255,255,255,.05)}
+    .edu-date{padding:5px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;font-size:.83rem;font-weight:500;color:var(--text-sec)}
     .edu-gpa{padding:5px 14px;background:var(--accent);border-radius:20px;font-size:.83rem;font-weight:600;color:var(--accent-inv)}
     .edu-card .description{font-size:.93rem;line-height:1.7;color:var(--text-sec);margin-bottom:20px}
     .courses-title,.achievements-title{font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:12px}
     .course-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-    .course-tag{padding:5px 12px;background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:8px;font-size:.78rem;font-weight:500;color:var(--text-sec);transition:all .2s}
+    .course-tag{padding:5px 12px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;font-size:.78rem;font-weight:500;color:var(--text-sec);transition:all .2s}
     .course-tag:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent);transform:translateY(-2px)}
-    [data-theme="dark"] .course-tag{background:rgba(255,255,255,.04)}
     .achievements-list{list-style:none;padding:0}
     .achievements-list li{padding:7px 0 7px 22px;position:relative;font-size:.88rem;line-height:1.6;color:var(--text-sec)}
     .achievements-list li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
-    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--dock-bg);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid var(--dock-border);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--dock-bg);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid var(--dock-border);box-shadow:0 8px 32px rgba(0,0,0,.3)}
     .dock a{color:var(--text-muted);font-size:18px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%}
     .dock a:hover{color:var(--accent);background:var(--dock-hover);transform:translateY(-8px) scale(1.15)}
     .dock a.active{color:var(--accent);background:var(--dock-hover)}
     .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:var(--accent);color:var(--accent-inv);padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s}
     .dock a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
     .copyright{text-align:center;padding:30px 20px 110px;font-size:.85rem;color:var(--text-muted)}
-    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:var(--accent);color:var(--accent-inv);border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
+    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:var(--accent);color:var(--accent-inv);border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.3);font-size:15px}
     .btt.visible{opacity:1;transform:translateY(0)}.btt:hover{transform:translateY(-3px)}
     .rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
     .rv.active{opacity:1;transform:translateY(0)}
@@ -80,7 +73,6 @@
       .dock{padding:8px 12px;gap:2px;border-radius:24px;bottom:10px}
       .dock a{font-size:16px;width:38px;height:38px}.dock a:hover{transform:translateY(-4px) scale(1.1)}.dock a::after{display:none}
       .copyright{padding-bottom:90px}.btt{bottom:80px;right:16px;width:40px;height:40px}
-      .theme-toggle{top:12px;right:12px;width:40px;height:40px;font-size:14px}
     }
     @media(max-width:480px){.section-title{font-size:1.7rem}.timeline{padding-left:24px}.timeline::before{left:6px}.timeline-item::before{left:-26px;width:12px;height:12px}.edu-card{padding:20px}}
     @media(hover:none){.dock a{min-width:44px;min-height:44px}}
@@ -88,7 +80,6 @@
 </head>
 <body>
   <div class="cursor-light" id="clight"></div>
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
   <main>
     <section id="education-page">
       <div class="section-header rv">
@@ -157,27 +148,21 @@
   </main>
   <div class="copyright">&copy; 2026 Pranav Sagar. All Rights Reserved.</div>
   <div class="dock">
-    <a href="index.html?skipIntro=1#hero" data-tip="Home"><i class="fas fa-house"></i></a>
-    <a href="aboutme.html?skipIntro=1" data-tip="About"><i class="fas fa-user"></i></a>
+    <a href="index.html" data-tip="Home"><i class="fas fa-house"></i></a>
+    <a href="aboutme.html" data-tip="About"><i class="fas fa-user"></i></a>
     <a href="index.html?skipIntro=1#skills" data-tip="Skills"><i class="fas fa-code"></i></a>
     <a href="#" data-tip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html?skipIntro=1" data-tip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="experience.html" data-tip="Experience"><i class="fas fa-briefcase"></i></a>
     <a href="index.html?skipIntro=1#projects" data-tip="Projects"><i class="fas fa-folder-open"></i></a>
     <a href="index.html?skipIntro=1#contact" data-tip="Contact"><i class="fas fa-envelope"></i></a>
   </div>
   <button class="btt" id="btt"><i class="fas fa-arrow-up"></i></button>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  /* Dark mode */
-  const toggle=document.getElementById('theme-toggle');const tIcon=toggle.querySelector('i');
-  const saved=localStorage.getItem('theme');
-  if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');tIcon.className='fas fa-sun'}
-  toggle.onclick=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',isDark?'light':'dark');tIcon.className=isDark?'fas fa-moon':'fas fa-sun';localStorage.setItem('theme',isDark?'light':'dark');playClick()};
-
-  /* Premium sound */
+  /* Metallic sound */
   let ac;function getCtx(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
-  function tick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(4800,c.currentTime);o.frequency.exponentialRampToValueAtTime(4200,c.currentTime+.06);g.gain.setValueAtTime(.012,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.1);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.1);const o2=c.createOscillator();const g2=c.createGain();o2.type='sine';o2.frequency.setValueAtTime(7200,c.currentTime);g2.gain.setValueAtTime(.005,c.currentTime);g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.07);o2.connect(g2);g2.connect(c.destination);o2.start();o2.stop(c.currentTime+.07)}catch{}}
-  function playClick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='triangle';o.frequency.setValueAtTime(520,c.currentTime);o.frequency.exponentialRampToValueAtTime(280,c.currentTime+.1);g.gain.setValueAtTime(.035,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.13);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.13);const o2=c.createOscillator();const g2=c.createGain();o2.type='sine';o2.frequency.setValueAtTime(1560,c.currentTime);o2.frequency.exponentialRampToValueAtTime(900,c.currentTime+.06);g2.gain.setValueAtTime(.015,c.currentTime);g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.08);o2.connect(g2);g2.connect(c.destination);o2.start();o2.stop(c.currentTime+.08)}catch{}}
+  function tick(){try{const c=getCtx();[1200,1876,2450,3680].forEach((f,i)=>{const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f,c.currentTime);g.gain.setValueAtTime([.015,.01,.008,.005][i],c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+[.12,.1,.08,.06][i]);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+[.12,.1,.08,.06][i])})}catch{}}
+  function playClick(){try{const c=getCtx();[800,1340,2100,3150,4200].forEach((f,i)=>{const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(f,c.currentTime);o.frequency.exponentialRampToValueAtTime(f*.92,c.currentTime+[.18,.15,.12,.1,.08][i]);g.gain.setValueAtTime([.025,.018,.012,.008,.005][i],c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+[.18,.15,.12,.1,.08][i]);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+[.18,.15,.12,.1,.08][i])})}catch{}}
 
   /* Cursor light */
   const cl=document.getElementById('clight');const isTouch='ontouchstart'in window||navigator.maxTouchPoints>0;

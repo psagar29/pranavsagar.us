@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5"/>
+  <meta name="color-scheme" content="dark"/>
   <title>Pranav Sagar | Developer</title>
+  <style>html,body{background:#0a0a0f;color:#eaeaf0}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,30 +14,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
     :root {
-      --bg: #fafafa;
-      --bg-alt: #f0f0f2;
-      --bg-card: #ffffff;
-      --text: #0a0a0a;
-      --text-sec: #444450;
-      --text-muted: #8a8a9a;
-      --accent: #111;
-      --accent-inv: #fff;
-      --border: rgba(0,0,0,.07);
-      --border-h: rgba(0,0,0,.14);
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.04);
-      --shadow-md: 0 4px 24px rgba(0,0,0,.06);
-      --shadow-lg: 0 16px 48px rgba(0,0,0,.08);
-      --shadow-xl: 0 24px 64px rgba(0,0,0,.1);
-      --dock-bg: rgba(255,255,255,.85);
-      --dock-border: rgba(0,0,0,.06);
-      --dock-hover: rgba(0,0,0,.05);
-      --bar-bg: #eee;
-      --input-bg: #fff;
-      --shine: rgba(255,255,255,.7);
-      --r: 18px;
-      --r-lg: 24px;
-    }
-    [data-theme="dark"] {
       --bg: #0a0a0f;
       --bg-alt: #111118;
       --bg-card: #161622;
@@ -53,30 +31,24 @@
       --dock-bg: rgba(15,15,25,.85);
       --dock-border: rgba(255,255,255,.06);
       --dock-hover: rgba(255,255,255,.08);
-      --bar-bg: rgba(255,255,255,.1);
       --input-bg: #111118;
       --shine: rgba(255,255,255,.04);
+      --r: 18px;
+      --r-lg: 24px;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth;overflow-x:hidden;scroll-padding-top:80px;-webkit-text-size-adjust:100%}
-    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background .4s,color .4s}
-    ::selection{background:rgba(0,0,0,.08);color:#000}
-    [data-theme="dark"] ::selection{background:rgba(255,255,255,.12);color:#fff}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    ::selection{background:rgba(255,255,255,.12);color:#fff}
     ::-webkit-scrollbar{width:5px}
-    ::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
-    [data-theme="dark"] ::-webkit-scrollbar-thumb{background:#444}
+    ::-webkit-scrollbar-thumb{background:#444;border-radius:3px}
     ::-webkit-scrollbar-track{background:transparent}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
 
     /* Cursor light */
-    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,119,198,.07) 0%,rgba(180,160,255,.04) 30%,rgba(255,220,150,.025) 50%,transparent 70%);mix-blend-mode:multiply;transition:opacity .3s;will-change:transform}
-    [data-theme="dark"] .cursor-light{mix-blend-mode:screen;background:radial-gradient(circle,rgba(100,100,220,.1) 0%,rgba(140,120,240,.05) 30%,transparent 60%)}
+    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(100,100,220,.1) 0%,rgba(140,120,240,.05) 30%,transparent 60%);mix-blend-mode:screen;transition:opacity .3s;will-change:transform}
     @media(hover:none){.cursor-light{display:none!important}}
-
-    /* Theme toggle */
-    .theme-toggle{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1001;transition:all .3s;font-size:16px;box-shadow:var(--shadow-sm)}
-    .theme-toggle:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);color:var(--text);border-color:var(--border-h)}
 
     /* Sections */
     section{padding:120px 24px;position:relative}
@@ -90,11 +62,11 @@
     .intro.hide{opacity:0;transform:scale(1.02);pointer-events:none}
     .intro-inner{text-align:center}
     .intro h2{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:500;color:var(--text-muted);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px}
-    .intro-bar{width:200px;height:2px;background:var(--bar-bg);border-radius:1px;margin:0 auto 28px;overflow:hidden}
+    .intro-bar{width:200px;height:2px;background:rgba(255,255,255,.1);border-radius:1px;margin:0 auto 28px;overflow:hidden}
     .intro-bar span{display:block;height:100%;background:var(--accent);border-radius:1px;animation:loadIntro 1.5s ease-out forwards}
     @keyframes loadIntro{0%{width:0}100%{width:100%}}
-    .intro-btn{padding:14px 40px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.12);transition:transform .3s,box-shadow .3s}
-    .intro-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+    .intro-btn{padding:14px 40px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s}
+    .intro-btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,0,0,.5)}
 
     /* Card */
     .gc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
@@ -106,12 +78,10 @@
     #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 100px}
     .hero-wrap{max-width:1100px;width:100%;display:flex;align-items:center;gap:80px}
     .hero-photo-wrap{flex-shrink:0;position:relative}
-    .hero-ring{position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(0,0,0,.08);animation:ringPulse 4s ease-in-out infinite}
-    .hero-ring2{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(0,0,0,.04);animation:ringPulse 4s ease-in-out infinite .5s}
-    [data-theme="dark"] .hero-ring{border-color:rgba(255,255,255,.1)}
-    [data-theme="dark"] .hero-ring2{border-color:rgba(255,255,255,.05)}
+    .hero-ring{position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(255,255,255,.1);animation:ringPulse 4s ease-in-out infinite}
+    .hero-ring2{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(255,255,255,.05);animation:ringPulse 4s ease-in-out infinite .5s}
     @keyframes ringPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.03)}}
-    .hero-photo{width:260px;height:260px;border-radius:50%;overflow:hidden;position:relative;border:4px solid var(--bg);box-shadow:0 20px 60px rgba(0,0,0,.1)}
+    .hero-photo{width:260px;height:260px;border-radius:50%;overflow:hidden;position:relative;border:4px solid var(--bg-card);box-shadow:0 20px 60px rgba(0,0,0,.4)}
     .hero-photo img{width:100%;height:140%;object-fit:cover}
     .hero-text{flex:1}
     .hero-label{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:var(--text-muted)}
@@ -121,11 +91,10 @@
     #typewriter{border-right:2px solid var(--accent);padding-right:3px;animation:blink .8s steps(1) infinite}
     @keyframes blink{0%,100%{border-color:transparent}50%{border-color:var(--accent)}}
     .cta-row{display:flex;gap:16px;flex-wrap:wrap}
-    .cta-p{padding:14px 32px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.93rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s;text-decoration:none}
-    .cta-p:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.16)}
+    .cta-p{padding:14px 32px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.93rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;text-decoration:none}
+    .cta-p:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.5)}
     .cta-s{padding:14px 32px;background:transparent;color:var(--text);border:1.5px solid var(--border);border-radius:50px;font-family:'Inter',sans-serif;font-size:.93rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .3s;text-decoration:none}
-    .cta-s:hover{border-color:var(--accent);background:rgba(0,0,0,.02)}
-    [data-theme="dark"] .cta-s:hover{background:rgba(255,255,255,.04)}
+    .cta-s:hover{border-color:var(--accent);background:rgba(255,255,255,.04)}
 
     /* Skills */
     #skills{background:var(--bg-alt)}
@@ -138,10 +107,8 @@
     @keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     .skill-item{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;transition:transform .3s}
     .skill-item:hover{transform:translateY(-8px) scale(1.05)}
-    .skill-item img{height:44px;width:auto;transition:filter .3s,transform .3s}
-    .skill-item:hover img{filter:drop-shadow(0 4px 12px rgba(0,0,0,.12))}
-    [data-theme="dark"] .skill-item img{filter:brightness(0) invert(1);opacity:.85}
-    [data-theme="dark"] .skill-item:hover img{filter:brightness(0) invert(1) drop-shadow(0 4px 12px rgba(255,255,255,.15));opacity:1}
+    .skill-item img{height:44px;width:auto;transition:filter .3s,transform .3s;filter:drop-shadow(0 0 1px rgba(255,255,255,.4)) brightness(1.15)}
+    .skill-item:hover img{filter:drop-shadow(0 4px 12px rgba(255,255,255,.2)) brightness(1.3)}
     .skill-item span{font-size:.75rem;color:var(--text-muted);font-weight:500;white-space:nowrap}
 
     /* Projects */
@@ -149,11 +116,11 @@
     .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
     .project-card{padding:30px;cursor:default;display:flex;flex-direction:column}
     .project-icon{width:56px;height:56px;border-radius:16px;background:var(--bg-alt);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.3rem;color:var(--accent);transition:all .4s cubic-bezier(.4,0,.2,1);border:1px solid var(--border)}
-    .project-card:hover .project-icon{background:var(--accent);color:var(--accent-inv);transform:scale(1.08) rotate(-3deg);box-shadow:0 8px 20px rgba(0,0,0,.12);border-color:transparent}
+    .project-card:hover .project-icon{background:var(--accent);color:var(--accent-inv);transform:scale(1.08) rotate(-3deg);box-shadow:0 8px 20px rgba(0,0,0,.3);border-color:transparent}
     .project-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600;color:var(--text);margin-bottom:10px}
     .project-card p{font-size:.88rem;line-height:1.65;color:var(--text-sec);margin-bottom:20px;flex:1}
     .tech-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-    .tech-stack span{padding:4px 10px;background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;font-size:.73rem;font-weight:500;color:var(--text-sec);transition:all .25s}
+    .tech-stack span{padding:4px 10px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;font-size:.73rem;font-weight:500;color:var(--text-sec);transition:all .25s}
     .tech-stack span:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent);transform:translateY(-1px)}
     .project-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--accent);transition:gap .2s}
     .project-link:hover{gap:10px}
@@ -167,13 +134,11 @@
     .fg{margin-bottom:18px}
     .fg label{display:block;font-size:.85rem;font-weight:500;color:var(--text-sec);margin-bottom:6px}
     .fc{width:100%;padding:13px 16px;background:var(--input-bg);border:1.5px solid var(--border);border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;color:var(--text);outline:none;transition:border-color .3s,box-shadow .3s}
-    .fc:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(0,0,0,.04)}
-    [data-theme="dark"] .fc:focus{box-shadow:0 0 0 4px rgba(255,255,255,.06)}
+    .fc:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,255,255,.06)}
     textarea.fc{resize:vertical;min-height:120px}
-    .submit-btn{padding:14px 28px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s;display:flex;align-items:center;justify-content:center;gap:8px}
-    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.15)}
-    .success-msg{display:none;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);color:#059669;padding:12px;margin-bottom:18px;border-radius:12px;text-align:center;font-size:.9rem}
-    [data-theme="dark"] .success-msg{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.2);color:#34d399}
+    .submit-btn{padding:14px 28px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;align-items:center;justify-content:center;gap:8px}
+    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+    .success-msg{display:none;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:#34d399;padding:12px;margin-bottom:18px;border-radius:12px;text-align:center;font-size:.9rem}
     .contact-item{display:flex;align-items:center;gap:14px;margin-bottom:20px;transition:transform .2s}
     .contact-item:hover{transform:translateX(4px)}
     .contact-item-icon{width:44px;height:44px;border-radius:12px;background:var(--bg-alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
@@ -182,22 +147,22 @@
     .contact-item span{font-size:.9rem;color:var(--text-sec)}
     .social-links{display:flex;gap:12px;margin-top:30px}
     .social-links a{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:16px;background:var(--bg-card);transition:all .3s}
-    .social-links a:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.12)}
+    .social-links a:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
 
     /* Copyright */
     .copyright{text-align:center;padding:30px 20px 110px;font-size:.85rem;color:var(--text-muted)}
 
     /* Back to top */
-    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:var(--accent);color:var(--accent-inv);border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
+    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:var(--accent);color:var(--accent-inv);border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.3);font-size:15px}
     .btt.visible{opacity:1;transform:translateY(0)}
-    .btt:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .btt:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.5)}
 
     /* Dock */
-    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--dock-bg);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid var(--dock-border);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--dock-bg);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid var(--dock-border);box-shadow:0 8px 32px rgba(0,0,0,.3)}
     .dock a{color:var(--text-muted);font-size:18px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%}
     .dock a:hover{color:var(--accent);background:var(--dock-hover);transform:translateY(-8px) scale(1.15)}
     .dock a.active{color:var(--accent);background:var(--dock-hover)}
-    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:var(--accent);color:var(--accent-inv);padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:var(--accent);color:var(--accent-inv);padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s;box-shadow:0 4px 12px rgba(0,0,0,.3)}
     .dock a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 
     /* Reveal */
@@ -230,7 +195,6 @@
       .marquee{gap:40px}
       .skill-item img{height:36px}
       .hero-ring,.hero-ring2{display:none}
-      .theme-toggle{top:12px;right:12px;width:40px;height:40px;font-size:14px}
     }
     @media(max-width:480px){
       .hero-title{font-size:2rem!important}
@@ -248,7 +212,6 @@
 </head>
 <body>
   <div class="cursor-light" id="clight"></div>
-  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
 
   <!-- Intro -->
   <div class="intro" id="intro">
@@ -272,7 +235,7 @@
           <h1 class="hero-title rv d2">Hi, I'm Pranav<br/>Sagar</h1>
           <div class="hero-typed rv d3"><span id="typewriter"></span></div>
           <div class="cta-row rv d4">
-            <a class="cta-p snd-click" href="aboutme.html?skipIntro=1">About Me <i class="fas fa-arrow-right"></i></a>
+            <a class="cta-p snd-click" href="aboutme.html">About Me <i class="fas fa-arrow-right"></i></a>
             <a class="cta-s snd-click" href="#contact">Get In Touch <i class="fas fa-paper-plane"></i></a>
           </div>
         </div>
@@ -326,7 +289,7 @@
           <div class="social-links">
             <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank" class="snd-hover"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://github.com/psagar29" target="_blank" class="snd-hover"><i class="fab fa-github"></i></a>
-            <a href="https://twitter.com/pranavsagar29" target="_blank" class="snd-hover"><i class="fab fa-twitter"></i></a>
+            <a href="https://twitter.com/perhapspranav" target="_blank" class="snd-hover"><i class="fab fa-twitter"></i></a>
             <a href="https://www.instagram.com/perhapspranav" target="_blank" class="snd-hover"><i class="fab fa-instagram"></i></a>
           </div>
         </div>
@@ -338,10 +301,10 @@
 
   <div class="dock" id="dock">
     <a href="#hero" data-tip="Home" class="snd-hover"><i class="fas fa-house"></i></a>
-    <a href="aboutme.html?skipIntro=1" data-tip="About" class="snd-hover"><i class="fas fa-user"></i></a>
+    <a href="aboutme.html" data-tip="About" class="snd-hover"><i class="fas fa-user"></i></a>
     <a href="#skills" data-tip="Skills" class="snd-hover"><i class="fas fa-code"></i></a>
-    <a href="education.html?skipIntro=1" data-tip="Education" class="snd-hover"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html?skipIntro=1" data-tip="Experience" class="snd-hover"><i class="fas fa-briefcase"></i></a>
+    <a href="education.html" data-tip="Education" class="snd-hover"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html" data-tip="Experience" class="snd-hover"><i class="fas fa-briefcase"></i></a>
     <a href="#projects" data-tip="Projects" class="snd-hover"><i class="fas fa-folder-open"></i></a>
     <a href="#contact" data-tip="Contact" class="snd-hover"><i class="fas fa-envelope"></i></a>
   </div>
@@ -350,23 +313,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  /* ===== DARK MODE ===== */
-  const toggle = document.getElementById('theme-toggle');
-  const tIcon = toggle.querySelector('i');
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    tIcon.className = 'fas fa-sun';
-  }
-  toggle.onclick = () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    tIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    playClick();
-  };
-
-  /* ===== PREMIUM SOUND ENGINE (Web Audio API) ===== */
+  /* ===== METALLIC SOUND ENGINE (Web Audio API) ===== */
   let audioCtx;
   function getCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -375,65 +322,66 @@ document.addEventListener('DOMContentLoaded', () => {
   function playTick() {
     try {
       const ctx = getCtx();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.setValueAtTime(4800, ctx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(4200, ctx.currentTime + .06);
-      g.gain.setValueAtTime(.012, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .1);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(); o.stop(ctx.currentTime + .1);
-      const o2 = ctx.createOscillator();
-      const g2 = ctx.createGain();
-      o2.type = 'sine';
-      o2.frequency.setValueAtTime(7200, ctx.currentTime);
-      g2.gain.setValueAtTime(.005, ctx.currentTime);
-      g2.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .07);
-      o2.connect(g2); g2.connect(ctx.destination);
-      o2.start(); o2.stop(ctx.currentTime + .07);
+      const freqs = [1200, 1876, 2450, 3680];
+      const gns = [.015, .01, .008, .005];
+      const decs = [.12, .1, .08, .06];
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(f, ctx.currentTime);
+        g.gain.setValueAtTime(gns[i], ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + decs[i]);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + decs[i]);
+      });
     } catch {}
   }
   function playClick() {
     try {
       const ctx = getCtx();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'triangle';
-      o.frequency.setValueAtTime(520, ctx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(280, ctx.currentTime + .1);
-      g.gain.setValueAtTime(.035, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .13);
-      o.connect(g); g.connect(ctx.destination);
-      o.start(); o.stop(ctx.currentTime + .13);
-      const o2 = ctx.createOscillator();
-      const g2 = ctx.createGain();
-      o2.type = 'sine';
-      o2.frequency.setValueAtTime(1560, ctx.currentTime);
-      o2.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + .06);
-      g2.gain.setValueAtTime(.015, ctx.currentTime);
-      g2.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .08);
-      o2.connect(g2); g2.connect(ctx.destination);
-      o2.start(); o2.stop(ctx.currentTime + .08);
+      const freqs = [800, 1340, 2100, 3150, 4200];
+      const gns = [.025, .018, .012, .008, .005];
+      const decs = [.18, .15, .12, .1, .08];
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(f, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(f * .92, ctx.currentTime + decs[i]);
+        g.gain.setValueAtTime(gns[i], ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + decs[i]);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + decs[i]);
+      });
+      const buf = ctx.createBuffer(1, ctx.sampleRate * .015, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1);
+      const ns = ctx.createBufferSource(); ns.buffer = buf;
+      const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 4000;
+      const ng = ctx.createGain();
+      ng.gain.setValueAtTime(.02, ctx.currentTime);
+      ng.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .015);
+      ns.connect(hp); hp.connect(ng); ng.connect(ctx.destination);
+      ns.start(); ns.stop(ctx.currentTime + .015);
     } catch {}
   }
   function playWhoosh() {
     try {
       const ctx = getCtx();
-      const len = ctx.sampleRate * .18;
-      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1);
-      const ns = ctx.createBufferSource(); ns.buffer = buf;
-      const f = ctx.createBiquadFilter(); f.type = 'bandpass';
-      f.frequency.setValueAtTime(3500, ctx.currentTime);
-      f.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + .18);
-      f.Q.value = 1.2;
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(.012, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .18);
-      ns.connect(f); f.connect(g); g.connect(ctx.destination);
-      ns.start(); ns.stop(ctx.currentTime + .18);
+      const freqs = [600, 1100, 1800, 2800, 4000];
+      const gns = [.02, .015, .01, .007, .004];
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(f * 1.3, ctx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(f * .7, ctx.currentTime + .2);
+        g.gain.setValueAtTime(gns[i], ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .2);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(); o.stop(ctx.currentTime + .2);
+      });
     } catch {}
   }
 
@@ -510,22 +458,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== PROJECTS ===== */
   const projects = [
-    {icon:'fa-robot',title:'Omnyx',desc:'Local-first macOS AI operator that executes multi-step workflows across apps. Features accessibility tree + OCR perception engine and precision mouse/keyboard control.',tech:['Node.js','Swift','AI/ML','macOS'],link:null},
-    {icon:'fa-mobile-screen',title:'Omnyx iOS',desc:'Native iOS companion for the Omnyx AI platform. Full SwiftUI app bringing AI-powered workflow automation and chat-driven task execution to mobile.',tech:['Swift','SwiftUI','iOS','Xcode'],link:null},
-    {icon:'fa-brain',title:'DigitalYou',desc:'Production-grade AI assistant managing emails, calls, SMS, and social media. White-label multi-tenant architecture with vector memory system.',tech:['Next.js','Firebase','TypeScript','OpenAI'],link:null},
-    {icon:'fa-star',title:'Vedic AI Astrologer',desc:'Full-stack Vedic astrology platform powered by AI. Delivers personalized readings with pgvector memory for contextual insights.',tech:['Next.js','Supabase','OpenAI','React'],link:null},
-    {icon:'fa-comments',title:'Billionaire Mentors',desc:'Multi-mentor RAG chatbot powered by Supabase pgvector. 230 Paul Graham essays with ~10ms vector search using HNSW indexing.',tech:['Next.js','Supabase','Vercel AI','pgvector'],link:null},
-    {icon:'fa-music',title:'Spotify Clone',desc:'Full-featured Spotify clone for free music streaming. Complete playback controls, playlists, search, and a polished UI replicating the premium experience.',tech:['React','Node.js','Web Audio','REST API'],link:null},
-    {icon:'fa-globe',title:'Custom Web Browser',desc:'Advanced web browser built on top of Chromium for personal use. Custom UI, enhanced tab management, privacy features, and integrated developer tools.',tech:['Chromium','JavaScript','Electron','C++'],link:null},
-    {icon:'fa-spider',title:'CrawlBot',desc:'Intelligent web crawling system with FAISS vector database for semantic search. RAG-powered pipeline that scrapes, indexes, and enables natural language queries over crawled data.',tech:['Python','FAISS','RAG','Vector DB'],link:null},
-    {icon:'fa-dumbbell',title:'KimuntuPro AI',desc:'Personal fitness tracking web app with Firebase backend. Dashboard for tracking workouts, progress analytics, and fitness goals with real-time data sync.',tech:['HTML5','JavaScript','Firebase','Tailwind'],link:null},
-    {icon:'fa-video',title:'Nano Banana Web',desc:'YouTube Shorts automation platform with Veo3 video generation. Remotion-based rendering pipeline for scripting, animating, and publishing content at scale.',tech:['React','Remotion','Veo3','FFmpeg'],link:null},
-    {icon:'fa-laptop-code',title:'Portfolio Website',desc:'Clean premium portfolio with scroll animations, cursor light effects, sound design, dark mode, and responsive layout.',tech:['HTML5','CSS3','JavaScript','GSAP'],link:'https://github.com/psagar29/pranavsagar.us',lt:'View Source'}
+    {icon:'fa-robot',title:'Omnyx',desc:'Local-first macOS AI operator that executes multi-step workflows across apps. Features accessibility tree + OCR perception engine and precision mouse/keyboard control.',tech:['Node.js','Swift','AI/ML','macOS']},
+    {icon:'fa-envelope-open-text',title:'OmnyxMail',desc:'Production-grade AI assistant managing emails, calls, SMS, and social media. White-label multi-tenant architecture with vector memory system for contextual communication.',tech:['Next.js','Firebase','TypeScript','OpenAI']},
+    {icon:'fa-mobile-screen',title:'Omnyx iOS',desc:'Native iOS companion app for OmnyxMail. Full SwiftUI interface bringing AI-powered email and communication management to mobile.',tech:['Swift','SwiftUI','iOS','Xcode']},
+    {icon:'fa-star',title:'Vedic AI Astrologer',desc:'Full-stack Vedic astrology platform powered by AI. Delivers personalized readings with pgvector memory for contextual insights.',tech:['Next.js','Supabase','OpenAI','React']},
+    {icon:'fa-comments',title:'Billionaire Mentors',desc:'Multi-mentor RAG chatbot featuring every billionaire — Elon Musk, Paul Graham, Warren Buffett, and more. Powered by pgvector with ~10ms HNSW vector search.',tech:['Next.js','Supabase','Vercel AI','pgvector']},
+    {icon:'fa-music',title:'Spotify Clone',desc:'Full-featured Spotify clone for free music streaming. Complete playback controls, playlists, search, and a polished UI replicating the premium experience.',tech:['React','Node.js','Web Audio','REST API']},
+    {icon:'fa-globe',title:'Custom Web Browser',desc:'Advanced web browser built on top of Chromium for personal use. Custom UI, enhanced tab management, privacy features, and integrated developer tools.',tech:['Chromium','JavaScript','Electron','C++']},
+    {icon:'fa-spider',title:'CrawlBot',desc:'Intelligent web crawling system with FAISS vector database for semantic search. RAG-powered pipeline that scrapes, indexes, and enables natural language queries over crawled data.',tech:['Python','FAISS','RAG','Vector DB']},
+    {icon:'fa-graduation-cap',title:'KimuntuPro AI',desc:'Capstone project — multi-track AI platform for career, business, and legal assistance. CV building, job matching, business plan generation, contract review, and multi-language support.',tech:['React','Firebase','Tailwind','Vite']},
+    {icon:'fa-video',title:'Youtuber Automated Shorts Maker',desc:'YouTube Shorts automation platform with Veo3 video generation. Remotion-based rendering pipeline for scripting, animating, and publishing content at scale.',tech:['React','Remotion','Veo3','FFmpeg']},
+    {icon:'fa-dumbbell',title:'JackedPranav',desc:'Personal fitness tracking web app for monitoring workouts, tracking progress, and setting fitness goals with real-time data sync and analytics dashboard.',tech:['HTML5','JavaScript','Firebase','CSS3']},
+    {icon:'fa-store',title:'CRM',desc:'Full-stack Google Business Profile management platform with AI-powered optimization. Review management, photo galleries, marketing recommendations, and multi-location analytics.',tech:['Express','Prisma','PostgreSQL','React']},
+    {icon:'fa-ghost',title:'Gradium',desc:'Academic AI agent — autonomous platform that handles student workloads. Features AI chat, payment processing, multi-tier pricing, and intelligent task automation.',tech:['React','Firebase','Stripe','Vite']},
+    {icon:'fa-puzzle-piece',title:'UI Morph',desc:'Chrome extension for transforming any website\'s UI using natural language commands. Built-in themes, glassmorphism effects, and DOM element repositioning.',tech:['JavaScript','Chrome API v3','CSS','NLP']},
+    {icon:'fa-laptop-code',title:'Portfolio Website',desc:'Clean premium portfolio with scroll animations, cursor light effects, metallic sound design, and fully responsive dark layout.',tech:['HTML5','CSS3','JavaScript','GSAP']}
   ];
   const pg = document.getElementById('projects-grid');
   projects.forEach((p,i) => {
     const c = document.createElement('div'); c.className = 'project-card gc rv d'+(i%6+1);
-    c.innerHTML = `<div class="project-icon"><i class="fas ${p.icon}"></i></div><h3>${p.title}</h3><p>${p.desc}</p><div class="tech-stack">${p.tech.map(t=>`<span>${t}</span>`).join('')}</div>${p.link?`<a class="project-link" href="${p.link}" target="_blank">${p.lt} <i class="fas fa-arrow-right"></i></a>`:`<span class="project-link private"><i class="fas fa-lock"></i> Code available upon request</span>`}`;
+    c.innerHTML = `<div class="project-icon"><i class="fas ${p.icon}"></i></div><h3>${p.title}</h3><p>${p.desc}</p><div class="tech-stack">${p.tech.map(t=>`<span>${t}</span>`).join('')}</div><span class="project-link private"><i class="fas fa-lock"></i> Code available upon request</span>`;
     pg.appendChild(c);
   });
 
