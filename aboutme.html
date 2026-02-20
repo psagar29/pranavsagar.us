@@ -9,14 +9,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
-    :root{--bg:#fafafa;--bg-alt:#f0f0f2;--bg-card:#ffffff;--text:#0a0a0a;--text-sec:#444450;--text-muted:#8a8a9a;--accent:#111;--border:rgba(0,0,0,.07);--border-h:rgba(0,0,0,.14);--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--r:18px;--r-lg:24px}
+    :root{--bg:#fafafa;--bg-alt:#f0f0f2;--bg-card:#ffffff;--text:#0a0a0a;--text-sec:#444450;--text-muted:#8a8a9a;--accent:#111;--accent-inv:#fff;--border:rgba(0,0,0,.07);--border-h:rgba(0,0,0,.14);--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--dock-bg:rgba(255,255,255,.85);--dock-border:rgba(0,0,0,.06);--dock-hover:rgba(0,0,0,.05);--r:18px;--r-lg:24px}
+    [data-theme="dark"]{--bg:#0a0a0f;--bg-alt:#111118;--bg-card:#161622;--text:#eaeaf0;--text-sec:#a0a0b0;--text-muted:#555570;--accent:#fff;--accent-inv:#0a0a0f;--border:rgba(255,255,255,.08);--border-h:rgba(255,255,255,.15);--shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-lg:0 16px 48px rgba(0,0,0,.5);--dock-bg:rgba(15,15,25,.85);--dock-border:rgba(255,255,255,.06);--dock-hover:rgba(255,255,255,.08)}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
-    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
     ::selection{background:rgba(0,0,0,.08)}
+    [data-theme="dark"] ::selection{background:rgba(255,255,255,.12);color:#fff}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}::-webkit-scrollbar-track{background:transparent}
+    [data-theme="dark"] ::-webkit-scrollbar-thumb{background:#444}
     a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,119,198,.07) 0%,rgba(180,160,255,.04) 30%,rgba(255,220,150,.025) 50%,transparent 70%);mix-blend-mode:multiply;will-change:transform}
+    [data-theme="dark"] .cursor-light{mix-blend-mode:screen;background:radial-gradient(circle,rgba(100,100,220,.1) 0%,rgba(140,120,240,.05) 30%,transparent 60%)}
     @media(hover:none){.cursor-light{display:none!important}}
+
+    .theme-toggle{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1001;transition:all .3s;font-size:16px;box-shadow:var(--shadow-sm)}
+    .theme-toggle:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);color:var(--text);border-color:var(--border-h)}
 
     .gc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.4,0,.2,1)}
     .gc:hover{border-color:var(--border-h);box-shadow:var(--shadow-lg)}
@@ -29,16 +36,17 @@
     .carousel-slide.active{opacity:1;transform:scale(1);z-index:1}
     .carousel-slide img{width:100%;height:100%;object-fit:cover}
     .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,.06);color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:all .3s;font-size:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-    .carousel-btn:hover{background:#111;color:#fff;border-color:#111}
+    .carousel-btn:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent)}
+    [data-theme="dark"] .carousel-btn{background:rgba(20,20,35,.85);border-color:rgba(255,255,255,.1);color:#fff}
     .carousel-btn.prev{left:12px}.carousel-btn.next{right:12px}
     .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
-    .carousel-dot{width:8px;height:8px;border-radius:4px;background:#ccc;cursor:pointer;transition:all .3s;border:none;padding:0}
-    .carousel-dot.active{background:#111;width:24px}
+    .carousel-dot{width:8px;height:8px;border-radius:4px;background:var(--text-muted);cursor:pointer;transition:all .3s;border:none;padding:0;opacity:.5}
+    .carousel-dot.active{background:var(--accent);width:24px;opacity:1}
 
     .about-content{flex:1}
     .about-card{padding:36px}
     .section-label{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:10px}
-    .section-label::before{content:'';width:30px;height:2px;background:#111}
+    .section-label::before{content:'';width:30px;height:2px;background:var(--accent)}
     .section-title{font-family:'Space Grotesk',sans-serif;font-size:2.5rem;font-weight:700;color:var(--text);margin-bottom:24px}
     .about-text{font-size:.95rem;line-height:1.8;color:var(--text-sec)}
     .about-text p{margin-bottom:16px}
@@ -46,19 +54,19 @@
     .fun-facts-list{list-style:none;padding:0}
     .fun-facts-list li{padding:10px 0 10px 24px;position:relative;font-size:.9rem;color:var(--text-sec);line-height:1.6;border-bottom:1px solid var(--border)}
     .fun-facts-list li:last-child{border-bottom:none}
-    .fun-facts-list li::before{content:'';position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%;background:#111}
+    .fun-facts-list li::before{content:'';position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
     .social-links{display:flex;gap:12px;margin-top:28px}
-    .social-links a{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:16px;background:#fff;transition:all .3s}
-    .social-links a:hover{background:#111;color:#fff;border-color:#111;transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.12)}
+    .social-links a{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:16px;background:var(--bg-card);transition:all .3s}
+    .social-links a:hover{background:var(--accent);color:var(--accent-inv);border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.12)}
 
-    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--dock-bg);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid var(--dock-border);box-shadow:0 8px 32px rgba(0,0,0,.08)}
     .dock a{color:var(--text-muted);font-size:18px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%}
-    .dock a:hover{color:#111;background:rgba(0,0,0,.05);transform:translateY(-8px) scale(1.15)}
-    .dock a.active{color:#111;background:rgba(0,0,0,.05)}
-    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:#111;color:#fff;padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s}
+    .dock a:hover{color:var(--accent);background:var(--dock-hover);transform:translateY(-8px) scale(1.15)}
+    .dock a.active{color:var(--accent);background:var(--dock-hover)}
+    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:var(--accent);color:var(--accent-inv);padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s}
     .dock a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
     .copyright{text-align:center;padding:30px 20px 110px;font-size:.85rem;color:var(--text-muted)}
-    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:#111;color:#fff;border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
+    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:var(--accent);color:var(--accent-inv);border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
     .btt.visible{opacity:1;transform:translateY(0)}.btt:hover{transform:translateY(-3px)}
     .rv{opacity:0;transform:translateY(35px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
     .rv.active{opacity:1;transform:translateY(0)}
@@ -74,6 +82,7 @@
       .dock{padding:8px 12px;gap:2px;border-radius:24px;bottom:10px}
       .dock a{font-size:16px;width:38px;height:38px}.dock a:hover{transform:translateY(-4px) scale(1.1)}.dock a::after{display:none}
       .btt{bottom:80px;right:16px;width:40px;height:40px}.copyright{padding-bottom:90px}
+      .theme-toggle{top:12px;right:12px;width:40px;height:40px;font-size:14px}
     }
     @media(max-width:480px){#about{padding:70px 12px 50px}.about-card{padding:20px}.section-title{font-size:1.7rem}.about-text{font-size:.88rem;line-height:1.7}}
     @media(hover:none){.dock a{min-width:44px;min-height:44px}.social-links a{min-width:48px;min-height:48px}.carousel-btn{min-width:48px;min-height:48px}}
@@ -81,6 +90,7 @@
 </head>
 <body>
   <div class="cursor-light" id="clight"></div>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
   <main>
     <section id="about">
       <div class="about-container">
@@ -116,14 +126,14 @@
               <li>Traveled to over 10 different countries in the past few years</li>
               <li>Play multiple instruments — guitar, tabla, and drums</li>
               <li>Sci-fi enthusiast — Interstellar is an all-time favorite</li>
-              <li>Fluent in English, Hindi, and Punjabi</li>
+              <li>Fluent in English, Hindi, and Punjabi — currently learning Mandarin</li>
               <li>Fitness enthusiast who loves working out</li>
             </ul>
             <div class="social-links">
               <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
               <a href="https://instagram.com/perhapspranav" target="_blank"><i class="fab fa-instagram"></i></a>
               <a href="https://github.com/psagar29" target="_blank"><i class="fab fa-github"></i></a>
-              <a href="https://twitter.com/pranavsagar29" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://twitter.com/perhapspranav" target="_blank"><i class="fab fa-twitter"></i></a>
               <a href="https://www.facebook.com/perhapspranav" target="_blank"><i class="fab fa-facebook-f"></i></a>
             </div>
           </div>
@@ -144,10 +154,26 @@
   <button class="btt" id="btt"><i class="fas fa-arrow-up"></i></button>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
+  /* Dark mode */
+  const toggle=document.getElementById('theme-toggle');const tIcon=toggle.querySelector('i');
+  const saved=localStorage.getItem('theme');
+  if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');tIcon.className='fas fa-sun'}
+  toggle.onclick=()=>{const isDark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',isDark?'light':'dark');tIcon.className=isDark?'fas fa-moon':'fas fa-sun';localStorage.setItem('theme',isDark?'light':'dark');playClick()};
+
+  /* Premium sound */
+  let ac;function getCtx(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
+  function tick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(4800,c.currentTime);o.frequency.exponentialRampToValueAtTime(4200,c.currentTime+.06);g.gain.setValueAtTime(.012,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.1);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.1);const o2=c.createOscillator();const g2=c.createGain();o2.type='sine';o2.frequency.setValueAtTime(7200,c.currentTime);g2.gain.setValueAtTime(.005,c.currentTime);g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.07);o2.connect(g2);g2.connect(c.destination);o2.start();o2.stop(c.currentTime+.07)}catch{}}
+  function playClick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='triangle';o.frequency.setValueAtTime(520,c.currentTime);o.frequency.exponentialRampToValueAtTime(280,c.currentTime+.1);g.gain.setValueAtTime(.035,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.13);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.13);const o2=c.createOscillator();const g2=c.createGain();o2.type='sine';o2.frequency.setValueAtTime(1560,c.currentTime);o2.frequency.exponentialRampToValueAtTime(900,c.currentTime+.06);g2.gain.setValueAtTime(.015,c.currentTime);g2.gain.exponentialRampToValueAtTime(.001,c.currentTime+.08);o2.connect(g2);g2.connect(c.destination);o2.start();o2.stop(c.currentTime+.08)}catch{}}
+
+  /* Cursor light */
   const cl=document.getElementById('clight');const isTouch='ontouchstart'in window||navigator.maxTouchPoints>0;
   if(!isTouch&&cl){let cx=0,cy=0,lx=0,ly=0;document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY});(function a(){lx+=(cx-lx)*.08;ly+=(cy-ly)*.08;cl.style.left=lx+'px';cl.style.top=ly+'px';requestAnimationFrame(a)})()}else if(cl)cl.style.display='none';
+
+  /* Scroll reveal */
   const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');obs.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
   document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  /* Carousel */
   const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');
   let cur=0,timer;
   function go(i){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=(i+slides.length)%slides.length;slides[cur].classList.add('active');dots[cur].classList.add('active');clearInterval(timer);timer=setInterval(()=>go(cur+1),4500)}
@@ -156,10 +182,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   let tx=0;const cc=document.getElementById('carousel');
   cc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
   cc.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50)d>0?go(cur+1):go(cur-1)},{passive:true});
+
+  /* Back to top */
   const btt=document.getElementById('btt');window.addEventListener('scroll',()=>btt.classList.toggle('visible',scrollY>200),{passive:true});btt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
-  let ac;function getCtx(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
-  function tick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(3200,c.currentTime);o.frequency.exponentialRampToValueAtTime(1800,c.currentTime+.04);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.06);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.06)}catch{}}
+
+  /* Hover sounds */
   document.querySelectorAll('.gc,.dock a,.social-links a,.carousel-btn').forEach(el=>el.addEventListener('mouseenter',tick));
+  document.querySelectorAll('.dock a,.carousel-btn').forEach(el=>el.addEventListener('click',playClick));
 });
 </script>
 </body>
