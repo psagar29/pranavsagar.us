@@ -83,6 +83,37 @@
     @keyframes ringPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.03)}}
     .hero-photo{width:260px;height:260px;border-radius:50%;overflow:hidden;position:relative;border:4px solid var(--bg-card);box-shadow:0 20px 60px rgba(0,0,0,.4)}
     .hero-photo img{width:100%;height:140%;object-fit:cover}
+
+    /* Orbital Animation System */
+    .orbit-system{position:absolute;inset:-55px;pointer-events:none;transform-style:preserve-3d}
+    .orbit-ring{position:absolute;inset:0;border-radius:50%;border:1px solid transparent;transform-style:preserve-3d}
+    .orbit-ring-1{border-color:rgba(120,100,255,.14);animation:ospin1 18s linear infinite}
+    .orbit-ring-2{border-color:rgba(80,180,255,.11);animation:ospin2 26s linear infinite}
+    .orbit-ring-3{border-color:rgba(180,100,255,.09);animation:ospin3 33s linear infinite}
+    @keyframes ospin1{from{transform:rotateX(70deg) rotateZ(0deg)}to{transform:rotateX(70deg) rotateZ(360deg)}}
+    @keyframes ospin2{from{transform:rotateX(55deg) rotateZ(60deg)}to{transform:rotateX(55deg) rotateZ(-300deg)}}
+    @keyframes ospin3{from{transform:rotateX(80deg) rotateZ(130deg)}to{transform:rotateX(80deg) rotateZ(490deg)}}
+    .orbit-node{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff}
+    .on1{top:-3px;left:50%;box-shadow:0 0 8px 2px rgba(120,100,255,.8),0 0 24px rgba(120,100,255,.3)}
+    .on2{bottom:-3px;right:25%;box-shadow:0 0 8px 2px rgba(80,180,255,.8),0 0 24px rgba(80,180,255,.3)}
+    .on3{top:50%;right:-3px;box-shadow:0 0 8px 2px rgba(180,100,255,.8),0 0 24px rgba(180,100,255,.3)}
+    .on4{top:25%;left:-3px;box-shadow:0 0 6px 2px rgba(120,100,255,.6),0 0 16px rgba(120,100,255,.2);width:4px;height:4px}
+    .on5{bottom:25%;right:-3px;box-shadow:0 0 6px 2px rgba(80,180,255,.6),0 0 16px rgba(80,180,255,.2);width:4px;height:4px}
+    .on6{bottom:-3px;left:30%;box-shadow:0 0 6px 2px rgba(180,100,255,.6),0 0 16px rgba(180,100,255,.2);width:4px;height:4px}
+    .code-sym{position:absolute;font-family:'Space Grotesk',monospace;font-weight:700;color:rgba(255,255,255,.18);pointer-events:none;text-shadow:0 0 14px rgba(120,100,255,.5);z-index:3}
+    .cs1{top:-25px;right:-35px;font-size:.72rem;animation:cfloat1 6s ease-in-out infinite}
+    .cs2{bottom:-20px;left:-30px;font-size:.65rem;animation:cfloat2 7.5s ease-in-out infinite}
+    .cs3{top:35%;right:-50px;font-size:.68rem;animation:cfloat1 8s ease-in-out infinite 2s}
+    .cs4{top:15%;left:-45px;font-size:.58rem;animation:cfloat2 5.5s ease-in-out infinite .5s}
+    .cs5{bottom:15%;right:-40px;font-size:.62rem;animation:cfloat1 9s ease-in-out infinite 3s}
+    .cs6{top:-15px;left:15%;font-size:.55rem;animation:cfloat2 7s ease-in-out infinite 1.5s}
+    .cs7{bottom:40%;left:-38px;font-size:.6rem;animation:cfloat1 6.5s ease-in-out infinite 1s}
+    .cs8{top:60%;right:-42px;font-size:.55rem;animation:cfloat2 8.5s ease-in-out infinite 2.5s}
+    @keyframes cfloat1{0%,100%{transform:translateY(0) rotate(0deg);opacity:.12}50%{transform:translateY(-14px) rotate(6deg);opacity:.45}}
+    @keyframes cfloat2{0%,100%{transform:translateY(0) rotate(0deg);opacity:.1}50%{transform:translateY(12px) rotate(-5deg);opacity:.4}}
+    .photo-aura{position:absolute;inset:-45px;border-radius:50%;background:radial-gradient(circle,rgba(120,100,255,.13) 0%,rgba(80,60,220,.06) 40%,transparent 70%);animation:auraGlow 4s ease-in-out infinite;z-index:-1;pointer-events:none}
+    @keyframes auraGlow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+
     .hero-text{flex:1}
     .hero-label{font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:var(--text-muted)}
     .hero-label .line{width:30px;height:2px;background:var(--accent);display:inline-block}
@@ -195,6 +226,9 @@
       .marquee{gap:40px}
       .skill-item img{height:36px}
       .hero-ring,.hero-ring2{display:none}
+      .orbit-system{inset:-25px}
+      .code-sym{display:none}
+      .photo-aura{inset:-20px}
     }
     @media(max-width:480px){
       .hero-title{font-size:2rem!important}
@@ -226,6 +260,20 @@
     <section id="hero">
       <div class="hero-wrap">
         <div class="hero-photo-wrap rv">
+          <div class="photo-aura"></div>
+          <div class="orbit-system">
+            <div class="orbit-ring orbit-ring-1"><span class="orbit-node on1"></span><span class="orbit-node on4"></span></div>
+            <div class="orbit-ring orbit-ring-2"><span class="orbit-node on2"></span><span class="orbit-node on5"></span></div>
+            <div class="orbit-ring orbit-ring-3"><span class="orbit-node on3"></span><span class="orbit-node on6"></span></div>
+          </div>
+          <span class="code-sym cs1">{ }</span>
+          <span class="code-sym cs2">&lt;/&gt;</span>
+          <span class="code-sym cs3">&lambda;</span>
+          <span class="code-sym cs4">01</span>
+          <span class="code-sym cs5">&infin;</span>
+          <span class="code-sym cs6">//</span>
+          <span class="code-sym cs7">&Sigma;</span>
+          <span class="code-sym cs8">f(x)</span>
           <div class="hero-ring"></div>
           <div class="hero-ring2"></div>
           <div class="hero-photo"><img src="IMG_2433.png" alt="Pranav Sagar"/></div>
