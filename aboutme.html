@@ -2,518 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5"/>
   <title>About Me | Pranav Sagar</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
   <style>
-    :root {
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --primary-dark: #4f46e5;
-      --accent: #8b5cf6;
-      --accent-light: #a78bfa;
-      --bg: #ffffff;
-      --bg-soft: #f8fafc;
-      --bg-glass: rgba(255,255,255,0.45);
-      --bg-glass-strong: rgba(255,255,255,0.65);
-      --bg-glass-card: rgba(255,255,255,0.5);
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-light: #94a3b8;
-      --border: rgba(0,0,0,0.06);
-      --border-glass: rgba(255,255,255,0.6);
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
-      --shadow-xl: 0 25px 60px rgba(0,0,0,0.12);
-      --shadow-glass: 0 8px 32px rgba(31,38,135,0.08);
-      --radius: 20px;
-      --radius-lg: 28px;
-    }
+    :root{--bg:#fafafa;--bg-alt:#f0f0f2;--bg-card:#ffffff;--text:#0a0a0a;--text-sec:#444450;--text-muted:#8a8a9a;--accent:#111;--border:rgba(0,0,0,.07);--border-h:rgba(0,0,0,.14);--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--r:18px;--r-lg:24px}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(0,0,0,.08)}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}::-webkit-scrollbar-track{background:transparent}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,119,198,.07) 0%,rgba(180,160,255,.04) 30%,rgba(255,220,150,.025) 50%,transparent 70%);mix-blend-mode:multiply;will-change:transform}
+    @media(hover:none){.cursor-light{display:none!important}}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    .gc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.4,0,.2,1)}
+    .gc:hover{border-color:var(--border-h);box-shadow:var(--shadow-lg)}
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
+    #about{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:100px 24px 80px;max-width:1200px;margin:0 auto}
+    .about-container{display:flex;gap:60px;align-items:flex-start;width:100%}
+    .carousel-wrapper{flex-shrink:0;width:400px}
+    .carousel-container{width:100%;aspect-ratio:3/4;border-radius:var(--r-lg);overflow:hidden;position:relative;background:var(--bg-alt);border:1px solid var(--border)}
+    .carousel-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);transform:scale(1.02)}
+    .carousel-slide.active{opacity:1;transform:scale(1);z-index:1}
+    .carousel-slide img{width:100%;height:100%;object-fit:cover}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,.06);color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:all .3s;font-size:.85rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .carousel-btn:hover{background:#111;color:#fff;border-color:#111}
+    .carousel-btn.prev{left:12px}.carousel-btn.next{right:12px}
+    .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+    .carousel-dot{width:8px;height:8px;border-radius:4px;background:#ccc;cursor:pointer;transition:all .3s;border:none;padding:0}
+    .carousel-dot.active{background:#111;width:24px}
 
-    /* Grain texture */
-    body::after {
-      content: ""; position: fixed; inset: 0;
-      pointer-events: none; z-index: 9998; opacity: 0.012;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
+    .about-content{flex:1}
+    .about-card{padding:36px}
+    .section-label{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+    .section-label::before{content:'';width:30px;height:2px;background:#111}
+    .section-title{font-family:'Space Grotesk',sans-serif;font-size:2.5rem;font-weight:700;color:var(--text);margin-bottom:24px}
+    .about-text{font-size:.95rem;line-height:1.8;color:var(--text-sec)}
+    .about-text p{margin-bottom:16px}
+    .fun-facts-title{font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:var(--text);margin:28px 0 14px}
+    .fun-facts-list{list-style:none;padding:0}
+    .fun-facts-list li{padding:10px 0 10px 24px;position:relative;font-size:.9rem;color:var(--text-sec);line-height:1.6;border-bottom:1px solid var(--border)}
+    .fun-facts-list li:last-child{border-bottom:none}
+    .fun-facts-list li::before{content:'';position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:50%;background:#111}
+    .social-links{display:flex;gap:12px;margin-top:28px}
+    .social-links a{width:44px;height:44px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:16px;background:#fff;transition:all .3s}
+    .social-links a:hover{background:#111;color:#fff;border-color:#111;transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.12)}
 
-    /* Gradient mesh background */
-    .bg-mesh {
-      position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.08), transparent),
-        radial-gradient(ellipse 60% 80% at 90% 80%, rgba(139,92,246,0.06), transparent),
-        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(236,72,153,0.03), transparent);
-    }
+    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .dock a{color:var(--text-muted);font-size:18px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%}
+    .dock a:hover{color:#111;background:rgba(0,0,0,.05);transform:translateY(-8px) scale(1.15)}
+    .dock a.active{color:#111;background:rgba(0,0,0,.05)}
+    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:#111;color:#fff;padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s}
+    .dock a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+    .copyright{text-align:center;padding:30px 20px 110px;font-size:.85rem;color:var(--text-muted)}
+    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:#111;color:#fff;border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
+    .btt.visible{opacity:1;transform:translateY(0)}.btt:hover{transform:translateY(-3px)}
+    .rv{opacity:0;transform:translateY(35px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+    .rv.active{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}
 
-    /* Floating orbs */
-    .orb { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: -1; }
-    .orb-1 {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
-      top: -250px; right: -250px;
-      animation: oF1 22s ease-in-out infinite;
+    @media(max-width:768px){
+      #about{padding:80px 16px 60px}
+      .about-container{flex-direction:column;gap:32px}
+      .carousel-wrapper{width:100%}
+      .carousel-container{border-radius:var(--r)}
+      .carousel-btn{width:44px;height:44px;font-size:.9rem}
+      .about-card{padding:24px}.section-title{font-size:2rem}
+      .dock{padding:8px 12px;gap:2px;border-radius:24px;bottom:10px}
+      .dock a{font-size:16px;width:38px;height:38px}.dock a:hover{transform:translateY(-4px) scale(1.1)}.dock a::after{display:none}
+      .btt{bottom:80px;right:16px;width:40px;height:40px}.copyright{padding-bottom:90px}
     }
-    .orb-2 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
-      bottom: -150px; left: -200px;
-      animation: oF2 28s ease-in-out infinite;
-    }
-    .orb-3 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(236,72,153,0.06), transparent 70%);
-      top: 40%; left: 40%;
-      animation: oF3 20s ease-in-out infinite;
-    }
-    @keyframes oF1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-100px,80px) scale(1.1)} 66%{transform:translate(50px,-50px) scale(0.95)} }
-    @keyframes oF2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(80px,-100px) scale(1.05)} 66%{transform:translate(-60px,60px) scale(0.9)} }
-    @keyframes oF3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-35%,-65%) scale(1.2)} }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 3px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-
-    /* Custom cursor - hidden on touch */
-    .cursor {
-      position: fixed; z-index: 10000;
-      width: 20px; height: 20px;
-      border: 2px solid var(--primary);
-      border-radius: 50%; pointer-events: none;
-      transform: translate(-50%,-50%);
-      transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
-      mix-blend-mode: difference;
-    }
-    .cursor.hover { width: 50px; height: 50px; background: rgba(99,102,241,0.1); border-color: var(--accent); }
-    @media (hover: none) { .cursor { display: none !important; } }
-
-    /* Loading bar */
-    .loading-bar {
-      position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent), #ec4899);
-      z-index: 10001;
-      animation: loadBar 1.2s ease-out forwards;
-    }
-    @keyframes loadBar { 0%{width:0} 60%{width:70%} 100%{width:100%;opacity:0} }
-
-    /* Glass classes */
-    .glass {
-      background: var(--bg-glass-card);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--border-glass);
-      box-shadow: var(--shadow-glass), inset 0 1px 0 rgba(255,255,255,0.6);
-      border-radius: var(--radius);
-    }
-    .glass-strong {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
-      border-radius: var(--radius);
-    }
-
-    /* About Section */
-    #about {
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 100px 40px 80px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .about-container {
-      display: flex;
-      gap: 60px;
-      align-items: flex-start;
-      width: 100%;
-    }
-
-    /* Image Carousel */
-    .carousel-wrapper {
-      flex-shrink: 0;
-      width: 400px;
-      position: relative;
-    }
-    .carousel-container {
-      width: 100%;
-      aspect-ratio: 3/4;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      position: relative;
-      background: var(--bg-soft);
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
-    }
-    .carousel-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: scale(1.02);
-    }
-    .carousel-slide.active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 1;
-    }
-    .carousel-slide img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-
-    /* Carousel Controls */
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border: 1px solid rgba(255,255,255,0.7);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 5;
-      transition: all 0.3s;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-    .carousel-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
-    }
-    .carousel-btn.prev { left: 12px; }
-    .carousel-btn.next { right: 12px; }
-
-    /* Carousel Dots */
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .carousel-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--text-light);
-      opacity: 0.4;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: none;
-    }
-    .carousel-dot.active {
-      opacity: 1;
-      background: var(--primary);
-      width: 24px;
-      border-radius: 4px;
-    }
-
-    /* About Content */
-    .about-content { flex: 1; }
-    .about-card {
-      padding: 36px;
-    }
-    .section-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--primary); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::before {
-      content: ''; width: 30px; height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-    }
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.8rem; font-weight: 700;
-      color: var(--text); margin-bottom: 24px;
-    }
-    .about-text {
-      font-size: 1rem; line-height: 1.8;
-      color: var(--text-secondary);
-    }
-    .about-text p { margin-bottom: 18px; }
-
-    .fun-facts-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem; font-weight: 600;
-      color: var(--text); margin: 30px 0 16px;
-    }
-    .fun-facts-list {
-      list-style: none; padding: 0;
-    }
-    .fun-facts-list li {
-      padding: 10px 0 10px 28px;
-      position: relative;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      border-bottom: 1px solid var(--border);
-    }
-    .fun-facts-list li:last-child { border-bottom: none; }
-    .fun-facts-list li::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 16px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-    }
-
-    /* Social Links */
-    .social-links {
-      display: flex; gap: 12px; margin-top: 30px;
-    }
-    .social-links a {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(0,0,0,0.06);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: all 0.3s;
-      background: rgba(255,255,255,0.5);
-    }
-    .social-links a:hover {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff; border-color: transparent;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(99,102,241,0.3);
-    }
-
-    /* Mac Dock */
-    .mac-dock {
-      position: fixed; bottom: 16px;
-      left: 50%; transform: translateX(-50%);
-      display: flex;
-      background: rgba(255,255,255,0.65);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border-radius: 22px;
-      padding: 10px 20px; gap: 6px;
-      z-index: 1000;
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.1), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.03);
-    }
-    .mac-dock a {
-      color: var(--text-secondary); font-size: 20px;
-      position: relative;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      text-decoration: none;
-      display: flex; align-items: center; justify-content: center;
-      width: 42px; height: 42px; border-radius: 12px;
-    }
-    .mac-dock a:hover {
-      color: var(--primary);
-      background: rgba(99,102,241,0.1);
-      transform: translateY(-8px) scale(1.2);
-    }
-    .mac-dock a.active { color: var(--primary); background: rgba(99,102,241,0.1); }
-    .mac-dock a::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: 52px; left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: var(--text); color: #fff;
-      padding: 6px 12px; border-radius: 8px;
-      opacity: 0; pointer-events: none; white-space: nowrap;
-      font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .mac-dock a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* Copyright */
-    .copyright {
-      text-align: center;
-      padding: 30px 20px 110px;
-      font-size: 0.85rem;
-      color: var(--text-light);
-    }
-
-    /* Back to Top */
-    .back-to-top {
-      position: fixed; bottom: 90px; right: 24px;
-      width: 44px; height: 44px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff; border-radius: 14px;
-      display: flex; justify-content: center; align-items: center;
-      cursor: pointer; opacity: 0; transform: translateY(10px);
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 999;
-      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
-    }
-    .back-to-top.visible { opacity: 1; transform: translateY(0); }
-    .back-to-top:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
-
-    /* Reveal */
-    .reveal { opacity: 0; transform: translateY(40px); }
-    .reveal.active {
-      opacity: 1; transform: translateY(0);
-      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
-    }
-    .s1{transition-delay:.1s!important} .s2{transition-delay:.2s!important}
-    .s3{transition-delay:.3s!important} .s4{transition-delay:.4s!important}
-
-    /* ========= MOBILE ========= */
-    @media (max-width: 768px) {
-      #about {
-        padding: 80px 16px 60px;
-      }
-      .about-container {
-        flex-direction: column;
-        gap: 32px;
-      }
-      .carousel-wrapper {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-      }
-      .carousel-container {
-        border-radius: var(--radius);
-      }
-      .carousel-btn {
-        width: 48px; height: 48px;
-        font-size: 1rem;
-      }
-      .carousel-btn.prev { left: 8px; }
-      .carousel-btn.next { right: 8px; }
-      .carousel-dot {
-        width: 10px; height: 10px;
-      }
-      .carousel-dot.active {
-        width: 28px;
-      }
-      .about-card {
-        padding: 24px;
-      }
-      .section-title {
-        font-size: 2rem;
-      }
-      .section-label {
-        font-size: 0.75rem;
-      }
-      .about-text {
-        font-size: 0.95rem;
-      }
-      .fun-facts-list li {
-        font-size: 0.9rem;
-      }
-      .social-links a {
-        width: 42px; height: 42px;
-      }
-      .mac-dock {
-        padding: 8px 12px; gap: 2px;
-        border-radius: 18px;
-        bottom: 10px;
-      }
-      .mac-dock a {
-        font-size: 17px;
-        width: 38px; height: 38px;
-        border-radius: 10px;
-      }
-      .mac-dock a:hover { transform: translateY(-4px) scale(1.1); }
-      .mac-dock a::after { display: none; }
-      .back-to-top {
-        bottom: 80px; right: 16px;
-        width: 40px; height: 40px;
-        border-radius: 12px;
-      }
-      .copyright { padding-bottom: 90px; }
-      .orb-1 { width: 350px; height: 350px; top: -100px; right: -100px; }
-      .orb-2 { width: 300px; height: 300px; }
-      .orb-3 { display: none; }
-    }
-    @media (max-width: 480px) {
-      #about {
-        padding: 70px 12px 50px;
-      }
-      .carousel-wrapper {
-        max-width: 100%;
-      }
-      .about-card {
-        padding: 20px;
-      }
-      .section-title {
-        font-size: 1.7rem;
-      }
-      .about-text {
-        font-size: 0.9rem;
-        line-height: 1.7;
-      }
-      .fun-facts-list li {
-        font-size: 0.85rem;
-        padding: 8px 0 8px 24px;
-      }
-      .fun-facts-title {
-        font-size: 1.1rem;
-      }
-    }
+    @media(max-width:480px){#about{padding:70px 12px 50px}.about-card{padding:20px}.section-title{font-size:1.7rem}.about-text{font-size:.88rem;line-height:1.7}}
+    @media(hover:none){.dock a{min-width:44px;min-height:44px}.social-links a{min-width:48px;min-height:48px}.carousel-btn{min-width:48px;min-height:48px}}
   </style>
 </head>
 <body>
-  <div class="bg-mesh"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="loading-bar"></div>
-  <div class="cursor" id="cursor"></div>
-
+  <div class="cursor-light" id="clight"></div>
   <main>
     <section id="about">
       <div class="about-container">
-        <!-- Image Carousel -->
-        <div class="carousel-wrapper reveal">
+        <div class="carousel-wrapper rv">
           <div class="carousel-container" id="carousel">
             <div class="carousel-slide active"><img src="photo1.png" alt="Photo 1"/></div>
             <div class="carousel-slide"><img src="photo2.jpg" alt="Photo 2"/></div>
             <div class="carousel-slide"><img src="photo3.jpg" alt="Photo 3"/></div>
             <div class="carousel-slide"><img src="photo4.jpg" alt="Photo 4"/></div>
             <div class="carousel-slide"><img src="photo5.jpg" alt="Photo 5"/></div>
-            <button class="carousel-btn prev" id="carousel-prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="carousel-btn next" id="carousel-next"><i class="fas fa-chevron-right"></i></button>
+            <button class="carousel-btn prev" id="cprev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" id="cnext"><i class="fas fa-chevron-right"></i></button>
           </div>
-          <div class="carousel-dots" id="carousel-dots">
-            <button class="carousel-dot active" data-index="0"></button>
-            <button class="carousel-dot" data-index="1"></button>
-            <button class="carousel-dot" data-index="2"></button>
-            <button class="carousel-dot" data-index="3"></button>
-            <button class="carousel-dot" data-index="4"></button>
+          <div class="carousel-dots" id="cdots">
+            <button class="carousel-dot active" data-i="0"></button>
+            <button class="carousel-dot" data-i="1"></button>
+            <button class="carousel-dot" data-i="2"></button>
+            <button class="carousel-dot" data-i="3"></button>
+            <button class="carousel-dot" data-i="4"></button>
           </div>
         </div>
-
-        <!-- About Content -->
         <div class="about-content">
-          <div class="about-card glass-strong reveal s1">
+          <div class="about-card gc rv d1">
             <div class="section-label">Get To Know Me</div>
             <h2 class="section-title">About Me</h2>
             <div class="about-text">
@@ -521,7 +111,6 @@
               <p>With experience in both academic and professional settings, I've built production-grade AI platforms, published open-source libraries, and developed desktop applications. I enjoy tackling complex problems and turning ambitious ideas into functional, elegant solutions.</p>
               <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.</p>
             </div>
-
             <h3 class="fun-facts-title">Fun Facts</h3>
             <ul class="fun-facts-list">
               <li>Traveled to over 10 different countries in the past few years</li>
@@ -530,133 +119,48 @@
               <li>Fluent in English, Hindi, and Punjabi</li>
               <li>Fitness enthusiast who loves working out</li>
             </ul>
-
             <div class="social-links">
-              <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-              <a href="https://instagram.com/perhapspranav" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://github.com/psagar29" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-              <a href="https://twitter.com/pranavsagar29" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-              <a href="https://www.facebook.com/perhapspranav" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/perhapspranav" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://github.com/psagar29" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://twitter.com/pranavsagar29" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.facebook.com/perhapspranav" target="_blank"><i class="fab fa-facebook-f"></i></a>
             </div>
           </div>
         </div>
       </div>
     </section>
   </main>
-
   <div class="copyright">&copy; 2026 Pranav Sagar. All Rights Reserved.</div>
-
-  <div class="mac-dock" id="dock">
-    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-house"></i></a>
-    <a href="#" data-tooltip="About" class="active"><i class="fas fa-user"></i></a>
-    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-code"></i></a>
-    <a href="education.html?skipIntro=1" data-tooltip="Education"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html?skipIntro=1" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
-    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-folder-open"></i></a>
-    <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
+  <div class="dock">
+    <a href="index.html?skipIntro=1#hero" data-tip="Home"><i class="fas fa-house"></i></a>
+    <a href="#" data-tip="About" class="active"><i class="fas fa-user"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tip="Skills"><i class="fas fa-code"></i></a>
+    <a href="education.html?skipIntro=1" data-tip="Education"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html?skipIntro=1" data-tip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tip="Projects"><i class="fas fa-folder-open"></i></a>
+    <a href="index.html?skipIntro=1#contact" data-tip="Contact"><i class="fas fa-envelope"></i></a>
   </div>
-
-  <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></div>
-
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  /* ===== CURSOR (desktop only, smooth with rAF) ===== */
-  const cursor = document.getElementById('cursor');
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  if (!isTouchDevice && cursor) {
-    let cx = 0, cy = 0, px = 0, py = 0;
-    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-    (function animCursor() {
-      px += (cx - px) * 0.12;
-      py += (cy - py) * 0.12;
-      cursor.style.left = px + 'px';
-      cursor.style.top = py + 'px';
-      requestAnimationFrame(animCursor);
-    })();
-    document.querySelectorAll('a, button, .about-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-  }
-
-  /* ===== SCROLL REVEAL ===== */
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('active');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  /* ===== IMAGE CAROUSEL ===== */
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.carousel-dot');
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-  let currentSlide = 0;
-  let autoplayTimer;
-
-  function goToSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    dots[currentSlide].classList.remove('active');
-    currentSlide = (index + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
-    resetAutoplay();
-  }
-
-  prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-  nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
-  });
-
-  function resetAutoplay() {
-    clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(() => goToSlide(currentSlide + 1), 4000);
-  }
-  resetAutoplay();
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  const carousel = document.getElementById('carousel');
-  carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1);
-    }
-  }, { passive: true });
-
-  /* ===== SUBTLE PARALLAX ON ORBS (via scroll) ===== */
-  let ticking = false;
-  const orb1 = document.querySelector('.orb-1');
-  const orb2 = document.querySelector('.orb-2');
-  const orb3 = document.querySelector('.orb-3');
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        if (orb1) orb1.style.transform = `translateY(${scrollY * -0.08}px)`;
-        if (orb2) orb2.style.transform = `translateY(${scrollY * 0.12}px)`;
-        if (orb3) orb3.style.transform = `translate(-50%, -50%) translateY(${scrollY * -0.05}px)`;
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-
-  /* ===== BACK TO TOP ===== */
-  const backToTop = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    backToTop.classList.toggle('visible', window.scrollY > 200);
-  }, { passive: true });
-  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  <button class="btt" id="btt"><i class="fas fa-arrow-up"></i></button>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const cl=document.getElementById('clight');const isTouch='ontouchstart'in window||navigator.maxTouchPoints>0;
+  if(!isTouch&&cl){let cx=0,cy=0,lx=0,ly=0;document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY});(function a(){lx+=(cx-lx)*.08;ly+=(cy-ly)*.08;cl.style.left=lx+'px';cl.style.top=ly+'px';requestAnimationFrame(a)})()}else if(cl)cl.style.display='none';
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');obs.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  const slides=document.querySelectorAll('.carousel-slide');const dots=document.querySelectorAll('.carousel-dot');
+  let cur=0,timer;
+  function go(i){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=(i+slides.length)%slides.length;slides[cur].classList.add('active');dots[cur].classList.add('active');clearInterval(timer);timer=setInterval(()=>go(cur+1),4500)}
+  document.getElementById('cprev').onclick=()=>go(cur-1);document.getElementById('cnext').onclick=()=>go(cur+1);
+  dots.forEach(d=>d.onclick=()=>go(+d.dataset.i));timer=setInterval(()=>go(cur+1),4500);
+  let tx=0;const cc=document.getElementById('carousel');
+  cc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  cc.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50)d>0?go(cur+1):go(cur-1)},{passive:true});
+  const btt=document.getElementById('btt');window.addEventListener('scroll',()=>btt.classList.toggle('visible',scrollY>200),{passive:true});btt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+  let ac;function getCtx(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
+  function tick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(3200,c.currentTime);o.frequency.exponentialRampToValueAtTime(1800,c.currentTime+.04);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.06);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.06)}catch{}}
+  document.querySelectorAll('.gc,.dock a,.social-links a,.carousel-btn').forEach(el=>el.addEventListener('mouseenter',tick));
 });
-  </script>
+</script>
 </body>
 </html>

@@ -2,405 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5"/>
   <title>Education | Pranav Sagar</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
   <style>
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --accent: #8b5cf6;
-      --bg: #ffffff;
-      --bg-soft: #f8fafc;
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-light: #94a3b8;
-      --border: rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
-      --shadow-xl: 0 20px 60px rgba(0,0,0,0.1);
-      --shadow-glass: 0 8px 32px rgba(31,38,135,0.08);
-      --radius: 20px;
-      --radius-lg: 24px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text); background: var(--bg);
-      min-height: 100vh; overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    body::after {
-      content: ""; position: fixed; inset: 0;
-      pointer-events: none; z-index: 9998; opacity: 0.015;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    }
+    :root{--bg:#fafafa;--bg-card:#ffffff;--text:#0a0a0a;--text-sec:#444450;--text-muted:#8a8a9a;--accent:#111;--border:rgba(0,0,0,.07);--border-h:rgba(0,0,0,.14);--shadow-sm:0 1px 3px rgba(0,0,0,.04);--shadow-lg:0 16px 48px rgba(0,0,0,.08);--r:18px}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(0,0,0,.08)}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}::-webkit-scrollbar-track{background:transparent}
+    a{color:inherit;text-decoration:none}
+    .cursor-light{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(120,119,198,.07) 0%,rgba(180,160,255,.04) 30%,rgba(255,220,150,.025) 50%,transparent 70%);mix-blend-mode:multiply;will-change:transform}
+    @media(hover:none){.cursor-light{display:none!important}}
 
-    /* Background mesh */
-    .bg-mesh {
-      position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.08), transparent),
-        radial-gradient(ellipse 60% 80% at 90% 80%, rgba(139,92,246,0.06), transparent),
-        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(236,72,153,0.03), transparent);
-    }
+    .gc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+    .gc::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.7) 50%,transparent 60%);transform:translateX(-100%);transition:transform .8s;pointer-events:none}
+    .gc:hover::after{transform:translateX(30%)}
+    .gc:hover{border-color:var(--border-h);box-shadow:var(--shadow-lg);transform:translateY(-4px)}
 
-    .orb {
-      position: fixed; border-radius: 50%; filter: blur(80px);
-      pointer-events: none; z-index: -1; opacity: 0.35;
-    }
-    .orb-1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(99,102,241,0.18), transparent 70%);
-      top: -150px; left: -100px;
-      animation: orbF1 20s ease-in-out infinite;
-    }
-    .orb-2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
-      bottom: -80px; right: -100px;
-      animation: orbF2 25s ease-in-out infinite;
-    }
-    @keyframes orbF1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(60px,40px); } }
-    @keyframes orbF2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,-60px); } }
+    #education-page{min-height:100vh;padding:100px 24px 80px;max-width:900px;margin:0 auto}
+    .section-header{text-align:center;margin-bottom:60px}
+    .section-label{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
+    .section-title{font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:700;color:var(--text)}
+    .section-divider{width:50px;height:3px;background:#111;margin:20px auto 0;border-radius:2px}
 
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 3px; }
-    ::-webkit-scrollbar-track { background: transparent; }
+    .timeline{position:relative;padding-left:40px}
+    .timeline::before{content:'';position:absolute;left:15px;top:0;width:2px;height:100%;background:linear-gradient(180deg,#111,#888,transparent);border-radius:1px}
+    .timeline-item{position:relative;margin-bottom:40px}
+    .timeline-item::before{content:'';position:absolute;left:-33px;top:28px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #111;z-index:2;transition:all .3s}
+    .timeline-item:hover::before{background:#111;box-shadow:0 0 12px rgba(0,0,0,.15)}
+    .timeline-item:first-child::before{background:#111;box-shadow:0 0 10px rgba(0,0,0,.1)}
 
-    .cursor {
-      position: fixed; z-index: 10000;
-      width: 20px; height: 20px;
-      border: 2px solid var(--primary);
-      border-radius: 50%; pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, background-color 0.3s;
-      mix-blend-mode: difference;
-    }
-    .cursor.hover { width: 50px; height: 50px; background: rgba(99,102,241,0.1); }
-    @media (hover: none) { .cursor { display: none !important; } }
+    .edu-card{padding:32px}
+    .edu-card .degree{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:600;color:var(--text);margin-bottom:8px}
+    .edu-card .school{font-size:1.05rem;color:var(--text-sec);margin-bottom:4px}
+    .edu-card .location{font-size:.85rem;color:var(--text-muted);margin-bottom:16px}
+    .edu-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+    .edu-date{padding:5px 14px;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:20px;font-size:.83rem;font-weight:500;color:var(--text-sec)}
+    .edu-gpa{padding:5px 14px;background:#111;border-radius:20px;font-size:.83rem;font-weight:600;color:#fff}
+    .edu-card .description{font-size:.93rem;line-height:1.7;color:var(--text-sec);margin-bottom:20px}
+    .courses-title,.achievements-title{font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:12px}
+    .course-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+    .course-tag{padding:5px 12px;background:rgba(0,0,0,.03);border:1px solid var(--border);border-radius:8px;font-size:.78rem;font-weight:500;color:var(--text-sec);transition:all .2s}
+    .course-tag:hover{background:#111;color:#fff;border-color:#111;transform:translateY(-2px)}
+    .achievements-list{list-style:none;padding:0}
+    .achievements-list li{padding:7px 0 7px 22px;position:relative;font-size:.88rem;line-height:1.6;color:var(--text-sec)}
+    .achievements-list li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:#111}
 
-    .loading-bar {
-      position: fixed; top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      z-index: 10001;
-      animation: loadBar 1.2s ease-out forwards;
+    .dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:rgba(255,255,255,.85);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-radius:50px;padding:10px 16px;z-index:1000;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .dock a{color:var(--text-muted);font-size:18px;position:relative;transition:all .3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%}
+    .dock a:hover{color:#111;background:rgba(0,0,0,.05);transform:translateY(-8px) scale(1.15)}
+    .dock a.active{color:#111;background:rgba(0,0,0,.05)}
+    .dock a::after{content:attr(data-tip);position:absolute;bottom:52px;left:50%;transform:translateX(-50%) translateY(4px);background:#111;color:#fff;padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;white-space:nowrap;font-size:.7rem;font-family:'Inter',sans-serif;font-weight:500;transition:opacity .15s,transform .15s}
+    .dock a:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+    .copyright{text-align:center;padding:30px 20px 110px;font-size:.85rem;color:var(--text-muted)}
+    .btt{position:fixed;bottom:90px;right:24px;width:44px;height:44px;background:#111;color:#fff;border-radius:50%;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:999;box-shadow:0 4px 15px rgba(0,0,0,.12);font-size:15px}
+    .btt.visible{opacity:1;transform:translateY(0)}.btt:hover{transform:translateY(-3px)}
+    .rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+    .rv.active{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}
+    @media(max-width:768px){
+      #education-page{padding:80px 16px 60px}.section-title{font-size:2.2rem}
+      .timeline{padding-left:30px}.timeline::before{left:10px}
+      .timeline-item::before{left:-28px;width:14px;height:14px}.edu-card{padding:24px}
+      .dock{padding:8px 12px;gap:2px;border-radius:24px;bottom:10px}
+      .dock a{font-size:16px;width:38px;height:38px}.dock a:hover{transform:translateY(-4px) scale(1.1)}.dock a::after{display:none}
+      .copyright{padding-bottom:90px}.btt{bottom:80px;right:16px;width:40px;height:40px}
     }
-    @keyframes loadBar { 0% { width: 0; } 60% { width: 70%; } 100% { width: 100%; opacity: 0; } }
-
-    /* Glass strong class */
-    .glass-strong {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
-      border-radius: 20px;
-    }
-
-    /* Education Page */
-    #education-page {
-      min-height: 100vh;
-      padding: 100px 40px 80px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--primary); margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.8rem; font-weight: 700;
-      color: var(--text);
-    }
-    .section-divider {
-      width: 50px; height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      margin: 20px auto 0; border-radius: 2px;
-    }
-
-    /* Timeline */
-    .timeline {
-      position: relative;
-      padding-left: 40px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 15px; top: 0;
-      width: 2px; height: 100%;
-      background: linear-gradient(180deg, var(--primary), var(--accent), transparent);
-      border-radius: 1px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -33px; top: 28px;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 3px solid var(--primary);
-      z-index: 2;
-      transition: all 0.3s;
-    }
-    .timeline-item:hover::before {
-      background: var(--primary);
-      box-shadow: 0 0 12px rgba(99,102,241,0.4);
-    }
-
-    .edu-card {
-      padding: 32px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
-    }
-    .edu-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 8px 32px rgba(31,38,135,0.08), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.02);
-      border-color: rgba(99,102,241,0.12);
-    }
-
-    /* Glass card shine effect */
-    .edu-card::after {
-      content: ''; position: absolute;
-      top: -50%; left: -50%; width: 200%; height: 200%;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-      transform: translateX(-100%);
-      transition: transform 0.8s;
-      pointer-events: none;
-    }
-    .edu-card:hover::after { transform: translateX(30%); }
-
-    .edu-card .degree {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem; font-weight: 600;
-      color: var(--text); margin-bottom: 8px;
-    }
-    .edu-card .school {
-      font-size: 1.1rem; color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
-    .edu-card .location {
-      font-size: 0.9rem; color: var(--text-light);
-      margin-bottom: 16px;
-    }
-
-    .edu-meta {
-      display: flex; gap: 12px; align-items: center;
-      flex-wrap: wrap; margin-bottom: 20px;
-    }
-    .edu-date {
-      padding: 5px 14px;
-      background: rgba(99,102,241,0.06);
-      border: 1px solid rgba(99,102,241,0.1);
-      border-radius: 20px;
-      font-size: 0.85rem; font-weight: 500;
-      color: var(--primary-dark);
-    }
-    .edu-gpa {
-      padding: 5px 14px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      border-radius: 20px;
-      font-size: 0.85rem; font-weight: 600;
-    }
-
-    .edu-card .description {
-      font-size: 0.95rem; line-height: 1.7;
-      color: var(--text-secondary); margin-bottom: 20px;
-    }
-
-    .courses-title, .achievements-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem; font-weight: 600;
-      color: var(--text); margin-bottom: 12px;
-    }
-    .course-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      margin-bottom: 24px;
-    }
-    .course-tag {
-      padding: 5px 12px;
-      background: rgba(99,102,241,0.06);
-      border: 1px solid rgba(99,102,241,0.1);
-      border-radius: 8px;
-      font-size: 0.8rem; font-weight: 500;
-      color: var(--primary-dark);
-      transition: all 0.2s;
-    }
-    .course-tag:hover {
-      background: var(--primary); color: #fff;
-      border-color: var(--primary); transform: translateY(-2px);
-    }
-
-    .achievements-list {
-      list-style: none; padding: 0;
-    }
-    .achievements-list li {
-      padding: 8px 0 8px 24px;
-      position: relative;
-      font-size: 0.9rem; line-height: 1.6;
-      color: var(--text-secondary);
-    }
-    .achievements-list li::before {
-      content: '';
-      position: absolute; left: 0; top: 14px;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-    }
-
-    /* Dock - matches index.html exactly */
-    .mac-dock {
-      position: fixed; bottom: 16px;
-      left: 50%; transform: translateX(-50%);
-      display: flex;
-      background: rgba(255,255,255,0.65);
-      backdrop-filter: blur(30px) saturate(200%);
-      -webkit-backdrop-filter: blur(30px) saturate(200%);
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.1), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 1px rgba(0,0,0,0.03);
-      border-radius: 22px;
-      padding: 10px 20px; gap: 6px;
-      z-index: 1000;
-    }
-    .mac-dock a {
-      color: var(--text-secondary); font-size: 20px;
-      position: relative;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      display: flex; align-items: center; justify-content: center;
-      width: 42px; height: 42px; border-radius: 12px;
-    }
-    .mac-dock a:hover {
-      color: var(--primary);
-      background: rgba(99,102,241,0.1);
-      transform: translateY(-8px) scale(1.2);
-    }
-    .mac-dock a.active { color: var(--primary); background: rgba(99,102,241,0.1); }
-    .mac-dock a::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: 52px; left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: var(--text); color: #fff;
-      padding: 6px 12px; border-radius: 8px;
-      opacity: 0; pointer-events: none; white-space: nowrap;
-      font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .mac-dock a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    .copyright {
-      text-align: center; padding: 30px 20px 110px;
-      font-size: 0.85rem; color: var(--text-light);
-    }
-
-    .back-to-top {
-      position: fixed; bottom: 90px; right: 24px;
-      width: 42px; height: 42px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff; border-radius: 12px;
-      display: flex; justify-content: center; align-items: center;
-      cursor: pointer; opacity: 0; transform: translateY(10px);
-      transition: opacity 0.3s, transform 0.3s; z-index: 999;
-      box-shadow: 0 4px 15px rgba(99,102,241,0.3);
-    }
-    .back-to-top.visible { opacity: 1; transform: translateY(0); }
-    .back-to-top:hover { transform: translateY(-3px); }
-
-    .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-    .stagger-1 { transition-delay: 0.15s; }
-    .stagger-2 { transition-delay: 0.3s; }
-    .stagger-3 { transition-delay: 0.45s; }
-
-    /* Mobile optimization */
-    @media (max-width: 768px) {
-      #education-page { padding: 80px 20px 60px; }
-      .section-title { font-size: 2.2rem; }
-      .timeline { padding-left: 30px; }
-      .timeline::before { left: 10px; }
-      .timeline-item::before { left: -28px; width: 14px; height: 14px; }
-      .edu-card { padding: 24px; width: 100%; }
-      .mac-dock {
-        padding: 8px 12px; gap: 2px;
-        border-radius: 18px;
-        bottom: 10px;
-      }
-      .mac-dock a { font-size: 17px; width: 38px; height: 38px; border-radius: 10px; }
-      .mac-dock a:hover { transform: translateY(-4px) scale(1.1); }
-      .mac-dock a::after { display: none; }
-      .copyright { padding-bottom: 90px; }
-      .back-to-top { bottom: 80px; right: 16px; width: 40px; height: 40px; border-radius: 12px; }
-    }
-    @media (max-width: 480px) {
-      .section-title { font-size: 1.7rem; }
-      .section-header { margin-bottom: 40px; }
-      .timeline { padding-left: 24px; }
-      .timeline::before { left: 6px; }
-      .timeline-item::before { left: -26px; width: 12px; height: 12px; }
-      .edu-card { padding: 20px; }
-    }
+    @media(max-width:480px){.section-title{font-size:1.7rem}.timeline{padding-left:24px}.timeline::before{left:6px}.timeline-item::before{left:-26px;width:12px;height:12px}.edu-card{padding:20px}}
+    @media(hover:none){.dock a{min-width:44px;min-height:44px}}
   </style>
 </head>
 <body>
-  <div class="bg-mesh"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="loading-bar"></div>
-  <div class="cursor" id="cursor"></div>
-
+  <div class="cursor-light" id="clight"></div>
   <main>
     <section id="education-page">
-      <div class="section-header reveal">
+      <div class="section-header rv">
         <div class="section-label">My Journey</div>
         <h1 class="section-title">Education</h1>
         <div class="section-divider"></div>
       </div>
-
       <div class="timeline">
-        <!-- ASU -->
-        <div class="timeline-item reveal stagger-1">
-          <div class="edu-card glass-strong">
+        <div class="timeline-item rv d1">
+          <div class="edu-card gc">
             <h2 class="degree">Bachelor of Science in Computer Science</h2>
             <div class="school">Arizona State University</div>
             <div class="location">Tempe, Arizona</div>
-            <div class="edu-meta">
-              <span class="edu-date">Expected May 2026</span>
-              <span class="edu-gpa">4.0 GPA</span>
-            </div>
+            <div class="edu-meta"><span class="edu-date">Expected May 2026</span><span class="edu-gpa">4.0 GPA</span></div>
             <p class="description">Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, AI systems, and database management. Building production applications alongside my studies.</p>
             <h4 class="courses-title">Key Coursework</h4>
-            <div class="course-tags">
-              <span class="course-tag">Data Structures & Algorithms</span>
-              <span class="course-tag">Object-Oriented Programming</span>
-              <span class="course-tag">Database Systems</span>
-              <span class="course-tag">Computer Organization</span>
-              <span class="course-tag">Web Development</span>
-              <span class="course-tag">Software Engineering</span>
-              <span class="course-tag">Operating Systems</span>
-              <span class="course-tag">Computer Networks</span>
-            </div>
+            <div class="course-tags"><span class="course-tag">Data Structures & Algorithms</span><span class="course-tag">Object-Oriented Programming</span><span class="course-tag">Database Systems</span><span class="course-tag">Computer Organization</span><span class="course-tag">Web Development</span><span class="course-tag">Software Engineering</span><span class="course-tag">Operating Systems</span><span class="course-tag">Computer Networks</span></div>
             <h4 class="achievements-title">Achievements</h4>
             <ul class="achievements-list">
               <li>Maintaining perfect 4.0 GPA throughout academic career</li>
@@ -411,26 +105,15 @@
             </ul>
           </div>
         </div>
-
-        <!-- High School -->
-        <div class="timeline-item reveal stagger-2">
-          <div class="edu-card glass-strong">
+        <div class="timeline-item rv d2">
+          <div class="edu-card gc">
             <h2 class="degree">High School Diploma</h2>
             <div class="school">Delhi International Public School</div>
             <div class="location">New Delhi, India</div>
-            <div class="edu-meta">
-              <span class="edu-date">Graduated July 2022</span>
-              <span class="edu-gpa">4.0 GPA</span>
-            </div>
+            <div class="edu-meta"><span class="edu-date">Graduated July 2022</span><span class="edu-gpa">4.0 GPA</span></div>
             <p class="description">Completed high school with a focus on Mathematics, Computer Science, and Physics. Built a strong foundation in analytical thinking and problem-solving.</p>
             <h4 class="courses-title">Key Coursework</h4>
-            <div class="course-tags">
-              <span class="course-tag">Advanced Mathematics</span>
-              <span class="course-tag">Computer Science</span>
-              <span class="course-tag">Physics</span>
-              <span class="course-tag">English</span>
-              <span class="course-tag">Chemistry</span>
-            </div>
+            <div class="course-tags"><span class="course-tag">Advanced Mathematics</span><span class="course-tag">Computer Science</span><span class="course-tag">Physics</span><span class="course-tag">English</span><span class="course-tag">Chemistry</span></div>
             <h4 class="achievements-title">Achievements</h4>
             <ul class="achievements-list">
               <li>Graduated with highest honors</li>
@@ -441,22 +124,13 @@
             </ul>
           </div>
         </div>
-
-        <!-- Certifications -->
-        <div class="timeline-item reveal stagger-3">
-          <div class="edu-card glass-strong">
+        <div class="timeline-item rv d3">
+          <div class="edu-card gc">
             <h2 class="degree">Professional Certifications</h2>
             <div class="school">Online Learning Platforms</div>
-            <p class="description" style="margin-top: 16px;">Continuously pursuing professional certifications to stay current with industry trends and expand my technical expertise.</p>
+            <p class="description" style="margin-top:16px">Continuously pursuing professional certifications to stay current with industry trends and expand my technical expertise.</p>
             <h4 class="courses-title">Certifications</h4>
-            <div class="course-tags">
-              <span class="course-tag">AWS Certified Cloud Practitioner</span>
-              <span class="course-tag">Microsoft Azure Fundamentals</span>
-              <span class="course-tag">MongoDB Database Administrator</span>
-              <span class="course-tag">React Developer Certification</span>
-              <span class="course-tag">Python for Data Science</span>
-              <span class="course-tag">Introduction to Machine Learning</span>
-            </div>
+            <div class="course-tags"><span class="course-tag">AWS Certified Cloud Practitioner</span><span class="course-tag">Microsoft Azure Fundamentals</span><span class="course-tag">MongoDB Database Administrator</span><span class="course-tag">React Developer Certification</span><span class="course-tag">Python for Data Science</span><span class="course-tag">Introduction to Machine Learning</span></div>
             <h4 class="achievements-title">Online Courses</h4>
             <ul class="achievements-list">
               <li>Data Structures and Algorithms Specialization (Coursera)</li>
@@ -470,50 +144,29 @@
       </div>
     </section>
   </main>
-
   <div class="copyright">&copy; 2026 Pranav Sagar. All Rights Reserved.</div>
-
-  <div class="mac-dock" id="dock">
-    <a href="index.html?skipIntro=1#hero" data-tooltip="Home"><i class="fas fa-house"></i></a>
-    <a href="aboutme.html?skipIntro=1" data-tooltip="About"><i class="fas fa-user"></i></a>
-    <a href="index.html?skipIntro=1#skills" data-tooltip="Skills"><i class="fas fa-code"></i></a>
-    <a href="#" data-tooltip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
-    <a href="experience.html?skipIntro=1" data-tooltip="Experience"><i class="fas fa-briefcase"></i></a>
-    <a href="index.html?skipIntro=1#projects" data-tooltip="Projects"><i class="fas fa-folder-open"></i></a>
-    <a href="index.html?skipIntro=1#contact" data-tooltip="Contact"><i class="fas fa-envelope"></i></a>
+  <div class="dock">
+    <a href="index.html?skipIntro=1#hero" data-tip="Home"><i class="fas fa-house"></i></a>
+    <a href="aboutme.html?skipIntro=1" data-tip="About"><i class="fas fa-user"></i></a>
+    <a href="index.html?skipIntro=1#skills" data-tip="Skills"><i class="fas fa-code"></i></a>
+    <a href="#" data-tip="Education" class="active"><i class="fas fa-graduation-cap"></i></a>
+    <a href="experience.html?skipIntro=1" data-tip="Experience"><i class="fas fa-briefcase"></i></a>
+    <a href="index.html?skipIntro=1#projects" data-tip="Projects"><i class="fas fa-folder-open"></i></a>
+    <a href="index.html?skipIntro=1#contact" data-tip="Contact"><i class="fas fa-envelope"></i></a>
   </div>
-
-  <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></div>
-
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cursor = document.getElementById('cursor');
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  if (!isTouchDevice && cursor) {
-    let cx = 0, cy = 0, px = 0, py = 0;
-    document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
-    (function ac() {
-      px += (cx - px) * 0.12; py += (cy - py) * 0.12;
-      cursor.style.left = px + 'px'; cursor.style.top = py + 'px';
-      requestAnimationFrame(ac);
-    })();
-    document.querySelectorAll('a, button, .edu-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-  }
-
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); }});
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => obs.observe(el));
-
-  const backToTop = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 200));
-  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  <button class="btt" id="btt"><i class="fas fa-arrow-up"></i></button>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const cl=document.getElementById('clight');const isTouch='ontouchstart'in window||navigator.maxTouchPoints>0;
+  if(!isTouch&&cl){let cx=0,cy=0,lx=0,ly=0;document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY});(function a(){lx+=(cx-lx)*.08;ly+=(cy-ly)*.08;cl.style.left=lx+'px';cl.style.top=ly+'px';requestAnimationFrame(a)})()}else if(cl)cl.style.display='none';
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('active');obs.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+  if(!isTouch)document.querySelectorAll('.edu-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`translateY(-4px) scale(1.005) perspective(600px) rotateY(${x*4}deg) rotateX(${-y*4}deg)`});c.addEventListener('mouseleave',()=>c.style.transform='')});
+  const btt=document.getElementById('btt');window.addEventListener('scroll',()=>btt.classList.toggle('visible',scrollY>200),{passive:true});btt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+  let ac;function getCtx(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();return ac}
+  function tick(){try{const c=getCtx();const o=c.createOscillator();const g=c.createGain();o.type='sine';o.frequency.setValueAtTime(3200,c.currentTime);o.frequency.exponentialRampToValueAtTime(1800,c.currentTime+.04);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.06);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.06)}catch{}}
+  document.querySelectorAll('.gc,.dock a,.course-tag').forEach(el=>el.addEventListener('mouseenter',tick));
 });
-  </script>
+</script>
 </body>
 </html>
