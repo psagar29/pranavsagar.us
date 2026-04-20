@@ -4,10 +4,10 @@ export const portfolioData = {
     site: 'https://pranavsagar.us',
     email: 'psagar2@asu.edu',
     location: 'Tempe, Arizona',
-    title: 'Product Engineer & AI Systems Builder',
+    title: 'Entrepreneur & AI Systems Builder',
     roles: [
       'AI Systems Builder',
-      'Product Engineer',
+      'Entrepreneur',
       'Web, macOS & iOS',
       '0-to-1 Execution',
       'Interface-Driven Systems',
