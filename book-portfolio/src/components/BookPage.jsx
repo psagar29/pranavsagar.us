@@ -57,7 +57,7 @@ pageGeometry.setAttribute(
 
 const pageEdgeColor = new THREE.Color('white')
 const pageEdgeShadowColor = new THREE.Color('#111111')
-const pageEmissiveColor = new THREE.Color('#4a9eed')
+const pageEmissiveColor = new THREE.Color('#c9a96e')
 
 const sharedPageMaterials = [
   new THREE.MeshStandardMaterial({ color: pageEdgeColor }),

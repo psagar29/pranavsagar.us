@@ -29,7 +29,7 @@ function HologramIntro({ content }) {
       </div>
 
       <div className="holo-card is-intro-block">
-        <div className="holo-card-title">Artifact Summary</div>
+        <div className="holo-card-title">Portfolio Overview</div>
         <p className="holo-body">{content.summary}</p>
       </div>
 
@@ -60,7 +60,7 @@ function HologramAbout({ content }) {
         <p className="holo-body" key={i}>{p}</p>
       ))}
 
-      <h3 className="holo-subheading">Fun Facts</h3>
+      <h3 className="holo-subheading">Operating Notes</h3>
       <ul className="holo-list">
         {content.funFacts.map((fact) => (
           <li key={fact}>{fact}</li>
@@ -99,12 +99,12 @@ function HologramEducation({ content }) {
           </div>
           <p className="holo-body">{entry.description}</p>
           <ul className="holo-list">
-            {entry.achievements.slice(0, 2).map((a) => (
+            {entry.achievements.slice(0, 4).map((a) => (
               <li key={a}>{a}</li>
             ))}
           </ul>
           <div className="holo-tags">
-            {entry.highlights.slice(0, 4).map((h) => (
+            {entry.highlights.slice(0, 5).map((h) => (
               <span className="holo-tag" key={h}>{h}</span>
             ))}
           </div>
@@ -127,14 +127,14 @@ function HologramExperience({ content }) {
       <div className="holo-section-label">{content.label}</div>
       <h2 className="holo-heading">{content.title}</h2>
 
-      {content.experience.slice(0, 3).map((role) => (
+      {content.experience.slice(0, 4).map((role) => (
         <div className="holo-card" key={role.title + role.company}>
           <div className="holo-card-title">{role.title}</div>
           <div className="holo-card-sub">{role.company}</div>
           <div className="holo-card-meta">{role.location} — {role.date}</div>
           <p className="holo-body">{role.description}</p>
           <ul className="holo-list">
-            {role.highlights.slice(0, 2).map((h) => (
+            {role.highlights.slice(0, 3).map((h) => (
               <li key={h}>{h}</li>
             ))}
           </ul>
@@ -165,6 +165,7 @@ function HologramProjects({ content }) {
     <>
       <div className="holo-section-label">{content.label}</div>
       <h2 className="holo-heading">{content.title}</h2>
+      {content.summary && <p className="holo-body">{content.summary}</p>}
 
       <div className="holo-project-grid">
         {visibleProjects.map((project) => (
@@ -308,6 +309,10 @@ function HologramFinale({ content }) {
 function HologramPanel({ content }) {
   if (!content) return null
 
+  const stopPanelEvent = (event) => {
+    event.stopPropagation()
+  }
+
   const renderer = {
     intro: HologramIntro,
     about: HologramAbout,
@@ -321,7 +326,14 @@ function HologramPanel({ content }) {
   const Component = renderer[content.type]
 
   return (
-    <div className={`hologram-panel is-${content.type}`}>
+    <div
+      className={`hologram-panel is-${content.type}`}
+      onPointerDown={stopPanelEvent}
+      onPointerMove={stopPanelEvent}
+      onTouchMove={stopPanelEvent}
+      onTouchStart={stopPanelEvent}
+      onWheel={stopPanelEvent}
+    >
       <div className="hologram-grid" />
       <div className="hologram-glow" />
       <div className="hologram-content">
@@ -338,33 +350,39 @@ function HologramPanel({ content }) {
 
 /* ── 3D anchor — hologram only, no light/projector ──────── */
 
-function HologramProjector({ currentPage, isMobile = false }) {
+function HologramProjector({
+  bookPosition = [0, 0, 0],
+  currentPage,
+  isMobile = false,
+}) {
   const content = useMemo(() => getHologramContent(currentPage), [currentPage])
   const active = currentPage > 0 && currentPage < pages.length && content
+  const baseX = bookPosition[0] - 1.18
 
   const layout = content?.type === 'contact'
     ? {
-        groupPosition: [-1.94, -0.24, 0.92],
-        panelPosition: [0.54, 0.94, 0.12],
-        distanceFactor: 0.88,
+        groupPosition: [baseX + 0.02, bookPosition[1] - 0.05, 0.36],
+        panelPosition: [0, 0, 0],
+        distanceFactor: 0.84,
       }
     : content?.type === 'intro'
       ? {
-          groupPosition: [-1.56, -0.34, 0.92],
-          panelPosition: [0.72, 0.98, 0.12],
-          distanceFactor: 0.76,
+          groupPosition: [baseX + 0.06, bookPosition[1] + 0.05, 0.31],
+          panelPosition: [0, 0, 0],
+          distanceFactor: 0.86,
         }
-    : {
-        groupPosition: [-1.9, -0.46, 0.92],
-        panelPosition: [0.58, 0.92, 0.1],
-        distanceFactor: 0.84,
-      }
+      : {
+          groupPosition: [baseX, bookPosition[1] - 0.01, 0.35],
+          panelPosition: [0, 0, 0],
+          distanceFactor: 0.84,
+        }
 
   if (!active || isMobile) return null
 
   return (
     <group position={layout.groupPosition}>
       <Html
+        center
         distanceFactor={layout.distanceFactor}
         position={layout.panelPosition}
         sprite

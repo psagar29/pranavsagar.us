@@ -1,5 +1,5 @@
 export const bookMeta = {
-  title: '007',
+  title: 'Pranav Sagar',
   year: '',
   subtitle: 'Pranav Sagar Portfolio',
   linkLabel: 'PranavSagar.us',
@@ -11,9 +11,11 @@ export const pages = [
   { label: 'Intro', frontId: 'hero', backId: 'about' },
   { label: 'About', frontId: 'gallery', backId: 'skills' },
   { label: 'Education', frontId: 'education', backId: 'certifications' },
-  { label: 'Experience', frontId: 'experience', backId: 'impact' },
-  { label: 'Projects I', frontId: 'projectsA', backId: 'projectsB' },
-  { label: 'Projects II', frontId: 'projectsC', backId: 'projectsD' },
+  { label: 'Experience', frontId: 'experience', backId: 'projectNotesA' },
+  { label: 'Projects I', frontId: 'projectsA', backId: 'projectNotesB' },
+  { label: 'Projects II', frontId: 'projectsB', backId: 'projectNotesC' },
+  { label: 'Projects III', frontId: 'projectsC', backId: 'projectNotesD' },
+  { label: 'Projects IV', frontId: 'projectsD', backId: 'contactPrelude' },
   { label: 'Contact', frontId: 'contact', backId: 'social' },
   { label: 'Finale', frontId: 'finale', backId: 'backCover' },
 ]

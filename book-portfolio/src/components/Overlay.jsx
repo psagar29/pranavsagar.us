@@ -12,18 +12,20 @@ function Overlay({
   onPageChange,
   onOpenReader,
 }) {
-  const mobileContent = useMemo(
-    () => (isMobile ? getHologramContent(currentPage) : null),
-    [currentPage, isMobile],
-  )
+  const pageContent = useMemo(() => getHologramContent(currentPage), [currentPage])
+  const mobileContent = isMobile ? pageContent : null
+  const currentSection = useMemo(() => {
+    const activeItem = navigationItems.find((item) => item.target === currentPage)
+    return activeItem?.label ?? 'Cover'
+  }, [currentPage])
   const [menuOpen, setMenuOpen] = useState(false)
   const [intelOpen, setIntelOpen] = useState(false)
 
   useEffect(() => {
     const handlePointerDown = (event) => {
-      const clickedInsideMenu = event.target.closest('.overlay-menu')
-      const clickedHamburger = event.target.closest('.hamburger-button')
-      if (menuOpen && !clickedInsideMenu && !clickedHamburger) {
+      const clickedInsideMenu = event.target.closest('.overlay-utility-window')
+      const clickedTrigger = event.target.closest('.utility-trigger')
+      if (menuOpen && !clickedInsideMenu && !clickedTrigger) {
         setMenuOpen(false)
       }
     }
@@ -40,107 +42,115 @@ function Overlay({
   return (
     <>
       <main className={`overlay-shell ${isMobile ? 'is-mobile' : ''}`}>
-        <div className="overlay-header">
-          <div className="overlay-controls">
-            <button
-              className={`bond-control-btn ${musicMuted ? '' : 'is-active'}`}
-              onClick={onMusicToggle}
-              type="button"
-              aria-pressed={!musicMuted}
-            >
-              <div className={`music-bars ${musicMuted ? '' : 'is-playing'}`}>
-                <div className="music-bar" style={{ height: '3px' }} />
-                <div className="music-bar" style={{ height: '5px' }} />
-                <div className="music-bar" style={{ height: '2px' }} />
-                <div className="music-bar" style={{ height: '6px' }} />
-              </div>
-              {musicMuted ? 'Music Muted' : 'Music On'}
-            </button>
-
-            <button
-              className="bond-control-btn"
-              onClick={onOpenReader}
-              type="button"
-            >
-              Full Book
-            </button>
-            {isMobile && mobileContent && (
+        <header className="overlay-topbar">
+          <div className="overlay-topbar-row">
+            <div className="overlay-actions">
               <button
-                className={`bond-control-btn ${intelOpen ? 'is-active' : ''}`}
-                onClick={() => {
-                  setMenuOpen(false)
-                  setIntelOpen((open) => !open)
-                }}
+                className={`bond-control-btn ${musicMuted ? '' : 'is-active'}`}
+                onClick={onMusicToggle}
+                type="button"
+                aria-pressed={!musicMuted}
+              >
+                <div className={`music-bars ${musicMuted ? '' : 'is-playing'}`}>
+                  <div className="music-bar" style={{ height: '3px' }} />
+                  <div className="music-bar" style={{ height: '5px' }} />
+                  <div className="music-bar" style={{ height: '2px' }} />
+                  <div className="music-bar" style={{ height: '6px' }} />
+                </div>
+                {musicMuted ? 'Audio Off' : 'Audio On'}
+              </button>
+
+              <button
+                className="bond-control-btn"
+                onClick={onOpenReader}
                 type="button"
               >
-                Page Intel
+                Open Reader
               </button>
-            )}
+
+              {isMobile && mobileContent && (
+                <button
+                  className={`bond-control-btn ${intelOpen ? 'is-active' : ''}`}
+                  onClick={() => {
+                    setMenuOpen(false)
+                    setIntelOpen((open) => !open)
+                  }}
+                  type="button"
+                >
+                  Page Intel
+                </button>
+              )}
+            </div>
+
+            <div className="overlay-brand">
+              <span className="overlay-kicker">pranavsagar.us</span>
+              <h1 className="overlay-title">{bookMeta.title}</h1>
+              <p className="overlay-subtitle">{bookMeta.subtitle}</p>
+            </div>
+
+            <div className="overlay-utility">
+              <button
+                className={`utility-trigger ${menuOpen ? 'is-active' : ''}`}
+                onClick={() => setMenuOpen((value) => !value)}
+                type="button"
+                aria-label={menuOpen ? 'Close utility menu' : 'Open utility menu'}
+                aria-expanded={menuOpen}
+              >
+                <span className="utility-trigger-dot" />
+                <span className="utility-trigger-dot" />
+                <span className="utility-trigger-dot" />
+              </button>
+
+              <aside className={`overlay-utility-window ${menuOpen ? 'is-active' : ''}`}>
+                <div className="overlay-utility-label">Open Channels</div>
+                <div className="overlay-utility-links">
+                  {menuLinks.map((item) => (
+                    <a
+                      className="overlay-utility-link"
+                      href={item.href}
+                      key={item.label}
+                      onClick={() => setMenuOpen(false)}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      <span>{item.label}</span>
+                      <small>Open</small>
+                    </a>
+                  ))}
+                </div>
+              </aside>
+            </div>
+          </div>
+        </header>
+
+        {!isMobile && pageContent && (
+          <div className="desktop-intel-window">
+            <HologramPanel content={pageContent} />
+          </div>
+        )}
+
+        <div className="overlay-bottom">
+          <div className="overlay-page-chip">
+            <span className="overlay-page-chip-label">Current Page</span>
+            <strong className="overlay-page-chip-value">{currentSection}</strong>
           </div>
 
-          <h1 className="overlay-title">
-            {bookMeta.title}
-            {bookMeta.year ? <span>{bookMeta.year}</span> : (
-              <span>Portfolio Edition</span>
-            )}
-          </h1>
-          <p className="overlay-subtitle">{bookMeta.subtitle}</p>
-          <a
-            className="overlay-link"
-            href={bookMeta.linkHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {bookMeta.linkLabel}
-          </a>
-        </div>
-
-        <div className="overlay-navigation-wrap">
-          <div className="overlay-navigation">
-            {navigationItems.map((item) => (
-              <button
-                key={item.label}
-                className={`page-button ${item.target === currentPage ? 'is-active' : ''}`}
-                onClick={() => onPageChange(item.target)}
-                type="button"
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="overlay-navigation-wrap">
+            <div className="overlay-navigation">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.label}
+                  className={`page-button ${item.target === currentPage ? 'is-active' : ''}`}
+                  onClick={() => onPageChange(item.target)}
+                  type="button"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </main>
-
-      <button
-        className={`hamburger-button ${menuOpen ? 'is-active' : ''}`}
-        onClick={() => setMenuOpen((v) => !v)}
-        type="button"
-        aria-label="Toggle menu"
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-
-      <aside className={`overlay-menu ${menuOpen ? 'is-active' : ''}`}>
-        <button
-          className="overlay-menu-close"
-          onClick={() => setMenuOpen(false)}
-          type="button"
-          aria-label="Close menu"
-        >
-          ×
-        </button>
-        <div className="overlay-menu-content">
-          {menuLinks.map((item) => (
-            <div className="overlay-menu-item" key={item.label}>
-              <a href={item.href} target="_blank" rel="noreferrer">
-                {item.label}
-              </a>
-            </div>
-          ))}
-        </div>
-      </aside>
 
       {isMobile && mobileContent && (
         <div className={`mobile-intel-sheet ${intelOpen ? 'is-active' : ''}`}>
@@ -150,7 +160,16 @@ function Overlay({
             onClick={() => setIntelOpen(false)}
             type="button"
           />
-          <div className="mobile-intel-card" role="dialog" aria-modal="true" aria-label={`${mobileContent.label} details`}>
+          <div
+            className="mobile-intel-card"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${mobileContent.label} details`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onTouchMove={(event) => event.stopPropagation()}
+            onTouchStart={(event) => event.stopPropagation()}
+            onWheel={(event) => event.stopPropagation()}
+          >
             <div className="mobile-intel-handle" />
             <div className="mobile-intel-header">
               <div className="mobile-intel-copy">

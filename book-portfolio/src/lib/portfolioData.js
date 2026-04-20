@@ -4,27 +4,27 @@ export const portfolioData = {
     site: 'https://pranavsagar.us',
     email: 'psagar2@asu.edu',
     location: 'Tempe, Arizona',
-    title: 'Full-Stack Developer',
+    title: 'Product Engineer & AI Systems Builder',
     roles: [
-      'Computer Science @ Arizona State',
-      'Full-Stack Developer',
-      'AI Enthusiast',
-      'Entrepreneur',
-      'Building the Future',
+      'AI Systems Builder',
+      'Product Engineer',
+      'Web, macOS & iOS',
+      '0-to-1 Execution',
+      'Interface-Driven Systems',
     ],
   },
   about: {
     paragraphs: [
-      "Hello! I'm Pranav Sagar, a Computer Science student at Arizona State University with a passion for technology and innovation. I specialize in full-stack development, AI systems, and creating user-centric applications that solve real problems.",
-      "With experience in both academic and professional settings, I've built production-grade AI platforms, published open-source libraries, and developed desktop applications. I enjoy tackling complex problems and turning ambitious ideas into functional, elegant solutions.",
-      "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or expanding my knowledge through continuous learning.",
+      "I'm Pranav Sagar, an entrepreneur building AI-native software, local-first workflows, and polished interfaces across web, macOS, and iOS.",
+      'My work sits at the intersection of systems thinking, product judgment, and execution. I like taking ambitious ideas, reducing them to the right architecture, and shipping software that feels inevitable once it exists.',
+      'Alongside product building, I care about positioning, usability, and the operating details that make a tool durable in the real world.',
     ],
     funFacts: [
-      'Traveled to over 10 different countries in the past few years',
-      'Play multiple instruments — guitar, tabla, and drums',
-      'Sci-fi enthusiast — Interstellar is an all-time favorite',
-      'Fluent in English, Hindi, and Punjabi — currently learning Mandarin',
-      'Fitness enthusiast who loves working out',
+      'I think best when product strategy and engineering are treated as the same conversation.',
+      'A lot of my best ideas start from friction in daily workflows rather than abstract brainstorming.',
+      'Music, training, and long-form science fiction keep my taste calibrated outside of software.',
+      'I work comfortably across India and the United States, which shapes how I think about users and markets.',
+      'I care as much about clarity and pacing as I do about technical depth.',
     ],
   },
   skills: {
@@ -66,20 +66,23 @@ export const portfolioData = {
       location: 'Tempe, Arizona',
       meta: ['Expected May 2026', '4.0 GPA'],
       description:
-        'Focusing on software engineering, AI systems, and database management while building production applications alongside coursework.',
+        'Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, AI systems, and database management. Building production applications alongside my studies.',
       highlights: [
         'Data Structures & Algorithms',
+        'Object-Oriented Programming',
+        'Database Systems',
+        'Computer Organization',
+        'Web Development',
         'Software Engineering',
         'Operating Systems',
         'Computer Networks',
-        'Database Systems',
-        'Web Development',
       ],
       achievements: [
-        'Maintaining a perfect 4.0 GPA',
-        'Top 10 placement at ASU Hackathon 2024',
-        "Dean's List recognition",
+        'Maintaining perfect 4.0 GPA throughout academic career',
+        'Undergraduate Teaching Assistant across CSE 355, CSE 360, and CSE 445',
+        "Dean's List recognition for academic excellence",
         'Outstanding Computer Science Student Award',
+        'Active member of the Computer Science Student Association',
       ],
     },
     {
@@ -88,7 +91,7 @@ export const portfolioData = {
       location: 'New Delhi, India',
       meta: ['Graduated July 2022', '4.0 GPA'],
       description:
-        'Built a strong foundation in analytical thinking through Mathematics, Computer Science, and Physics.',
+        'Completed high school with a focus on Mathematics, Computer Science, and Physics. Built a strong foundation in analytical thinking and problem-solving.',
       highlights: [
         'Advanced Mathematics',
         'Computer Science',
@@ -100,6 +103,8 @@ export const portfolioData = {
         'Graduated with highest honors',
         'Captain of the Science Olympiad Team',
         'First prize in Interschool Coding Competition',
+        'National Mathematics Olympiad participant',
+        'School representative for regional technology conferences',
       ],
     },
   ],
@@ -129,17 +134,21 @@ export const portfolioData = {
       date: 'January 2026 - Present',
       current: true,
       description:
-        'Serving as UGTA for three courses simultaneously in the School of Computing and Augmented Intelligence.',
+        'Serving as an Undergraduate Teaching Assistant for three courses simultaneously in the School of Computing and Augmented Intelligence. Providing academic support, hosting office hours, leading discussions, and guiding students through complex computer science coursework.',
       highlights: [
-        'CSE 355 — Theoretical Computer Science',
-        'CSE 360 — Software Engineering',
-        'CSE 445 — Distributed Software Development',
-        '20+ hours per week of office hours, mentoring, and feedback',
+        'CSE 355 — Introduction to Theoretical Computer Science: Assisting students with automata theory, formal languages, computability, and computational complexity concepts',
+        'CSE 360 — Introduction to Software Engineering: Supporting students in learning software development lifecycle, Agile methodologies, testing, and collaborative development practices',
+        'CSE 445 — Distributed Software Development: Helping students understand service-oriented architecture, web services, cloud computing, and distributed systems design',
+        'Hosting regular office hours and study sessions, dedicating 20+ hours per week across all three courses',
+        'Providing feedback on assignments and projects, relaying student questions to faculty instructors',
+        'Acting as a peer mentor and role model, guiding students to ASU resources and supporting their academic success',
       ],
       skills: [
         'Teaching',
         'Software Engineering',
+        'Theoretical CS',
         'Distributed Systems',
+        'Mentoring',
         'Communication',
       ],
     },
@@ -149,13 +158,14 @@ export const portfolioData = {
       location: 'New Delhi, India',
       date: 'May 2025 - July 2025',
       description:
-        'Developed AI-powered conversational systems and a custom CRM for business automation.',
+        'Developed AI-powered conversational systems and built custom CRM solutions for business automation. Worked on chatbot and voice bot implementations to streamline customer interactions and improve client communication workflows.',
       highlights: [
-        'Built AI chatbots and voice bots',
-        'Created a private CRM for internal operations',
-        'Integrated NLP models into live automation flows',
+        'Developed AI-powered chatbots and voice bots to automate customer interactions and streamline client communication workflows',
+        'Built a private CRM system tailored to internal business operations, improving lead tracking and client management efficiency',
+        'Integrated natural language processing models to enhance conversational AI capabilities',
+        'Collaborated with cross-functional teams to deploy automation solutions that reduced response times and increased customer satisfaction',
       ],
-      skills: ['AI/ML', 'NLP', 'Python', 'Automation'],
+      skills: ['AI/ML', 'Chatbots', 'Voice Bots', 'CRM Development', 'NLP', 'Python', 'Automation'],
     },
     {
       title: 'Marketing & Sales Intern',
@@ -163,13 +173,16 @@ export const portfolioData = {
       location: 'Tempe, Arizona',
       date: 'July 2023 - December 2025',
       description:
-        'Used data-driven strategy to improve engagement for campus dining campaigns and digital content.',
+        'Worked as a Marketing and Sales Intern at Aramark, focusing on data-driven strategies to enhance student engagement for campus dining services. Implemented innovative digital marketing campaigns and tracking mechanisms.',
       highlights: [
-        'Built campaign tracking systems',
-        'Improved engagement through segmentation and content strategy',
-        'Used JMP and R for analysis and optimization',
+        'Leveraged JMP and R for data analysis, identifying trends to drive improvements in user engagement for digital campaigns',
+        'Developed digital content strategies with engaging media tailored to specific user segments, enhancing engagement by 20%',
+        'Built tracking mechanisms to measure campaign performance, using data insights to optimize strategies',
+        'Executed social media campaigns that increased student engagement by 15%',
+        'Implemented process automation improving workflow efficiency by 25%',
+        'Created marketing materials that increased meal plan awareness by 20%',
       ],
-      skills: ['Data Analysis', 'Digital Marketing', 'JMP', 'R'],
+      skills: ['Data Analysis', 'JMP', 'R', 'Digital Marketing', 'Social Media', 'Automation'],
     },
     {
       title: 'IT Manager',
@@ -177,104 +190,107 @@ export const portfolioData = {
       location: 'New Delhi, India',
       date: 'May 2023 - July 2023',
       description:
-        'Managed firm-wide technology infrastructure, support workflows, and cybersecurity protocols.',
+        'Served as IT Manager at a legal services firm, overseeing technology infrastructure and providing technical support. Implemented cybersecurity protocols and developed digital case management systems.',
       highlights: [
-        'Maintained servers and network systems',
-        'Provided technical support to staff',
-        'Built digital case management systems',
+        'Implemented and maintained technology infrastructure including servers, network systems, and software applications',
+        'Provided technical support to employees, troubleshooting hardware and software issues',
+        'Developed IT policies and procedures to maintain compliance and enhance security',
+        'Implemented cybersecurity protocols enhancing data protection and privacy',
+        'Created and maintained digital case management systems',
+        'Collaborated with legal teams to optimize technology solutions for client services',
       ],
-      skills: ['IT Infrastructure', 'Cybersecurity', 'Support'],
+      skills: ['IT Infrastructure', 'Cybersecurity', 'Network Admin', 'Technical Support', 'Policy Development'],
     },
   ],
   metrics: [
-    ['4.0', 'GPA'],
-    ['14+', 'Projects'],
-    ['3', 'Courses TA\'d'],
-    ['10+', 'Countries'],
+    ['0-1', 'Execution'],
+    ['AI', 'Systems'],
+    ['Web+iOS', 'Platforms'],
+    ['Product', 'Thinking'],
   ],
   projects: [
     {
       title: 'Omnyx',
       description:
-        'Local-first macOS AI operator with accessibility-tree and OCR perception for multi-step desktop workflows.',
+        'Local-first macOS AI operator that executes multi-step workflows across apps. Features accessibility tree + OCR perception engine and precision mouse/keyboard control.',
       tech: ['Node.js', 'Swift', 'AI/ML', 'macOS'],
     },
     {
       title: 'OmnyxMail',
       description:
-        'Production-grade AI communication assistant for email, calls, SMS, and social media with vector memory.',
+        'Production-grade AI assistant managing emails, calls, SMS, and social media. White-label multi-tenant architecture with vector memory system for contextual communication.',
       tech: ['Next.js', 'Firebase', 'TypeScript', 'OpenAI'],
     },
     {
       title: 'Omnyx iOS',
       description:
-        'Native SwiftUI companion app for AI-powered communication management on mobile.',
+        'Native iOS companion app for OmnyxMail. Full SwiftUI interface bringing AI-powered email and communication management to mobile.',
       tech: ['Swift', 'SwiftUI', 'iOS', 'Xcode'],
     },
     {
       title: 'Vedic AI Astrologer',
       description:
-        'Full-stack astrology platform powered by AI and contextual memory using pgvector.',
+        'Full-stack Vedic astrology platform powered by AI. Delivers personalized readings with pgvector memory for contextual insights.',
       tech: ['Next.js', 'Supabase', 'OpenAI', 'React'],
     },
     {
       title: 'Billionaire Mentors',
       description:
-        'Multi-mentor RAG chatbot with billionaire personas and very fast pgvector search.',
+        'Multi-mentor RAG chatbot featuring every billionaire — Elon Musk, Paul Graham, Warren Buffett, and more. Powered by pgvector with ~10ms HNSW vector search.',
       tech: ['Next.js', 'Supabase', 'Vercel AI', 'pgvector'],
     },
     {
       title: 'Spotify Clone',
       description:
-        'Music streaming clone with playback controls, playlists, search, and a polished premium-style UI.',
+        'Full-featured Spotify clone for free music streaming. Complete playback controls, playlists, search, and a polished UI replicating the premium experience.',
       tech: ['React', 'Node.js', 'Web Audio', 'REST API'],
     },
     {
       title: 'Custom Web Browser',
       description:
-        'Chromium-based browser with custom tab management, privacy features, and developer tooling.',
+        'Advanced web browser built on top of Chromium for personal use. Custom UI, enhanced tab management, privacy features, and integrated developer tools.',
       tech: ['Chromium', 'JavaScript', 'Electron', 'C++'],
     },
     {
       title: 'CrawlBot',
       description:
-        'Semantic crawling and search system with FAISS-backed indexing and RAG query flows.',
+        'Intelligent web crawling system with FAISS vector database for semantic search. RAG-powered pipeline that scrapes, indexes, and enables natural language queries over crawled data.',
       tech: ['Python', 'FAISS', 'RAG', 'Vector DB'],
     },
     {
       title: 'KimuntuPro AI',
       description:
-        'Capstone multi-track AI platform spanning career, business, and legal support flows.',
+        'Capstone project — multi-track AI platform for career, business, and legal assistance. CV building, job matching, business plan generation, contract review, and multi-language support.',
       tech: ['React', 'Firebase', 'Tailwind', 'Vite'],
     },
     {
-      title: 'Automated Shorts Maker',
+      title: 'Youtuber Automated Shorts Maker',
       description:
-        'Veo3 + Remotion content pipeline for scripting, rendering, and publishing YouTube Shorts.',
+        'YouTube Shorts automation platform with Veo3 video generation. Remotion-based rendering pipeline for scripting, animating, and publishing content at scale.',
       tech: ['React', 'Remotion', 'Veo3', 'FFmpeg'],
     },
     {
       title: 'JackedPranav',
       description:
-        'Personal fitness tracking app with workouts, progress logging, and analytics.',
+        'Personal fitness tracking web app for monitoring workouts, tracking progress, and setting fitness goals with real-time data sync and analytics dashboard.',
       tech: ['HTML5', 'JavaScript', 'Firebase', 'CSS3'],
     },
     {
       title: 'CRM',
       description:
-        'AI-assisted Google Business Profile management platform for reviews, galleries, and location analytics.',
+        'Full-stack Google Business Profile management platform with AI-powered optimization. Review management, photo galleries, marketing recommendations, and multi-location analytics.',
       tech: ['Express', 'Prisma', 'PostgreSQL', 'React'],
     },
     {
       title: 'Gradium',
       description:
-        'Academic AI agent that helps automate student workloads with pricing and payment flows.',
+        'Academic AI agent — autonomous platform that handles student workloads. Features AI chat, payment processing, multi-tier pricing, and intelligent task automation.',
       tech: ['React', 'Firebase', 'Stripe', 'Vite'],
     },
     {
       title: 'UI Morph',
       description:
-        'Chrome extension that transforms website UIs using natural-language interface commands.',
+        "Chrome extension for transforming any website's UI using natural language commands. Built-in themes, glassmorphism effects, and DOM element repositioning.",
       tech: ['JavaScript', 'Chrome API v3', 'CSS', 'NLP'],
     },
   ],
@@ -313,3 +329,112 @@ export const portfolioData = {
     ],
   },
 }
+
+const projectLookup = new Map(
+  portfolioData.projects.map((project) => [project.title, project]),
+)
+
+const pickProjects = (...titles) =>
+  titles.map((title) => projectLookup.get(title)).filter(Boolean)
+
+export const projectCollections = [
+  {
+    id: 'ai-operators',
+    title: 'AI Operators',
+    summary:
+      'Operator-style products built around action, memory, communication, and multi-surface execution across desktop, web, and mobile.',
+    focusAreas: [
+      'Local-first execution and workflow automation',
+      'AI-powered communication systems with persistent context',
+      'Native and web surfaces built around daily operator tasks',
+    ],
+    stackSignals: [
+      'Node.js',
+      'Swift',
+      'SwiftUI',
+      'OpenAI',
+      'Firebase',
+      'TypeScript',
+      'macOS',
+      'iOS',
+      'Next.js',
+    ],
+    projects: pickProjects('Omnyx', 'OmnyxMail', 'Omnyx iOS'),
+  },
+  {
+    id: 'ai-platforms',
+    title: 'AI Platforms',
+    summary:
+      'AI-native applications centered on retrieval, assistants, and vertical workflows, from RAG interfaces to multi-function guidance platforms.',
+    focusAreas: [
+      'RAG and semantic retrieval systems with strong response quality',
+      'Domain-specific assistants packaged as polished products',
+      'AI workflows designed for direct end-user utility',
+    ],
+    stackSignals: [
+      'pgvector',
+      'FAISS',
+      'Supabase',
+      'Vercel AI',
+      'Python',
+      'React',
+      'OpenAI',
+      'Firebase',
+    ],
+    projects: pickProjects(
+      'Vedic AI Astrologer',
+      'Billionaire Mentors',
+      'CrawlBot',
+      'KimuntuPro AI',
+    ),
+  },
+  {
+    id: 'media-interfaces',
+    title: 'Media & Interfaces',
+    summary:
+      'Consumer-facing builds focused on playback, browsing, interface transformation, and content-generation pipelines with strong front-end execution.',
+    focusAreas: [
+      'Media playback and content-generation experiences',
+      'Browser-native products and interface-level customization',
+      'UI-heavy builds where interaction quality is the product',
+    ],
+    stackSignals: [
+      'React',
+      'Remotion',
+      'Veo3',
+      'Chromium',
+      'Electron',
+      'JavaScript',
+      'Chrome API v3',
+      'Web Audio',
+    ],
+    projects: pickProjects(
+      'Spotify Clone',
+      'Custom Web Browser',
+      'Youtuber Automated Shorts Maker',
+      'UI Morph',
+    ),
+  },
+  {
+    id: 'systems-utilities',
+    title: 'Systems & Utilities',
+    summary:
+      'Operational products spanning business tooling, academic automation, and personal tracking systems with real workflow utility.',
+    focusAreas: [
+      'Business operations and management platforms',
+      'Academic and task automation systems with monetization',
+      'Personal tools designed around tracking and progress visibility',
+    ],
+    stackSignals: [
+      'Prisma',
+      'PostgreSQL',
+      'Stripe',
+      'Express',
+      'React',
+      'Firebase',
+      'Vite',
+      'Analytics',
+    ],
+    projects: pickProjects('CRM', 'Gradium', 'JackedPranav'),
+  },
+]

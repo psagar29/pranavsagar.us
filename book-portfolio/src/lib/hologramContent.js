@@ -1,5 +1,5 @@
 import { pages } from './bookData.js'
-import { portfolioData } from './portfolioData.js'
+import { portfolioData, projectCollections } from './portfolioData.js'
 
 export function getHologramContent(currentPage) {
   if (currentPage <= 0 || currentPage >= pages.length) {
@@ -14,15 +14,15 @@ export function getHologramContent(currentPage) {
         type: 'intro',
         label,
         title: 'Pranav Sagar',
-        subtitle: 'Full-stack systems. AI products. Real execution.',
+        subtitle: 'AI systems, product thinking, and end-to-end execution.',
         location: portfolioData.identity.location,
         email: portfolioData.identity.email,
         site: 'pranavsagar.us',
         metrics: portfolioData.metrics,
         summary:
-          'This portfolio presents a personal artifact and interactive portfolio experience built from the real content projects in my son and work by Pranav Sagar.',
+          "An interactive portfolio built as a readable artifact. The work inside reflects real products, real systems, and the execution style behind Pranav Sagar's portfolio.",
         focus:
-          'Building local-first AI operators, communication tools, academic agents, and production-grade portfolio systems.',
+          'Building AI-native tools, local-first operators, communication systems, and polished software across web, desktop, and mobile.',
       }
     case 2:
       return {
@@ -53,17 +53,35 @@ export function getHologramContent(currentPage) {
       return {
         type: 'projects',
         label,
-        title: 'Projects I',
-        projects: portfolioData.projects.slice(0, 4),
+        title: projectCollections[0].title,
+        summary: projectCollections[0].summary,
+        projects: projectCollections[0].projects,
       }
     case 6:
       return {
         type: 'projects',
         label,
-        title: 'Projects II',
-        projects: portfolioData.projects.slice(8, 12),
+        title: projectCollections[1].title,
+        summary: projectCollections[1].summary,
+        projects: projectCollections[1].projects,
       }
     case 7:
+      return {
+        type: 'projects',
+        label,
+        title: projectCollections[2].title,
+        summary: projectCollections[2].summary,
+        projects: projectCollections[2].projects,
+      }
+    case 8:
+      return {
+        type: 'projects',
+        label,
+        title: projectCollections[3].title,
+        summary: projectCollections[3].summary,
+        projects: projectCollections[3].projects,
+      }
+    case 9:
       return {
         type: 'contact',
         label,
@@ -71,7 +89,7 @@ export function getHologramContent(currentPage) {
         links: portfolioData.links,
         socialLinks: portfolioData.socialLinks,
       }
-    case 8:
+    case 10:
       return {
         type: 'finale',
         label,

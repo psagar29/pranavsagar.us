@@ -1,5 +1,7 @@
 import { useTexture } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useState } from 'react'
+import * as THREE from 'three'
 import { withBase } from '../lib/assets.js'
 import BookPage from './BookPage.jsx'
 import { pages } from '../lib/bookData.js'
@@ -18,17 +20,40 @@ const portfolioImageUrls = [
 
 function Book({ currentPage, onPageChange, ...props }) {
   const [animatedPage, setAnimatedPage] = useState(currentPage)
+  const { gl } = useThree()
   const loadedAssets = useTexture(portfolioImageUrls)
+  const maxAnisotropy = gl.capabilities.getMaxAnisotropy()
 
   const pageTextures = useMemo(() => {
     const galleryTextures = loadedAssets.slice(1, 6)
     return createPortfolioPageTextures({
+      anisotropy: maxAnisotropy,
       portraitImage: loadedAssets[0].image,
       galleryImages: galleryTextures.map((texture) => texture.image),
       coverArtImage: loadedAssets[6].image,
       backArtImage: loadedAssets[7].image,
     })
-  }, [loadedAssets])
+  }, [loadedAssets, maxAnisotropy])
+
+  useEffect(() => {
+    loadedAssets.forEach((texture) => {
+      texture.anisotropy = maxAnisotropy
+      texture.generateMipmaps = true
+      texture.minFilter = THREE.LinearMipmapLinearFilter
+      texture.magFilter = THREE.LinearFilter
+      texture.needsUpdate = true
+    })
+  }, [loadedAssets, maxAnisotropy])
+
+  useEffect(() => {
+    Object.values(pageTextures).forEach((texture) => {
+      texture.anisotropy = maxAnisotropy
+      texture.generateMipmaps = true
+      texture.minFilter = THREE.LinearMipmapLinearFilter
+      texture.magFilter = THREE.LinearFilter
+      texture.needsUpdate = true
+    })
+  }, [maxAnisotropy, pageTextures])
 
   useEffect(() => {
     let timeoutId
