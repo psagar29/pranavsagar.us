@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { withBase } from '../lib/assets.js'
-import { bookMeta, menuLinks, navigationItems } from '../lib/bookData.js'
+import { bookMeta, navigationItems } from '../lib/bookData.js'
 import { getHologramContent } from '../lib/hologramContent.js'
 import { HologramPanel } from './HologramProjector.jsx'
 
@@ -18,6 +18,14 @@ function Overlay({
     const activeItem = navigationItems.find((item) => item.target === currentPage)
     return activeItem?.label ?? 'Cover'
   }, [currentPage])
+  const contactPageTarget = useMemo(
+    () => navigationItems.find((item) => item.label === 'Contact')?.target ?? 0,
+    [],
+  )
+  const contactContent = useMemo(
+    () => getHologramContent(contactPageTarget),
+    [contactPageTarget],
+  )
   const [menuOpen, setMenuOpen] = useState(false)
   const [intelOpen, setIntelOpen] = useState(false)
 
@@ -38,6 +46,19 @@ function Overlay({
     audio.volume = 0.12
     audio.play().catch(() => {})
   }, [currentPage])
+
+  const handleUtilityTrigger = () => {
+    onPageChange(contactPageTarget)
+
+    if (isMobile) {
+      setMenuOpen(false)
+      setIntelOpen(true)
+      return
+    }
+
+    setIntelOpen(false)
+    setMenuOpen((value) => !value)
+  }
 
   return (
     <>
@@ -91,9 +112,15 @@ function Overlay({
             <div className="overlay-utility">
               <button
                 className={`utility-trigger ${menuOpen ? 'is-active' : ''}`}
-                onClick={() => setMenuOpen((value) => !value)}
+                onClick={handleUtilityTrigger}
                 type="button"
-                aria-label={menuOpen ? 'Close utility menu' : 'Open utility menu'}
+                aria-label={
+                  isMobile
+                    ? 'Open contact form'
+                    : menuOpen
+                      ? 'Close contact form'
+                      : 'Open contact form'
+                }
                 aria-expanded={menuOpen}
               >
                 <span className="utility-trigger-dot" />
@@ -101,29 +128,16 @@ function Overlay({
                 <span className="utility-trigger-dot" />
               </button>
 
-              <aside className={`overlay-utility-window ${menuOpen ? 'is-active' : ''}`}>
-                <div className="overlay-utility-label">Open Channels</div>
-                <div className="overlay-utility-links">
-                  {menuLinks.map((item) => (
-                    <a
-                      className="overlay-utility-link"
-                      href={item.href}
-                      key={item.label}
-                      onClick={() => setMenuOpen(false)}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      <span>{item.label}</span>
-                      <small>Open</small>
-                    </a>
-                  ))}
-                </div>
-              </aside>
+              {!isMobile && contactContent && (
+                <aside className={`overlay-utility-window is-contact ${menuOpen ? 'is-active' : ''}`}>
+                  <HologramPanel content={contactContent} />
+                </aside>
+              )}
             </div>
           </div>
         </header>
 
-        {!isMobile && pageContent && (
+        {!isMobile && pageContent && !menuOpen && (
           <div className="desktop-intel-window">
             <HologramPanel content={pageContent} />
           </div>

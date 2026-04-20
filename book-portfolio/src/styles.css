@@ -625,6 +625,22 @@ canvas {
   pointer-events: auto;
 }
 
+.overlay-utility-window.is-contact {
+  width: min(408px, calc(100vw - 2rem));
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.overlay-utility-window.is-contact .hologram-panel,
+.overlay-utility-window.is-contact .hologram-panel.is-contact {
+  width: 100%;
+  max-height: min(600px, calc(100vh - 8.5rem));
+}
+
 .overlay-utility-label {
   margin-bottom: 0.65rem;
   color: rgba(240, 235, 227, 0.44);
@@ -862,6 +878,99 @@ canvas {
 
   .overlay-utility-window {
     width: min(280px, calc(100vw - 1.5rem));
+  }
+}
+
+@media (max-width: 900px) {
+  .overlay-shell.is-mobile {
+    gap: 0.65rem;
+    padding:
+      calc(0.6rem + env(safe-area-inset-top))
+      0.55rem
+      calc(0.7rem + env(safe-area-inset-bottom));
+  }
+
+  .overlay-shell.is-mobile .overlay-topbar-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'actions utility'
+      'brand brand';
+    align-items: start;
+    gap: 0.72rem 0.65rem;
+    padding: 0.78rem 0.8rem 0.9rem;
+  }
+
+  .overlay-shell.is-mobile .overlay-actions {
+    grid-area: actions;
+    min-width: 0;
+  }
+
+  .overlay-shell.is-mobile .overlay-utility {
+    grid-area: utility;
+    align-self: start;
+  }
+
+  .overlay-shell.is-mobile .overlay-brand {
+    grid-area: brand;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .overlay-shell.is-mobile .overlay-kicker {
+    font-size: 0.66rem;
+  }
+
+  .overlay-shell.is-mobile .overlay-title {
+    font-size: 1.82rem;
+    line-height: 0.98;
+  }
+
+  .overlay-shell.is-mobile .overlay-subtitle {
+    max-width: 14ch;
+    font-size: 0.84rem;
+  }
+
+  .overlay-shell.is-mobile .overlay-bottom {
+    gap: 0.55rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .overlay-shell.is-mobile {
+    padding:
+      calc(0.5rem + env(safe-area-inset-top))
+      0.45rem
+      calc(0.6rem + env(safe-area-inset-bottom));
+  }
+
+  .overlay-shell.is-mobile .overlay-topbar-row {
+    gap: 0.65rem 0.55rem;
+    padding: 0.72rem;
+    border-radius: 1.3rem;
+  }
+
+  .overlay-shell.is-mobile .overlay-actions {
+    gap: 0.4rem;
+  }
+
+  .overlay-shell.is-mobile .bond-control-btn {
+    min-height: 2.6rem;
+    padding: 0.66rem 0.8rem;
+    font-size: 0.74rem;
+  }
+
+  .overlay-shell.is-mobile .utility-trigger {
+    width: 48px;
+    height: 48px;
+  }
+
+  .overlay-shell.is-mobile .overlay-title {
+    font-size: 1.68rem;
+  }
+
+  .overlay-shell.is-mobile .overlay-subtitle {
+    max-width: 12ch;
+    font-size: 0.8rem;
   }
 }
 
