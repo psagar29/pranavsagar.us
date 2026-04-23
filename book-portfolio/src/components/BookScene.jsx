@@ -3,7 +3,6 @@ import {
   Float,
   Loader,
   OrbitControls,
-  Preload,
 } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
@@ -11,23 +10,30 @@ import * as THREE from 'three'
 import Book from './Book.jsx'
 import { pages } from '../lib/bookData.js'
 
-function SceneContents({ currentPage, isMobile, onPageChange }) {
+function SceneContents({ currentPage, deviceProfile, onPageChange }) {
+  const { enableEnvironment, enableShadows, isMobile, reducedMotion, shadowMapSize } =
+    deviceProfile
   const isClosedBook = currentPage === 0 || currentPage === pages.length
   const scene = isMobile
     ? {
-        bookPosition: isClosedBook ? [0.1, 0.04, 0] : [0.48, -0.04, 0],
-        bookScale: isClosedBook ? 0.92 : 0.82,
-        floatIntensity: 0.22,
-        rotationIntensity: 0.03,
-        speed: 0.18,
+        bookPosition: isClosedBook ? [-0.16, -0.02, 0] : [0.34, -0.12, 0],
+        bookScale: isClosedBook ? 1.02 : 0.98,
+        floatIntensity: 0.16,
+        rotationIntensity: 0.022,
+        speed: 0.14,
       }
     : {
-        bookPosition: isClosedBook ? [1.18, -0.04, 0] : [1.78, -0.04, 0],
-        bookScale: isClosedBook ? 1.08 : 1.04,
-        floatIntensity: 0.34,
-        rotationIntensity: 0.035,
-        speed: 0.22,
+        bookPosition: isClosedBook ? [0.92, -0.02, 0] : [1.5, -0.06, 0],
+        bookScale: isClosedBook ? 1.16 : 1.12,
+        floatIntensity: 0.24,
+        rotationIntensity: 0.026,
+        speed: 0.18,
       }
+  const bookTilt = isClosedBook
+    ? -Math.PI / 6
+    : isMobile
+      ? -Math.PI / 8
+      : -Math.PI / 7
   const orbitTarget = [
     scene.bookPosition[0] + (isMobile ? 0.02 : 0.04),
     scene.bookPosition[1] + (isMobile ? 0.12 : 0.16),
@@ -40,13 +46,17 @@ function SceneContents({ currentPage, isMobile, onPageChange }) {
       <fog attach="fog" args={['#0a0a0f', 6.5, 15.5]} />
 
       <Float
-        rotation-x={-Math.PI / 6}
-        floatIntensity={scene.floatIntensity}
-        speed={scene.speed}
-        rotationIntensity={scene.rotationIntensity}
+        rotation-x={bookTilt}
+        floatIntensity={reducedMotion ? 0 : scene.floatIntensity}
+        speed={reducedMotion ? 0 : scene.speed}
+        rotationIntensity={reducedMotion ? 0 : scene.rotationIntensity}
       >
         <group position={scene.bookPosition} scale={scene.bookScale}>
-          <Book currentPage={currentPage} onPageChange={onPageChange} />
+          <Book
+            currentPage={currentPage}
+            deviceProfile={deviceProfile}
+            onPageChange={onPageChange}
+          />
         </group>
         {/* Cool blue back light */}
         <rectAreaLight
@@ -73,20 +83,20 @@ function SceneContents({ currentPage, isMobile, onPageChange }) {
         dampingFactor={0.05}
         enablePan={false}
         enableRotate
-        enableZoom={false}
+        enableZoom={!isMobile}
         maxAzimuthAngle={Infinity}
         makeDefault
-        maxDistance={8}
-        maxPolarAngle={Math.PI - 0.28}
+        maxDistance={7}
+        maxPolarAngle={Math.PI / 2 + 0.62}
         mouseButtons={{
           LEFT: THREE.MOUSE.ROTATE,
           MIDDLE: THREE.MOUSE.DOLLY,
           RIGHT: THREE.MOUSE.ROTATE,
         }}
-        minDistance={2}
+        minDistance={3.2}
         minAzimuthAngle={-Infinity}
-        minPolarAngle={0.28}
-        rotateSpeed={isMobile ? 1.05 : 1.15}
+        minPolarAngle={0.36}
+        rotateSpeed={isMobile ? 0.82 : 0.95}
         target={orbitTarget}
         touches={{
           ONE: THREE.TOUCH.ROTATE,
@@ -94,16 +104,16 @@ function SceneContents({ currentPage, isMobile, onPageChange }) {
         }}
       />
 
-      <Environment preset="night" />
+      {enableEnvironment && <Environment preset="night" />}
 
       <directionalLight
-        castShadow
+        castShadow={enableShadows}
         color="#f5ede0"
         intensity={0.9}
         position={[1.8, 5.2, 2.8]}
         shadow-bias={-0.0001}
-        shadow-mapSize-height={2048}
-        shadow-mapSize-width={2048}
+        shadow-mapSize-height={shadowMapSize}
+        shadow-mapSize-width={shadowMapSize}
       />
 
       <hemisphereLight
@@ -124,18 +134,22 @@ function SceneContents({ currentPage, isMobile, onPageChange }) {
         distance={12}
       />
 
-      <mesh position-y={-1.5} receiveShadow rotation-x={-Math.PI / 2}>
-        <planeGeometry args={[100, 100]} />
-        <shadowMaterial opacity={0.3} transparent />
-      </mesh>
+      {enableShadows && (
+        <mesh position-y={-1.5} receiveShadow rotation-x={-Math.PI / 2}>
+          <planeGeometry args={[100, 100]} />
+          <shadowMaterial opacity={0.3} transparent />
+        </mesh>
+      )}
     </>
   )
 }
 
-function BookScene({ currentPage, isMobile, onPageChange }) {
+function BookScene({ currentPage, deviceProfile, onPageChange }) {
+  const { antialias, canvasTouchAction, enableShadows, isMobile, lowPower, rendererDpr } =
+    deviceProfile
   const camera = isMobile
-    ? { position: [0.22, 0.88, 5.95], fov: 34 }
-    : { position: [0.28, 1.28, 5.34], fov: 31 }
+    ? { position: [0.08, 0.98, 5.15], fov: 32 }
+    : { position: [0.2, 1.18, 5.08], fov: 30 }
 
   return (
     <>
@@ -157,28 +171,28 @@ function BookScene({ currentPage, isMobile, onPageChange }) {
       />
       <Canvas
         camera={camera}
-        dpr={isMobile ? [1.1, 2] : [1.4, 3]}
+        dpr={rendererDpr}
         gl={{
-          antialias: true,
-          powerPreference: 'high-performance',
+          antialias,
+          powerPreference: lowPower ? 'default' : 'high-performance',
         }}
-        shadows
+        performance={{ min: lowPower ? 0.45 : 0.65 }}
+        shadows={enableShadows}
         style={{
           background:
             'radial-gradient(circle at 50% 30%, rgba(40, 32, 18, 0.4) 0%, rgba(15, 13, 10, 0.95) 46%, #0a0a0f 100%)',
-          touchAction: 'none',
+          touchAction: canvasTouchAction,
         }}
       >
         <group position-y={isMobile ? 0.02 : 0}>
           <Suspense fallback={null}>
             <SceneContents
               currentPage={currentPage}
-              isMobile={isMobile}
+              deviceProfile={deviceProfile}
               onPageChange={onPageChange}
             />
           </Suspense>
         </group>
-        <Preload all />
       </Canvas>
     </>
   )

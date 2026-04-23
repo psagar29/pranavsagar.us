@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import BookScene from './components/BookScene.jsx'
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import Overlay from './components/Overlay.jsx'
 import BookReader from './components/BookReader.jsx'
+import { useDeviceProfile } from './lib/deviceProfile.js'
 import { withBase } from './lib/assets.js'
 import { pages } from './lib/bookData.js'
 
-const BOND_MUSIC_URL = withBase(
-  'audios/Skyfall Complete Score 45 - Skyfall (Instrumental Version).mp4',
-)
+const BookScene = lazy(() => import('./components/BookScene.jsx'))
+
+const BOND_MUSIC_URL = withBase('audios/skyfall-theme.mp3')
 const BOND_PARTICLES = Array.from({ length: 15 }, (_, i) => {
   const leftSeed = (Math.sin(i * 19.37) + 1) / 2
   const durationSeed = (Math.sin(i * 11.11 + 0.8) + 1) / 2
@@ -24,7 +24,8 @@ const BOND_PARTICLES = Array.from({ length: 15 }, (_, i) => {
 })
 
 function App() {
-  const isMobile = useIsMobile()
+  const deviceProfile = useDeviceProfile()
+  const { isMobile } = deviceProfile
   const [musicMuted, setMusicMuted] = useState(true)
   const [readerOpen, setReaderOpen] = useState(false)
   const musicRef = useRef(null)
@@ -36,46 +37,49 @@ function App() {
   })
 
   useEffect(() => {
-    const audio = new Audio(BOND_MUSIC_URL)
-    audio.loop = true
-    audio.preload = 'auto'
-    audio.defaultMuted = true
-    audio.muted = true
-    audio.playsInline = true
-    audio.volume = 0.18
-    musicRef.current = audio
+    return () => {
+      const audio = musicRef.current
 
-    const ensurePlayback = () => {
-      if (!audio.paused) {
+      if (!audio) {
         return
       }
-      audio.play().catch(() => {})
-    }
 
-    ensurePlayback()
-    window.addEventListener('pointerdown', ensurePlayback, { once: true })
-    window.addEventListener('keydown', ensurePlayback, { once: true })
-
-    return () => {
-      window.removeEventListener('pointerdown', ensurePlayback)
-      window.removeEventListener('keydown', ensurePlayback)
       audio.pause()
       audio.src = ''
+      musicRef.current = null
     }
   }, [])
 
   const toggleMusic = useCallback(() => {
-    const audio = musicRef.current
-    if (!audio) return
-    const nextMuted = !audio.muted
+    let audio = musicRef.current
+
+    if (!audio) {
+      audio = new Audio(BOND_MUSIC_URL)
+      audio.loop = true
+      audio.preload = 'metadata'
+      audio.defaultMuted = true
+      audio.muted = true
+      audio.playsInline = true
+      audio.volume = 0.18
+      musicRef.current = audio
+    }
+
+    const nextMuted = !musicMuted
     audio.muted = nextMuted
     audio.defaultMuted = nextMuted
     setMusicMuted(nextMuted)
 
-    if (audio.paused) {
-      audio.play().catch(() => {})
+    if (nextMuted) {
+      audio.pause()
+      return
     }
-  }, [])
+
+    audio.play().catch(() => {
+      audio.muted = true
+      audio.defaultMuted = true
+      setMusicMuted(true)
+    })
+  }, [musicMuted])
 
   return (
     <>
@@ -87,11 +91,13 @@ function App() {
         onPageChange={setCurrentPage}
         onOpenReader={() => setReaderOpen(true)}
       />
-      <BookScene
-        currentPage={currentPage}
-        isMobile={isMobile}
-        onPageChange={setCurrentPage}
-      />
+      <Suspense fallback={null}>
+        <BookScene
+          currentPage={currentPage}
+          deviceProfile={deviceProfile}
+          onPageChange={setCurrentPage}
+        />
+      </Suspense>
       {readerOpen && <BookReader onClose={() => setReaderOpen(false)} />}
       <BondParticles isMobile={isMobile} />
     </>
@@ -118,21 +124,6 @@ function BondParticles({ isMobile }) {
       ))}
     </div>
   )
-}
-
-function useIsMobile(breakpoint = 840) {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= breakpoint)
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint}px)`)
-    const handleChange = (event) => setIsMobile(event.matches)
-
-    mediaQuery.addEventListener('change', handleChange)
-
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [breakpoint])
-
-  return isMobile
 }
 
 export default App

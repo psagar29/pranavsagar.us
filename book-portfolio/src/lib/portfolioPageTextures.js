@@ -4,8 +4,10 @@ import { portfolioData, projectCollections } from './portfolioData.js'
 const PAGE_WIDTH = 1200
 const PAGE_HEIGHT = 1620
 const PAGE_PADDING = 92
-const CONTENT_TEXTURE_SCALE = 2.1
-const INTRO_TEXTURE_SCALE = 2.45
+const DEFAULT_CONTENT_TEXTURE_SCALE = 1.06
+const DEFAULT_INTRO_TEXTURE_SCALE = 1.16
+let contentTextureScale = DEFAULT_CONTENT_TEXTURE_SCALE
+let introTextureScale = DEFAULT_INTRO_TEXTURE_SCALE
 
 // Bond color palette
 const PAPER = '#0a0a0f'
@@ -26,7 +28,7 @@ const ACCENT = '#7a6535'
 const SANS = '"Arial", "Helvetica", sans-serif'
 const SERIF = '"Georgia", "Times New Roman", serif'
 
-function createPageCanvas({ dark = false, scale = CONTENT_TEXTURE_SCALE } = {}) {
+function createPageCanvas({ dark = false, scale = contentTextureScale } = {}) {
   const canvas = document.createElement('canvas')
   canvas.width = Math.round(PAGE_WIDTH * scale)
   canvas.height = Math.round(PAGE_HEIGHT * scale)
@@ -433,7 +435,7 @@ function buildCoverFront(portraitImage, coverArtImage) {
 }
 
 function buildInsideCover(portraitImage) {
-  const { canvas, context } = createPageCanvas({ scale: INTRO_TEXTURE_SCALE })
+  const { canvas, context } = createPageCanvas({ scale: introTextureScale })
   const rightColumnX = 796
   const rightColumnWidth = 258
   const photoY = 258
@@ -481,7 +483,7 @@ function buildInsideCover(portraitImage) {
 // ── Content pages ─────────────────────────────────────────
 
 function buildHeroPage() {
-  const { canvas, context } = createPageCanvas({ scale: INTRO_TEXTURE_SCALE })
+  const { canvas, context } = createPageCanvas({ scale: introTextureScale })
   const gradient = context.createLinearGradient(0, 0, PAGE_WIDTH, PAGE_HEIGHT)
   gradient.addColorStop(0, '#f5f2ec')
   gradient.addColorStop(1, '#ece6dc')
@@ -1464,79 +1466,94 @@ export function createPortfolioPageTextures({
   coverArtImage,
   backArtImage,
   anisotropy = 16,
+  contentScale = DEFAULT_CONTENT_TEXTURE_SCALE,
+  introScale = DEFAULT_INTRO_TEXTURE_SCALE,
+  generateMipmaps = true,
 }) {
-  const textures = {
-    coverFront: buildCoverFront(portraitImage, coverArtImage, anisotropy),
-    insideCover: buildInsideCover(portraitImage, anisotropy),
-    hero: buildHeroPage(anisotropy),
-    about: buildAboutPage(anisotropy),
-    gallery: buildGalleryPage(galleryImages, anisotropy),
-    skills: buildSkillsPage(anisotropy),
-    education: buildEducationPage(anisotropy),
-    certifications: buildCertificationPage(anisotropy),
-    experience: buildExperiencePage(anisotropy),
-    impact: buildImpactPage(anisotropy),
-    projectsA: drawProjectPage(projectCollections[0].title, projectCollections[0].projects, anisotropy),
-    projectsB: drawProjectPage(projectCollections[1].title, projectCollections[1].projects, anisotropy),
-    projectsC: drawProjectPage(projectCollections[2].title, projectCollections[2].projects, anisotropy),
-    projectsD: drawProjectPage(projectCollections[3].title, projectCollections[3].projects, anisotropy),
-    projectNotesA: drawProjectNotesPage(
-      'Build Notes',
-      projectCollections[0].title,
-      projectCollections[0].summary,
-      projectCollections[0].focusAreas,
-      projectCollections[0].stackSignals,
-      anisotropy,
-    ),
-    projectNotesB: drawProjectNotesPage(
-      'Build Notes',
-      projectCollections[1].title,
-      projectCollections[1].summary,
-      projectCollections[1].focusAreas,
-      projectCollections[1].stackSignals,
-      anisotropy,
-    ),
-    projectNotesC: drawProjectNotesPage(
-      'Build Notes',
-      projectCollections[2].title,
-      projectCollections[2].summary,
-      projectCollections[2].focusAreas,
-      projectCollections[2].stackSignals,
-      anisotropy,
-    ),
-    projectNotesD: drawProjectNotesPage(
-      'Build Notes',
-      projectCollections[3].title,
-      projectCollections[3].summary,
-      projectCollections[3].focusAreas,
-      projectCollections[3].stackSignals,
-      anisotropy,
-    ),
-    contactPrelude: drawProjectNotesPage(
-      'Direct Channel',
-      'Reach Out',
-      'This transition page sets up the closing section: where to contact Pranav, what kinds of work fit best, and how the conversation should start.',
-      [
-        'Best routes for outreach, collaboration, and role discussions',
-        'Signals around fit, working style, and product-minded execution',
-        'A clean handoff into open channels and the final close',
-      ],
-      ['Website', 'Email', 'LinkedIn', 'GitHub', 'Tempe', 'Product Engineering', 'AI Systems'],
-      anisotropy,
-    ),
-    contact: buildContactPage(anisotropy),
-    social: buildSocialPage(anisotropy),
-    finale: buildFinalePage(portraitImage, anisotropy),
-    backCover: buildBackCover(backArtImage, anisotropy),
+  const previousContentScale = contentTextureScale
+  const previousIntroScale = introTextureScale
+  contentTextureScale = contentScale
+  introTextureScale = introScale
+
+  try {
+    const textures = {
+      coverFront: buildCoverFront(portraitImage, coverArtImage, anisotropy),
+      insideCover: buildInsideCover(portraitImage, anisotropy),
+      hero: buildHeroPage(anisotropy),
+      about: buildAboutPage(anisotropy),
+      gallery: buildGalleryPage(galleryImages, anisotropy),
+      skills: buildSkillsPage(anisotropy),
+      education: buildEducationPage(anisotropy),
+      certifications: buildCertificationPage(anisotropy),
+      experience: buildExperiencePage(anisotropy),
+      impact: buildImpactPage(anisotropy),
+      projectsA: drawProjectPage(projectCollections[0].title, projectCollections[0].projects, anisotropy),
+      projectsB: drawProjectPage(projectCollections[1].title, projectCollections[1].projects, anisotropy),
+      projectsC: drawProjectPage(projectCollections[2].title, projectCollections[2].projects, anisotropy),
+      projectsD: drawProjectPage(projectCollections[3].title, projectCollections[3].projects, anisotropy),
+      projectNotesA: drawProjectNotesPage(
+        'Build Notes',
+        projectCollections[0].title,
+        projectCollections[0].summary,
+        projectCollections[0].focusAreas,
+        projectCollections[0].stackSignals,
+        anisotropy,
+      ),
+      projectNotesB: drawProjectNotesPage(
+        'Build Notes',
+        projectCollections[1].title,
+        projectCollections[1].summary,
+        projectCollections[1].focusAreas,
+        projectCollections[1].stackSignals,
+        anisotropy,
+      ),
+      projectNotesC: drawProjectNotesPage(
+        'Build Notes',
+        projectCollections[2].title,
+        projectCollections[2].summary,
+        projectCollections[2].focusAreas,
+        projectCollections[2].stackSignals,
+        anisotropy,
+      ),
+      projectNotesD: drawProjectNotesPage(
+        'Build Notes',
+        projectCollections[3].title,
+        projectCollections[3].summary,
+        projectCollections[3].focusAreas,
+        projectCollections[3].stackSignals,
+        anisotropy,
+      ),
+      contactPrelude: drawProjectNotesPage(
+        'Direct Channel',
+        'Reach Out',
+        'This transition page sets up the closing section: where to contact Pranav, what kinds of work fit best, and how the conversation should start.',
+        [
+          'Best routes for outreach, collaboration, and role discussions',
+          'Signals around fit, working style, and product-minded execution',
+          'A clean handoff into open channels and the final close',
+        ],
+        ['Website', 'Email', 'LinkedIn', 'GitHub', 'Tempe', 'Product Engineering', 'AI Systems'],
+        anisotropy,
+      ),
+      contact: buildContactPage(anisotropy),
+      social: buildSocialPage(anisotropy),
+      finale: buildFinalePage(portraitImage, anisotropy),
+      backCover: buildBackCover(backArtImage, anisotropy),
+    }
+
+    Object.values(textures).forEach((texture) => {
+      texture.anisotropy = anisotropy
+      texture.generateMipmaps = generateMipmaps
+      texture.minFilter = generateMipmaps
+        ? THREE.LinearMipmapLinearFilter
+        : THREE.LinearFilter
+      texture.magFilter = THREE.LinearFilter
+      texture.needsUpdate = true
+    })
+
+    return textures
+  } finally {
+    contentTextureScale = previousContentScale
+    introTextureScale = previousIntroScale
   }
-
-  Object.values(textures).forEach((texture) => {
-    texture.anisotropy = anisotropy
-    texture.generateMipmaps = true
-    texture.minFilter = THREE.LinearMipmapLinearFilter
-    texture.magFilter = THREE.LinearFilter
-    texture.needsUpdate = true
-  })
-
-  return textures
 }

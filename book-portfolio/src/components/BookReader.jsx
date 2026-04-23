@@ -3,6 +3,10 @@ import { portfolioData, projectCollections } from '../lib/portfolioData.js'
 
 function BookReader({ onClose }) {
   useEffect(() => {
+    if (!onClose) {
+      return undefined
+    }
+
     const handleKey = (event) => {
       if (event.key === 'Escape') onClose()
     }
@@ -25,7 +29,7 @@ function BookReader({ onClose }) {
     <div
       className="book-reader-overlay"
       onClick={(event) => {
-        if (event.target === event.currentTarget) onClose()
+        if (event.target === event.currentTarget) onClose?.()
       }}
     >
       <div className="book-reader-container">

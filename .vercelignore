@@ -1,0 +1,15 @@
+node_modules
+.git
+.env
+.env.*
+*.local
+book-portfolio/dist
+book-portfolio/node_modules
+book-portfolio/public/audios/Skyfall Complete Score 45 - Skyfall (Instrumental Version).mp4
+book-portfolio/public/textures/thumbnail.png
+book-portfolio/public/portfolio/IMG_2433.png
+book-portfolio/public/portfolio/photo1.png
+book-portfolio/public/portfolio/photo2.jpg
+book-portfolio/public/portfolio/photo3.jpg
+book-portfolio/public/portfolio/photo4.jpg
+book-portfolio/public/portfolio/photo5.jpg

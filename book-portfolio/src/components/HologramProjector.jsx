@@ -1,7 +1,4 @@
-import { Html } from '@react-three/drei'
-import { useMemo, useState } from 'react'
-import { pages } from '../lib/bookData.js'
-import { getHologramContent } from '../lib/hologramContent.js'
+import { useState } from 'react'
 import { portfolioData } from '../lib/portfolioData.js'
 
 /* ── Per-page full-content renderers ─────────────────────── */
@@ -348,52 +345,5 @@ function HologramPanel({ content }) {
   )
 }
 
-/* ── 3D anchor — hologram only, no light/projector ──────── */
-
-function HologramProjector({
-  bookPosition = [0, 0, 0],
-  currentPage,
-  isMobile = false,
-}) {
-  const content = useMemo(() => getHologramContent(currentPage), [currentPage])
-  const active = currentPage > 0 && currentPage < pages.length && content
-  const baseX = bookPosition[0] - 1.18
-
-  const layout = content?.type === 'contact'
-    ? {
-        groupPosition: [baseX + 0.02, bookPosition[1] - 0.05, 0.36],
-        panelPosition: [0, 0, 0],
-        distanceFactor: 0.84,
-      }
-    : content?.type === 'intro'
-      ? {
-          groupPosition: [baseX + 0.06, bookPosition[1] + 0.05, 0.31],
-          panelPosition: [0, 0, 0],
-          distanceFactor: 0.86,
-        }
-      : {
-          groupPosition: [baseX, bookPosition[1] - 0.01, 0.35],
-          panelPosition: [0, 0, 0],
-          distanceFactor: 0.84,
-        }
-
-  if (!active || isMobile) return null
-
-  return (
-    <group position={layout.groupPosition}>
-      <Html
-        center
-        distanceFactor={layout.distanceFactor}
-        position={layout.panelPosition}
-        sprite
-        transform
-        zIndexRange={[25, 0]}
-      >
-        <HologramPanel content={content} />
-      </Html>
-    </group>
-  )
-}
-
 export { HologramPanel }
-export default HologramProjector
+export default HologramPanel

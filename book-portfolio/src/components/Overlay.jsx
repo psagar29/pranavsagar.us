@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { withBase } from '../lib/assets.js'
 import { bookMeta, navigationItems } from '../lib/bookData.js'
 import { getHologramContent } from '../lib/hologramContent.js'
@@ -28,6 +28,7 @@ function Overlay({
   )
   const [menuOpen, setMenuOpen] = useState(false)
   const [intelOpen, setIntelOpen] = useState(false)
+  const flipAudioRef = useRef(null)
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -43,7 +44,29 @@ function Overlay({
 
   useEffect(() => {
     const audio = new Audio(withBase('audios/page-flip-01a.mp3'))
+    audio.preload = 'auto'
     audio.volume = 0.12
+    flipAudioRef.current = audio
+
+    return () => {
+      audio.pause()
+      audio.src = ''
+      flipAudioRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    if (currentPage === 0) {
+      return
+    }
+
+    const audio = flipAudioRef.current
+
+    if (!audio) {
+      return
+    }
+
+    audio.currentTime = 0
     audio.play().catch(() => {})
   }, [currentPage])
 

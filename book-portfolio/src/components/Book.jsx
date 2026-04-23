@@ -1,59 +1,84 @@
-import { useTexture } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import { withBase } from '../lib/assets.js'
 import BookPage from './BookPage.jsx'
 import { pages } from '../lib/bookData.js'
+import { readImageAsset } from '../lib/imageAssetResource.js'
 import { createPortfolioPageTextures } from '../lib/portfolioPageTextures.js'
 
 const portfolioImageUrls = [
-  withBase('portfolio/IMG_2433.png'),
-  withBase('portfolio/photo1.png'),
-  withBase('portfolio/photo2.jpg'),
-  withBase('portfolio/photo3.jpg'),
-  withBase('portfolio/photo4.jpg'),
-  withBase('portfolio/photo5.jpg'),
+  withBase('portfolio/optimized/IMG_2433.jpg'),
+  withBase('portfolio/optimized/photo1.jpg'),
+  withBase('portfolio/optimized/photo2.jpg'),
+  withBase('portfolio/optimized/photo3.jpg'),
+  withBase('portfolio/optimized/photo4.jpg'),
+  withBase('portfolio/optimized/photo5.jpg'),
   withBase('textures/cover.webp'),
   withBase('textures/back-bond.jpg'),
 ]
 
-function Book({ currentPage, onPageChange, ...props }) {
+function Book({ currentPage, deviceProfile, onPageChange, ...props }) {
   const [animatedPage, setAnimatedPage] = useState(currentPage)
   const { gl } = useThree()
-  const loadedAssets = useTexture(portfolioImageUrls)
-  const maxAnisotropy = gl.capabilities.getMaxAnisotropy()
+  const [
+    portraitImage,
+    galleryImageA,
+    galleryImageB,
+    galleryImageC,
+    galleryImageD,
+    galleryImageE,
+    coverArtImage,
+    backArtImage,
+  ] = portfolioImageUrls.map(readImageAsset)
+  const maxAnisotropy = Math.max(
+    1,
+    Math.min(gl.capabilities.getMaxAnisotropy(), deviceProfile.maxAnisotropy),
+  )
 
   const pageTextures = useMemo(() => {
-    const galleryTextures = loadedAssets.slice(1, 6)
     return createPortfolioPageTextures({
+      contentScale: deviceProfile.contentTextureScale,
+      generateMipmaps: deviceProfile.enableMipmaps,
+      introScale: deviceProfile.introTextureScale,
       anisotropy: maxAnisotropy,
-      portraitImage: loadedAssets[0].image,
-      galleryImages: galleryTextures.map((texture) => texture.image),
-      coverArtImage: loadedAssets[6].image,
-      backArtImage: loadedAssets[7].image,
+      portraitImage,
+      galleryImages: [
+        galleryImageA,
+        galleryImageB,
+        galleryImageC,
+        galleryImageD,
+        galleryImageE,
+      ],
+      coverArtImage,
+      backArtImage,
     })
-  }, [loadedAssets, maxAnisotropy])
-
-  useEffect(() => {
-    loadedAssets.forEach((texture) => {
-      texture.anisotropy = maxAnisotropy
-      texture.generateMipmaps = true
-      texture.minFilter = THREE.LinearMipmapLinearFilter
-      texture.magFilter = THREE.LinearFilter
-      texture.needsUpdate = true
-    })
-  }, [loadedAssets, maxAnisotropy])
+  }, [
+    backArtImage,
+    coverArtImage,
+    deviceProfile.contentTextureScale,
+    deviceProfile.enableMipmaps,
+    deviceProfile.introTextureScale,
+    galleryImageA,
+    galleryImageB,
+    galleryImageC,
+    galleryImageD,
+    galleryImageE,
+    maxAnisotropy,
+    portraitImage,
+  ])
 
   useEffect(() => {
     Object.values(pageTextures).forEach((texture) => {
       texture.anisotropy = maxAnisotropy
-      texture.generateMipmaps = true
-      texture.minFilter = THREE.LinearMipmapLinearFilter
+      texture.generateMipmaps = deviceProfile.enableMipmaps
+      texture.minFilter = deviceProfile.enableMipmaps
+        ? THREE.LinearMipmapLinearFilter
+        : THREE.LinearFilter
       texture.magFilter = THREE.LinearFilter
       texture.needsUpdate = true
     })
-  }, [maxAnisotropy, pageTextures])
+  }, [deviceProfile.enableMipmaps, maxAnisotropy, pageTextures])
 
   useEffect(() => {
     let timeoutId
