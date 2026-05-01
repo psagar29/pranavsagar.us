@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="book-portfolio/public/textures/thumbnail.png" alt="pranavsagar.us" width="640" />
-
 # pranavsagar.us
 
 **A cinematic, 3D interactive portfolio disguised as a comic book.**
