@@ -13,6 +13,10 @@ Flip through pages in a WebGL scene, hear the Skyfall score, read hologram intel
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Three.js](https://img.shields.io/badge/Three.js-r184-000?style=flat-square&logo=threedotjs&logoColor=white)](https://threejs.org)
 
+<br />
+
+<img src="book-portfolio/public/demo.gif" alt="pranavsagar.us demo" width="720" />
+
 </div>
 
 ---
