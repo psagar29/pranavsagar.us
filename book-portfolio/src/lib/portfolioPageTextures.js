@@ -1414,7 +1414,7 @@ function buildSocialPage() {
   const rowCount = Math.max(1, Math.ceil(links.length / columnCount))
   const gridX = PAGE_PADDING
   const gridY = 300
-  const gridWidth = PAGE_WIDTH - PAGE_PADDING * 2
+  const gridWidth = 940
   const gridGapX = columnCount === 3 ? 22 : 30
   const gridGapY = rowCount > 3 ? 20 : 28
   const minimumCardHeight = rowCount > 4 ? 96 : 112
@@ -1468,13 +1468,13 @@ function buildSocialPage() {
     ['Clarity', 'Speed', 'Systems Thinking', 'Product Taste', 'Iteration', 'Positioning', 'Reliability', 'Range'],
     PAGE_PADDING,
     workingStyleY + 36,
-    940,
+    gridWidth,
     '#2a2520',
   )
 
   const availabilityY = Math.min(Math.max(tagBottom + 42, 1120), PAGE_HEIGHT - PAGE_PADDING - 220)
-  fillRoundedRect(context, PAGE_PADDING, availabilityY, 1020, 220, 28, 'rgba(122, 101, 53, 0.06)')
-  strokeRoundedRect(context, PAGE_PADDING, availabilityY, 1020, 220, 28, 'rgba(122, 101, 53, 0.14)')
+  fillRoundedRect(context, PAGE_PADDING, availabilityY, gridWidth, 220, 28, 'rgba(122, 101, 53, 0.06)')
+  strokeRoundedRect(context, PAGE_PADDING, availabilityY, gridWidth, 220, 28, 'rgba(122, 101, 53, 0.14)')
   context.fillStyle = ACCENT
   context.font = `700 22px ${SANS}`
   context.fillText('Availability', PAGE_PADDING + 28, availabilityY + 46)
@@ -1485,7 +1485,7 @@ function buildSocialPage() {
     ],
     PAGE_PADDING + 28,
     availabilityY + 88,
-    964,
+    gridWidth - 56,
     { font: `26px ${SERIF}`, lineHeight: 36, gap: 0, maxLinesPerParagraph: 4 },
   )
 
