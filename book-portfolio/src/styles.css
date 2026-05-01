@@ -563,7 +563,42 @@ canvas {
 .overlay-utility {
   justify-self: end;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   pointer-events: auto;
+}
+
+.repo-source-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(240, 235, 227, 0.72);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  backdrop-filter: blur(14px);
+}
+
+.repo-source-link svg {
+  width: 15px;
+  height: 15px;
+}
+
+.repo-source-link:hover {
+  border-color: rgba(201, 169, 110, 0.22);
+  background: rgba(201, 169, 110, 0.1);
+  color: #f6dfb1;
+  transform: translateY(-1px);
 }
 
 .utility-trigger {
@@ -922,6 +957,17 @@ canvas {
   .overlay-shell.is-mobile .overlay-utility {
     grid-area: utility;
     align-self: start;
+  }
+
+  .overlay-shell.is-mobile .repo-source-link {
+    min-height: 42px;
+    width: 42px;
+    padding: 0;
+    border-radius: 0.82rem;
+  }
+
+  .overlay-shell.is-mobile .repo-source-link span {
+    display: none;
   }
 
   .overlay-shell.is-mobile .overlay-brand {

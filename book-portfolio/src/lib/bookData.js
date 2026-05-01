@@ -1,9 +1,14 @@
 export const bookMeta = {
   title: 'Pranav Sagar',
   year: '',
-  subtitle: 'Pranav Sagar Portfolio',
+  subtitle: 'AI systems, product judgment, and execution.',
   linkLabel: 'PranavSagar.us',
   linkHref: 'https://pranavsagar.us',
+}
+
+export const sourceRepository = {
+  label: 'GitHub',
+  href: 'https://github.com/psagar29/pranavsagar.us',
 }
 
 export const pages = [
@@ -33,6 +38,7 @@ export const navigationItems = [
 
 export const menuLinks = [
   { label: 'Website', href: 'https://pranavsagar.us' },
+  sourceRepository,
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/',

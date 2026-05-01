@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { withBase } from '../lib/assets.js'
-import { bookMeta, navigationItems } from '../lib/bookData.js'
+import { bookMeta, navigationItems, sourceRepository } from '../lib/bookData.js'
 import { getHologramContent } from '../lib/hologramContent.js'
 import { HologramPanel } from './HologramProjector.jsx'
 
@@ -133,6 +133,17 @@ function Overlay({
             </div>
 
             <div className="overlay-utility">
+              <a
+                className="repo-source-link"
+                href={sourceRepository.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open this website source code on GitHub"
+              >
+                <GitHubIcon />
+                <span>{sourceRepository.label}</span>
+              </a>
+
               <button
                 className={`utility-trigger ${menuOpen ? 'is-active' : ''}`}
                 onClick={handleUtilityTrigger}
@@ -228,6 +239,17 @@ function Overlay({
         </div>
       )}
     </>
+  )
+}
+
+function GitHubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        fill="currentColor"
+        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.85 1.24 1.85 1.24 1.07 1.84 2.82 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 5.48c1.02 0 2.05.14 3.01.41 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12.01 12.01 0 0 0 24 12c0-6.63-5.37-12-12-12Z"
+      />
+    </svg>
   )
 }
 

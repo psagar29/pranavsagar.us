@@ -5,6 +5,8 @@ export const portfolioData = {
     email: 'psagar2@asu.edu',
     location: 'Tempe, Arizona',
     title: 'Entrepreneur & AI Systems Builder',
+    summary:
+      'I build AI-native products, local-first workflows, and polished interfaces across web, macOS, and iOS. The through-line is simple: find a real workflow, reduce the nonsense, and ship the useful thing.',
     roles: [
       'AI Systems Builder',
       'Entrepreneur',
@@ -15,16 +17,16 @@ export const portfolioData = {
   },
   about: {
     paragraphs: [
-      "I'm Pranav Sagar, an entrepreneur building AI-native software, local-first workflows, and polished interfaces across web, macOS, and iOS.",
-      'My work sits at the intersection of systems thinking, product judgment, and execution. I like taking ambitious ideas, reducing them to the right architecture, and shipping software that feels inevitable once it exists.',
-      'Alongside product building, I care about positioning, usability, and the operating details that make a tool durable in the real world.',
+      "I'm Pranav Sagar, a Computer Science student at Arizona State University and an entrepreneur building AI-native software across web, macOS, and iOS.",
+      'My work usually starts with a messy workflow: inboxes, browser tasks, local desktop actions, student work, business operations, or product decisions. I turn that friction into systems with clear architecture, tight interfaces, and enough polish that the tool feels obvious after it exists.',
+      'I care about the whole path from idea to shipped artifact: product judgment, UI taste, backend reliability, deployment, positioning, and the small operational details that decide whether software survives contact with real users.',
     ],
     funFacts: [
-      'I think best when product strategy and engineering are treated as the same conversation.',
-      'A lot of my best ideas start from friction in daily workflows rather than abstract brainstorming.',
-      'Music, training, and long-form science fiction keep my taste calibrated outside of software.',
-      'I work comfortably across India and the United States, which shapes how I think about users and markets.',
-      'I care as much about clarity and pacing as I do about technical depth.',
+      'I think best when product strategy and engineering are treated as one conversation.',
+      'Most of my projects begin as daily workflow friction, not abstract brainstorming.',
+      'I like tools that compress complicated work without hiding the important choices.',
+      'I work between India and the United States, which shapes how I think about users, pricing, and markets.',
+      'Outside software, music, training, and science fiction keep my taste calibrated.',
     ],
   },
   skills: {
@@ -298,12 +300,14 @@ export const portfolioData = {
     ['Website', 'pranavsagar.us'],
     ['Email', 'psagar2@asu.edu'],
     ['Location', 'Tempe, Arizona'],
+    ['Source', 'github.com/psagar29/pranavsagar.us'],
     ['LinkedIn', 'linkedin.com/in/pranav-sagar-whythisurlissolong'],
     ['GitHub', 'github.com/psagar29'],
     ['Instagram', 'instagram.com/perhapspranav'],
   ],
   socialLinks: [
     { label: 'Website', href: 'https://pranavsagar.us' },
+    { label: 'Source', href: 'https://github.com/psagar29/pranavsagar.us' },
     {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/',

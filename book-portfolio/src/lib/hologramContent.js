@@ -19,8 +19,7 @@ export function getHologramContent(currentPage) {
         email: portfolioData.identity.email,
         site: 'pranavsagar.us',
         metrics: portfolioData.metrics,
-        summary:
-          "An interactive portfolio built as a readable artifact. The work inside reflects real products, real systems, and the execution style behind Pranav Sagar's portfolio.",
+        summary: portfolioData.identity.summary,
         focus:
           'Building AI-native tools, local-first operators, communication systems, and polished software across web, desktop, and mobile.',
       }
