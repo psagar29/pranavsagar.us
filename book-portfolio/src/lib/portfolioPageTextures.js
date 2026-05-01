@@ -108,31 +108,97 @@ function strokeRoundedRect(context, x, y, width, height, radius, strokeStyle) {
   context.restore()
 }
 
-function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = Number.POSITIVE_INFINITY) {
-  const words = text.split(' ')
-  let line = ''
-  let linesDrawn = 0
+function fitTextToWidth(context, text, maxWidth) {
+  const ellipsis = '...'
+  const source = `${text}`
 
-  for (let index = 0; index < words.length; index += 1) {
-    const testLine = line ? `${line} ${words[index]}` : words[index]
-    const metrics = context.measureText(testLine)
+  if (context.measureText(source).width <= maxWidth) {
+    return source
+  }
 
-    if (metrics.width > maxWidth && line) {
-      context.fillText(line, x, y)
-      line = words[index]
-      y += lineHeight
-      linesDrawn += 1
-      if (linesDrawn + 1 >= maxLines) {
-        context.fillText(`${line}...`, x, y)
-        return y + lineHeight
-      }
+  let fitted = source
+  while (fitted.length > 0 && context.measureText(`${fitted}${ellipsis}`).width > maxWidth) {
+    fitted = fitted.slice(0, -1)
+  }
+
+  return `${fitted}${ellipsis}`
+}
+
+function splitLongToken(context, token, maxWidth) {
+  const segments = []
+  let segment = ''
+
+  for (const character of token) {
+    const testSegment = `${segment}${character}`
+
+    if (segment && context.measureText(testSegment).width > maxWidth) {
+      segments.push(segment)
+      segment = character
     } else {
-      line = testLine
+      segment = testSegment
     }
   }
 
-  context.fillText(line, x, y)
-  return y + lineHeight
+  if (segment) {
+    segments.push(segment)
+  }
+
+  return segments
+}
+
+function wrapTextLines(context, text, maxWidth) {
+  const tokens = `${text}`.trim().split(/\s+/).filter(Boolean)
+  const lines = []
+  let line = ''
+
+  tokens.forEach((token) => {
+    const tokenParts =
+      context.measureText(token).width > maxWidth
+        ? splitLongToken(context, token, maxWidth)
+        : [token]
+
+    tokenParts.forEach((part) => {
+      if (!line) {
+        line = part
+        return
+      }
+
+      const testLine = `${line} ${part}`
+      if (context.measureText(testLine).width <= maxWidth) {
+        line = testLine
+        return
+      }
+
+      lines.push(line)
+      line = part
+    })
+  })
+
+  if (line) {
+    lines.push(line)
+  }
+
+  return lines.length ? lines : ['']
+}
+
+function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = Number.POSITIVE_INFINITY) {
+  const lines = wrapTextLines(context, text, maxWidth)
+  const visibleLineCount = Math.min(lines.length, maxLines)
+  const visibleLines = lines.slice(0, visibleLineCount)
+
+  if (lines.length > visibleLines.length && visibleLines.length > 0) {
+    visibleLines[visibleLines.length - 1] = fitTextToWidth(
+      context,
+      visibleLines[visibleLines.length - 1],
+      maxWidth,
+    )
+  }
+
+  visibleLines.forEach((line, index) => {
+    context.fillText(line, x, y + index * lineHeight)
+  })
+
+  return y + visibleLines.length * lineHeight
 }
 
 function drawParagraphs(context, paragraphs, x, y, width, options = {}) {
@@ -1343,49 +1409,82 @@ function buildSocialPage() {
   context.font = `400 28px ${SERIF}`
   context.fillText('Reach out wherever the conversation already lives.', PAGE_PADDING, 238)
 
-  portfolioData.socialLinks.forEach((item, index) => {
-    const column = index % 2
-    const row = Math.floor(index / 2)
-    const x = PAGE_PADDING + column * 510
-    const y = 300 + row * 188
+  const links = portfolioData.socialLinks
+  const columnCount = links.length > 8 ? 3 : 2
+  const rowCount = Math.max(1, Math.ceil(links.length / columnCount))
+  const gridX = PAGE_PADDING
+  const gridY = 300
+  const gridWidth = PAGE_WIDTH - PAGE_PADDING * 2
+  const gridGapX = columnCount === 3 ? 22 : 30
+  const gridGapY = rowCount > 3 ? 20 : 28
+  const minimumCardHeight = rowCount > 4 ? 96 : 112
+  const cardWidth = (gridWidth - gridGapX * (columnCount - 1)) / columnCount
+  const cardHeight = Math.max(
+    minimumCardHeight,
+    Math.min(148, (910 - gridY - gridGapY * (rowCount - 1)) / rowCount),
+  )
+  const cardRadius = columnCount === 3 ? 20 : 28
+  const valueLineHeight = columnCount === 3 ? 24 : 26
+  const valueFontSize = columnCount === 3 ? 18 : 22
+  const titleFontSize = columnCount === 3 ? 25 : 30
+  const cardInset = columnCount === 3 ? 22 : 24
+  const cardTitleY = cardHeight > 130 ? 76 : 70
+  const cardValueY = cardHeight > 130 ? 108 : 98
 
-    fillRoundedRect(context, x, y, 480, 158, 28, 'rgba(30, 25, 18, 0.035)')
-    strokeRoundedRect(context, x, y, 480, 158, 28, 'rgba(30, 25, 18, 0.08)')
+  links.forEach((item, index) => {
+    const column = index % columnCount
+    const row = Math.floor(index / columnCount)
+    const x = gridX + column * (cardWidth + gridGapX)
+    const y = gridY + row * (cardHeight + gridGapY)
+
+    fillRoundedRect(context, x, y, cardWidth, cardHeight, cardRadius, 'rgba(30, 25, 18, 0.035)')
+    strokeRoundedRect(context, x, y, cardWidth, cardHeight, cardRadius, 'rgba(30, 25, 18, 0.08)')
     context.fillStyle = ACCENT
-    context.font = `700 18px ${SANS}`
-    context.fillText(item.label.toUpperCase(), x + 26, y + 36)
+    context.font = `700 16px ${SANS}`
+    context.fillText(item.label.toUpperCase(), x + cardInset, y + 32)
     context.fillStyle = INK_LIGHT
-    context.font = `700 30px ${SANS}`
-    context.fillText(item.label, x + 26, y + 82)
+    context.font = `700 ${titleFontSize}px ${SANS}`
+    context.fillText(fitTextToWidth(context, item.label, cardWidth - cardInset * 2), x + cardInset, y + cardTitleY)
     context.fillStyle = MUTED_LIGHT
-    context.font = `500 22px ${SANS}`
-    drawWrappedText(context, displayValue(item.href), x + 26, y + 122, 428, 28, 2)
+    context.font = `500 ${valueFontSize}px ${SANS}`
+    drawWrappedText(
+      context,
+      displayValue(item.href),
+      x + cardInset,
+      y + cardValueY,
+      cardWidth - cardInset * 2,
+      valueLineHeight,
+      2,
+    )
   })
 
+  const gridBottom = gridY + rowCount * cardHeight + (rowCount - 1) * gridGapY
+  const workingStyleY = gridBottom + 70
   context.fillStyle = INK_LIGHT
   context.font = `700 34px ${SANS}`
-  context.fillText('Working Style', PAGE_PADDING, 960)
-  drawTagRow(
+  context.fillText('Working Style', PAGE_PADDING, workingStyleY)
+  const tagBottom = drawTagRow(
     context,
     ['Clarity', 'Speed', 'Systems Thinking', 'Product Taste', 'Iteration', 'Positioning', 'Reliability', 'Range'],
     PAGE_PADDING,
-    996,
-    1020,
+    workingStyleY + 36,
+    940,
     '#2a2520',
   )
 
-  fillRoundedRect(context, PAGE_PADDING, 1136, 1020, 220, 28, 'rgba(122, 101, 53, 0.06)')
-  strokeRoundedRect(context, PAGE_PADDING, 1136, 1020, 220, 28, 'rgba(122, 101, 53, 0.14)')
+  const availabilityY = Math.min(Math.max(tagBottom + 42, 1120), PAGE_HEIGHT - PAGE_PADDING - 220)
+  fillRoundedRect(context, PAGE_PADDING, availabilityY, 1020, 220, 28, 'rgba(122, 101, 53, 0.06)')
+  strokeRoundedRect(context, PAGE_PADDING, availabilityY, 1020, 220, 28, 'rgba(122, 101, 53, 0.14)')
   context.fillStyle = ACCENT
   context.font = `700 22px ${SANS}`
-  context.fillText('Availability', PAGE_PADDING + 28, 1182)
+  context.fillText('Availability', PAGE_PADDING + 28, availabilityY + 46)
   drawParagraphs(
     context,
     [
       'Best for product engineering roles, AI systems work, founder conversations, and design-engineering collaborations.',
     ],
     PAGE_PADDING + 28,
-    1224,
+    availabilityY + 88,
     964,
     { font: `26px ${SERIF}`, lineHeight: 36, gap: 0, maxLinesPerParagraph: 4 },
   )
@@ -1418,7 +1517,7 @@ function buildFinalePage(portraitImage) {
 
   context.fillStyle = BLUE
   context.font = `700 22px ${SANS}`
-  context.fillText('Code available upon request.', 90, 1450)
+  context.fillText('Source available on GitHub.', 90, 1450)
   context.fillStyle = MUTED_LIGHT
   context.font = `italic 26px ${SERIF}`
   context.fillText('Pranav Sagar', 90, 1492)
