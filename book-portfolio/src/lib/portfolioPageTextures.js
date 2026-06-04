@@ -494,7 +494,7 @@ function buildCoverFront(portraitImage, coverArtImage) {
   context.fillText('Pranav Sagar', 120, 1394)
   context.fillStyle = '#b0a898'
   context.font = `400 22px ${SANS}`
-  context.fillText('AI systems. Product execution.', 120, 1430)
+  context.fillText('macOS automation. AI platforms.', 120, 1430)
   context.fillText('pranavsagar.us', 120, 1460)
 
   return toTexture(canvas)
@@ -511,7 +511,7 @@ function buildInsideCover(portraitImage) {
 
   context.fillStyle = INK_LIGHT
   context.font = `700 34px ${SANS}`
-  context.fillText('AI systems. Product thinking. End-to-end execution.', PAGE_PADDING, y + 8)
+  context.fillText('macOS automation. AI platforms. RAG systems.', PAGE_PADDING, y + 8)
 
   y = drawParagraphs(
     context,
@@ -535,14 +535,14 @@ function buildInsideCover(portraitImage) {
   context.fillText('CURRENT FOCUS', rightColumnX, 720)
   drawParagraphs(
     context,
-    ['Building AI-native software, local-first operators, communication tooling, and polished products across web, desktop, and mobile.'],
+    ['Building native macOS automation, production AI communication platforms, OCR-backed reading tools, decision analysis systems, and AI content pipelines with measurable reach.'],
     rightColumnX, 760, rightColumnWidth,
     { font: `27px ${SERIF}`, lineHeight: 40 },
   )
 
   context.fillStyle = MUTED_LIGHT
   context.font = `italic 26px ${SERIF}`
-  context.fillText('"Clear systems. Useful products. Real execution."', PAGE_PADDING, 1450)
+  context.fillText('"Reliable systems. Useful products. Measurable execution."', PAGE_PADDING, 1450)
   return toTexture(canvas)
 }
 
@@ -567,8 +567,8 @@ function buildHeroPage() {
 
   context.fillStyle = MUTED_LIGHT
   context.font = `400 34px ${SERIF}`
-  context.fillText('AI-native software across web, macOS, and iOS.', PAGE_PADDING, 430)
-  context.fillText('Product engineer with an execution-first approach.', PAGE_PADDING, 470)
+  context.fillText('Native macOS agents, AI platforms, and RAG pipelines.', PAGE_PADDING, 430)
+  context.fillText('Software engineer with an execution-first approach.', PAGE_PADDING, 470)
 
   const metricY = 590
   const metricWidth = 224
@@ -585,7 +585,7 @@ function buildHeroPage() {
     context,
     [
       'The work spans AI products, custom interfaces, and multi-platform systems that have to be both technically sound and commercially legible.',
-      'The through-line is execution: define the leverage point, build the right workflow, and ship something people can actually use.',
+      'The through-line is execution: define the leverage point, build the workflow, verify it under real constraints, and ship something people can actually use.',
     ],
     PAGE_PADDING, 1135, 980,
     { font: `30px ${SERIF}`, lineHeight: 42 },
@@ -1334,7 +1334,7 @@ function buildContactPage() {
 
   context.fillStyle = MUTED_LIGHT
   context.font = `400 30px ${SERIF}`
-  context.fillText('Open to product engineering roles, collaborations, and systems worth building.', PAGE_PADDING, y + 8)
+  context.fillText('Open to software engineering roles, collaborations, and systems worth building.', PAGE_PADDING, y + 8)
 
   fillRoundedRect(context, 92, 328, 380, 1060, 32, 'rgba(30, 25, 18, 0.03)')
   strokeRoundedRect(context, 92, 328, 380, 1060, 32, 'rgba(30, 25, 18, 0.08)')
@@ -1361,7 +1361,7 @@ function buildContactPage() {
   context.fillText('Best Fits', 124, 1034)
   drawTagRow(
     context,
-    ['Product Engineering', 'AI Systems', '0-to-1 Builds', 'Design Engineering', 'Operator Workflows'],
+    ['Software Engineering', 'AI Systems', 'macOS Automation', 'RAG Platforms', 'Operator Workflows'],
     124,
     1068,
     316,
@@ -1481,7 +1481,7 @@ function buildSocialPage() {
   drawParagraphs(
     context,
     [
-      'Best for product engineering roles, AI systems work, founder conversations, and design-engineering collaborations.',
+      'Best for software engineering roles, AI systems work, native macOS automation, RAG platforms, and design-engineering collaborations.',
     ],
     PAGE_PADDING + 28,
     availabilityY + 88,

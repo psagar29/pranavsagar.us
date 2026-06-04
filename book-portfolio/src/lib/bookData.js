@@ -1,7 +1,7 @@
 export const bookMeta = {
   title: 'Pranav Sagar',
   year: '',
-  subtitle: 'AI systems, product judgment, and execution.',
+  subtitle: 'macOS automation, AI platforms, RAG systems, and product execution.',
   linkLabel: 'PranavSagar.us',
   linkHref: 'https://pranavsagar.us',
 }
@@ -44,6 +44,10 @@ export const menuLinks = [
     href: 'https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/',
   },
   { label: 'GitHub', href: 'https://github.com/psagar29' },
+  {
+    label: 'YouTube',
+    href: 'https://www.youtube.com/channel/UCqW724oz1dQXOleEUy9HRCg',
+  },
   { label: 'Instagram', href: 'https://www.instagram.com/perhapspranav' },
   { label: 'Email', href: 'mailto:psagar2@asu.edu' },
 ]

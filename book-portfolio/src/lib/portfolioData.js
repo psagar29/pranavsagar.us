@@ -3,30 +3,30 @@ export const portfolioData = {
     name: 'Pranav Sagar',
     site: 'https://pranavsagar.us',
     email: 'psagar2@asu.edu',
-    location: 'Tempe, Arizona',
-    title: 'Entrepreneur & AI Systems Builder',
+    location: 'San Francisco, California',
+    title: 'Software Engineer & AI Systems Builder',
     summary:
-      'I build AI-native products, local-first workflows, and polished interfaces across web, macOS, and iOS. The through-line is simple: find a real workflow, reduce the nonsense, and ship the useful thing.',
+      'I build end-to-end software across native macOS agents, production AI platforms, RAG systems, and real-time API integrations. Recent work spans Steward, DigitalYou, NavRead, clearweight, and an AI content pipeline that scaled a YouTube channel to 69K subscribers and 35M+ views.',
     roles: [
+      'Software Engineer',
       'AI Systems Builder',
-      'Entrepreneur',
-      'Web, macOS & iOS',
+      'macOS, Web & iOS',
+      'RAG & Automation',
       '0-to-1 Execution',
-      'Interface-Driven Systems',
     ],
   },
   about: {
     paragraphs: [
-      "I'm Pranav Sagar, a Computer Science student at Arizona State University and an entrepreneur building AI-native software across web, macOS, and iOS.",
-      'My work usually starts with a messy workflow: inboxes, browser tasks, local desktop actions, student work, business operations, or product decisions. I turn that friction into systems with clear architecture, tight interfaces, and enough polish that the tool feels obvious after it exists.',
-      'I care about the whole path from idea to shipped artifact: product judgment, UI taste, backend reliability, deployment, positioning, and the small operational details that decide whether software survives contact with real users.',
+      "I'm Pranav Sagar, a Computer Science student at Arizona State University and a software engineer building across native macOS, full-stack web, AI systems, and product infrastructure.",
+      'My strongest work turns messy real-world workflows into reliable systems: desktop automation that survives UI changes, AI communication tools with tenant-aware memory, reading libraries with OCR and semantic search, and decision tools that make tradeoffs explicit.',
+      'I care about the whole path from idea to shipped artifact: systems design, UI quality, backend reliability, deployment, testing, go-to-market, and the operational details that decide whether software survives contact with real users.',
     ],
     funFacts: [
-      'I think best when product strategy and engineering are treated as one conversation.',
-      'Most of my projects begin as daily workflow friction, not abstract brainstorming.',
-      'I like tools that compress complicated work without hiding the important choices.',
-      'I work between India and the United States, which shapes how I think about users, pricing, and markets.',
-      'Outside software, music, training, and science fiction keep my taste calibrated.',
+      'I think best where product strategy and engineering stay in the same conversation.',
+      'Most projects begin as workflow friction: desktop repetition, messy inboxes, unread PDFs, or decisions nobody wants to model by hand.',
+      'I like systems that compress complicated work without hiding the important choices.',
+      'I work across India and the United States, now based in San Francisco, which shapes how I think about users, pricing, and markets.',
+      'Outside software, YouTube experiments, music, training, and science fiction keep my taste calibrated.',
     ],
   },
   skills: {
@@ -36,29 +36,37 @@ export const portfolioData = {
       'TypeScript',
       'JavaScript',
       'Tailwind',
-      'HTML5',
-      'CSS3',
-      'Redux',
+      'SwiftUI',
+      'Electron',
+      'Remotion',
+      'Playwright',
     ],
     backend: [
       'Node.js',
       'Express',
-      'Firebase',
       'PostgreSQL',
+      'Firebase',
+      'Supabase',
       'MongoDB',
+      'SQLite',
       'Prisma',
       'REST APIs',
-      'Stripe',
+      'OAuth 2.0',
     ],
     systems: [
       'Python',
       'Swift',
       'Docker',
-      'Azure',
+      'AWS',
+      'Vercel',
       'Git',
+      'CI/CD',
+      'OpenAI API',
+      'RAG',
+      'pgvector',
+      'FAISS',
       'Java',
       'C++',
-      'C#',
     ],
   },
   education: [
@@ -68,7 +76,7 @@ export const portfolioData = {
       location: 'Tempe, Arizona',
       meta: ['Expected May 2026', '4.0 GPA'],
       description:
-        'Currently pursuing my Computer Science degree at Arizona State University, focusing on software engineering, AI systems, and database management. Building production applications alongside my studies.',
+        'Pursuing a B.S. in Computer Science at Arizona State University with strong coursework in systems design, distributed computing, software engineering, databases, and applied machine learning.',
       highlights: [
         'Data Structures & Algorithms',
         'Object-Oriented Programming',
@@ -82,9 +90,9 @@ export const portfolioData = {
       achievements: [
         'Maintaining perfect 4.0 GPA throughout academic career',
         'Undergraduate Teaching Assistant across CSE 355, CSE 360, and CSE 445',
-        "Dean's List recognition for academic excellence",
+        "Dean's List recognition across all semesters",
         'Outstanding Computer Science Student Award',
-        'Active member of the Computer Science Student Association',
+        'Top 10 placement at ASU Hackathon 2024',
       ],
     },
     {
@@ -136,12 +144,12 @@ export const portfolioData = {
       date: 'January 2026 - Present',
       current: true,
       description:
-        'Serving as an Undergraduate Teaching Assistant for three courses simultaneously in the School of Computing and Augmented Intelligence. Providing academic support, hosting office hours, leading discussions, and guiding students through complex computer science coursework.',
+        'Teaching Assistant for three upper-division Computer Science courses at ASU: Theoretical Computer Science, Software Engineering, and Distributed Software Development.',
       highlights: [
         'CSE 355 — Introduction to Theoretical Computer Science: Assisting students with automata theory, formal languages, computability, and computational complexity concepts',
         'CSE 360 — Introduction to Software Engineering: Supporting students in learning software development lifecycle, Agile methodologies, testing, and collaborative development practices',
         'CSE 445 — Distributed Software Development: Helping students understand service-oriented architecture, web services, cloud computing, and distributed systems design',
-        'Hosting regular office hours and study sessions, dedicating 20+ hours per week across all three courses',
+        'Hosting office hours and study sessions across all three courses',
         'Providing feedback on assignments and projects, relaying student questions to faculty instructors',
         'Acting as a peer mentor and role model, guiding students to ASU resources and supporting their academic success',
       ],
@@ -160,22 +168,22 @@ export const portfolioData = {
       location: 'New Delhi, India',
       date: 'May 2025 - July 2025',
       description:
-        'Developed AI-powered conversational systems and built custom CRM solutions for business automation. Worked on chatbot and voice bot implementations to streamline customer interactions and improve client communication workflows.',
+        'Built AI chatbots, voice bots, and a private CRM with NLP-powered lead tracking, automating client communication workflows and reducing average response time.',
       highlights: [
-        'Developed AI-powered chatbots and voice bots to automate customer interactions and streamline client communication workflows',
-        'Built a private CRM system tailored to internal business operations, improving lead tracking and client management efficiency',
-        'Integrated natural language processing models to enhance conversational AI capabilities',
-        'Collaborated with cross-functional teams to deploy automation solutions that reduced response times and increased customer satisfaction',
+        'Developed AI-powered chatbots and voice bots for customer interaction automation',
+        'Built a private CRM tailored to internal business operations and lead tracking',
+        'Integrated NLP capabilities to improve conversational quality and routing',
+        'Collaborated with cross-functional teams to deploy automation workflows',
       ],
       skills: ['AI/ML', 'Chatbots', 'Voice Bots', 'CRM Development', 'NLP', 'Python', 'Automation'],
     },
     {
-      title: 'Marketing & Sales Intern',
+      title: 'Data & Marketing Analytics Intern',
       company: 'Aramark, Sun Devil Hospitality, ASU',
       location: 'Tempe, Arizona',
       date: 'July 2023 - December 2025',
       description:
-        'Worked as a Marketing and Sales Intern at Aramark, focusing on data-driven strategies to enhance student engagement for campus dining services. Implemented innovative digital marketing campaigns and tracking mechanisms.',
+        'Analyzed campaign data using JMP and R, driving a 20% lift in digital engagement and 15% increase in student participation while building workflow automations that improved operational efficiency by 25%.',
       highlights: [
         'Leveraged JMP and R for data analysis, identifying trends to drive improvements in user engagement for digital campaigns',
         'Developed digital content strategies with engaging media tailored to specific user segments, enhancing engagement by 20%',
@@ -205,28 +213,52 @@ export const portfolioData = {
     },
   ],
   metrics: [
-    ['0-1', 'Execution'],
-    ['AI', 'Systems'],
-    ['Web+iOS', 'Platforms'],
-    ['Product', 'Thinking'],
+    ['12.5K', 'Swift LOC'],
+    ['8', 'Fallback Strategies'],
+    ['69K', 'Subscribers'],
+    ['35M+', 'Views'],
   ],
   projects: [
     {
-      title: 'Omnyx',
+      title: 'Steward',
       description:
-        'Local-first macOS AI operator that executes multi-step workflows across apps. Features accessibility tree + OCR perception engine and precision mouse/keyboard control.',
-      tech: ['Node.js', 'Swift', 'AI/ML', 'macOS'],
+        'Local-first macOS desktop automation platform with 12,500+ lines of Swift across 8 modular internal libraries. Records user workflows, replays them across desktop apps, and resolves changed targets with accessibility fingerprints, visual template matching, OCR, and screenshot verification.',
+      tech: ['Swift', 'SwiftUI', 'Python', 'Supabase'],
     },
     {
-      title: 'OmnyxMail',
+      title: 'DigitalYou',
       description:
-        'Production-grade AI assistant managing emails, calls, SMS, and social media. White-label multi-tenant architecture with vector memory system for contextual communication.',
+        'Full-stack AI communication platform for email, calls, SMS, and social media. Built with white-label multi-tenant architecture, pgvector-backed RAG memory, context-aware response generation, OAuth integrations, Playwright E2E tests, and automated leak-detection CI across 18+ migrations.',
       tech: ['Next.js', 'Firebase', 'TypeScript', 'OpenAI'],
+    },
+    {
+      title: 'NavRead',
+      description:
+        'Native macOS reading library for organizing highlights, importing PDFs, extracting text with Apple Vision OCR, and searching a local-first SQLite knowledge base with AI-powered semantic retrieval.',
+      tech: ['Swift', 'SwiftUI', 'SQLite', 'Apple Vision'],
+    },
+    {
+      title: 'clearweight',
+      description:
+        'Open-source decision analysis tool that turns natural-language prompts into weighted scoring matrices with real-time sensitivity analysis, drag-to-reweight sliders, and dual local/cloud AI provider support.',
+      tech: ['Next.js', 'React', 'TypeScript', 'Vercel'],
+    },
+    {
+      title: 'AI Content Engine',
+      description:
+        'Automated AI video production pipeline behind a YouTube channel that reached 69K subscribers and 35M+ views in 2 months. Handles scripting, animation, TTS rendering, Remotion scenes, FFmpeg output, and throughput-oriented iteration loops.',
+      tech: ['Remotion', 'React', 'Python', 'FFmpeg'],
+    },
+    {
+      title: 'Omnyx',
+      description:
+        'Local-first macOS AI operator that executes multi-step workflows across apps with accessibility-tree perception, OCR support, and precision mouse/keyboard control.',
+      tech: ['Node.js', 'Swift', 'AI/ML', 'macOS'],
     },
     {
       title: 'Omnyx iOS',
       description:
-        'Native iOS companion app for OmnyxMail. Full SwiftUI interface bringing AI-powered email and communication management to mobile.',
+        'Native iOS companion interface for AI-powered communication workflows, built in SwiftUI with mobile-first approval, inbox, and assistant interaction flows.',
       tech: ['Swift', 'SwiftUI', 'iOS', 'Xcode'],
     },
     {
@@ -238,7 +270,7 @@ export const portfolioData = {
     {
       title: 'Billionaire Mentors',
       description:
-        'Multi-mentor RAG chatbot featuring every billionaire — Elon Musk, Paul Graham, Warren Buffett, and more. Powered by pgvector with ~10ms HNSW vector search.',
+        'Multi-mentor RAG chatbot featuring every billionaire - Elon Musk, Paul Graham, Warren Buffett, and more. Powered by pgvector with HNSW vector search.',
       tech: ['Next.js', 'Supabase', 'Vercel AI', 'pgvector'],
     },
     {
@@ -266,12 +298,6 @@ export const portfolioData = {
       tech: ['React', 'Firebase', 'Tailwind', 'Vite'],
     },
     {
-      title: 'Youtuber Automated Shorts Maker',
-      description:
-        'YouTube Shorts automation platform with Veo3 video generation. Remotion-based rendering pipeline for scripting, animating, and publishing content at scale.',
-      tech: ['React', 'Remotion', 'Veo3', 'FFmpeg'],
-    },
-    {
       title: 'JackedPranav',
       description:
         'Personal fitness tracking web app for monitoring workouts, tracking progress, and setting fitness goals with real-time data sync and analytics dashboard.',
@@ -286,7 +312,7 @@ export const portfolioData = {
     {
       title: 'Gradium',
       description:
-        'Academic AI agent — autonomous platform that handles student workloads. Features AI chat, payment processing, multi-tier pricing, and intelligent task automation.',
+        'Academic AI agent platform for student workload automation. Features AI chat, payment processing, multi-tier pricing, and intelligent task orchestration.',
       tech: ['React', 'Firebase', 'Stripe', 'Vite'],
     },
     {
@@ -299,10 +325,11 @@ export const portfolioData = {
   links: [
     ['Website', 'pranavsagar.us'],
     ['Email', 'psagar2@asu.edu'],
-    ['Location', 'Tempe, Arizona'],
+    ['Location', 'San Francisco, California'],
     ['Source', 'github.com/psagar29/pranavsagar.us'],
     ['LinkedIn', 'linkedin.com/in/pranav-sagar-whythisurlissolong'],
     ['GitHub', 'github.com/psagar29'],
+    ['YouTube', 'youtube.com/channel/UCqW724oz1dQXOleEUy9HRCg'],
     ['Instagram', 'instagram.com/perhapspranav'],
   ],
   socialLinks: [
@@ -313,6 +340,10 @@ export const portfolioData = {
       href: 'https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/',
     },
     { label: 'GitHub', href: 'https://github.com/psagar29' },
+    {
+      label: 'YouTube',
+      href: 'https://www.youtube.com/channel/UCqW724oz1dQXOleEUy9HRCg',
+    },
     { label: 'Instagram', href: 'https://www.instagram.com/perhapspranav' },
     { label: 'Twitter', href: 'https://twitter.com/perhapspranav' },
     { label: 'Facebook', href: 'https://www.facebook.com/perhapspranav' },
@@ -343,42 +374,65 @@ const pickProjects = (...titles) =>
 
 export const projectCollections = [
   {
-    id: 'ai-operators',
-    title: 'AI Operators',
+    id: 'automation-communication',
+    title: 'Automation & Communication',
     summary:
-      'Operator-style products built around action, memory, communication, and multi-surface execution across desktop, web, and mobile.',
+      'Operator-style systems built around desktop action, communication memory, tenant-aware workflows, and multi-surface execution across macOS, web, and iOS.',
     focusAreas: [
-      'Local-first execution and workflow automation',
-      'AI-powered communication systems with persistent context',
-      'Native and web surfaces built around daily operator tasks',
+      'Local-first desktop automation with self-healing replay',
+      'AI-powered communication systems with persistent RAG memory',
+      'Native, web, and mobile surfaces for high-friction operator tasks',
     ],
     stackSignals: [
-      'Node.js',
       'Swift',
       'SwiftUI',
+      'Python',
+      'TypeScript',
       'OpenAI',
       'Firebase',
-      'TypeScript',
+      'pgvector',
       'macOS',
       'iOS',
       'Next.js',
     ],
-    projects: pickProjects('Omnyx', 'OmnyxMail', 'Omnyx iOS'),
+    projects: pickProjects('Steward', 'DigitalYou', 'Omnyx', 'Omnyx iOS'),
+  },
+  {
+    id: 'knowledge-decision-tools',
+    title: 'Knowledge & Decision Tools',
+    summary:
+      'Tools for turning messy knowledge, tradeoffs, and operational data into searchable libraries, scored decisions, and usable workflows.',
+    focusAreas: [
+      'Local-first knowledge management and OCR extraction',
+      'Decision modeling with weighted scoring and sensitivity analysis',
+      'Workflow utilities with real product surfaces and monetization paths',
+    ],
+    stackSignals: [
+      'SwiftUI',
+      'SQLite',
+      'Apple Vision',
+      'Next.js',
+      'TypeScript',
+      'React',
+      'Prisma',
+      'Stripe',
+    ],
+    projects: pickProjects('NavRead', 'clearweight', 'CRM', 'Gradium'),
   },
   {
     id: 'ai-platforms',
-    title: 'AI Platforms',
+    title: 'AI Platforms & RAG',
     summary:
-      'AI-native applications centered on retrieval, assistants, and vertical workflows, from RAG interfaces to multi-function guidance platforms.',
+      'AI-native applications centered on retrieval, assistants, and vertical workflows, from vector search interfaces to multi-function guidance platforms.',
     focusAreas: [
       'RAG and semantic retrieval systems with strong response quality',
       'Domain-specific assistants packaged as polished products',
       'AI workflows designed for direct end-user utility',
     ],
     stackSignals: [
+      'Supabase',
       'pgvector',
       'FAISS',
-      'Supabase',
       'Vercel AI',
       'Python',
       'React',
@@ -396,16 +450,17 @@ export const projectCollections = [
     id: 'media-interfaces',
     title: 'Media & Interfaces',
     summary:
-      'Consumer-facing builds focused on playback, browsing, interface transformation, and content-generation pipelines with strong front-end execution.',
+      'Consumer-facing builds focused on AI video production, playback, browsing, interface transformation, and high-polish front-end execution.',
     focusAreas: [
-      'Media playback and content-generation experiences',
+      'AI content-generation pipelines with measurable audience growth',
       'Browser-native products and interface-level customization',
       'UI-heavy builds where interaction quality is the product',
     ],
     stackSignals: [
       'React',
       'Remotion',
-      'Veo3',
+      'Python',
+      'FFmpeg',
       'Chromium',
       'Electron',
       'JavaScript',
@@ -413,32 +468,11 @@ export const projectCollections = [
       'Web Audio',
     ],
     projects: pickProjects(
+      'AI Content Engine',
       'Spotify Clone',
       'Custom Web Browser',
-      'Youtuber Automated Shorts Maker',
       'UI Morph',
+      'JackedPranav',
     ),
-  },
-  {
-    id: 'systems-utilities',
-    title: 'Systems & Utilities',
-    summary:
-      'Operational products spanning business tooling, academic automation, and personal tracking systems with real workflow utility.',
-    focusAreas: [
-      'Business operations and management platforms',
-      'Academic and task automation systems with monetization',
-      'Personal tools designed around tracking and progress visibility',
-    ],
-    stackSignals: [
-      'Prisma',
-      'PostgreSQL',
-      'Stripe',
-      'Express',
-      'React',
-      'Firebase',
-      'Vite',
-      'Analytics',
-    ],
-    projects: pickProjects('CRM', 'Gradium', 'JackedPranav'),
   },
 ]

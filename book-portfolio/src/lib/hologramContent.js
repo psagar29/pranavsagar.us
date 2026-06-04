@@ -21,7 +21,7 @@ export function getHologramContent(currentPage) {
         metrics: portfolioData.metrics,
         summary: portfolioData.identity.summary,
         focus:
-          'Building AI-native tools, local-first operators, communication systems, and polished software across web, desktop, and mobile.',
+          'Building systems with hard execution proof: Steward, DigitalYou, NavRead, clearweight, and an AI content engine with 35M+ views.',
       }
     case 2:
       return {

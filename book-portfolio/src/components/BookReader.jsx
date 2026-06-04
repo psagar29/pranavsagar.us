@@ -46,10 +46,10 @@ function BookReader({ onClose }) {
         <div className="book-reader-hero">
           <div className="book-reader-hero-copy">
             <p className="book-reader-hero-kicker">Overview</p>
-            <h3>Systems-minded product work across web, desktop, and iOS.</h3>
+            <h3>End-to-end engineering across macOS automation, AI platforms, and RAG systems.</h3>
             <p>
               This reader is the clean-text version of the book. It focuses on the
-              work, the operating style, and the execution signals that matter.
+              projects, technical depth, and execution signals recruiters should see quickly.
             </p>
           </div>
 

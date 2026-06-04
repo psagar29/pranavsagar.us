@@ -2,9 +2,9 @@
 
 # pranavsagar.us
 
-**A cinematic, 3D interactive portfolio disguised as a comic book.**
+**A cinematic, 3D interactive portfolio for Pranav Sagar's software engineering work.**
 
-Flip through pages in a WebGL scene, hear the Skyfall score, read hologram intel panels, or switch to a clean reader mode. Built with React, Three.js, and Framer Motion.
+Flip through pages in a WebGL scene, hear the Skyfall score, read hologram intel panels, or switch to a clean reader mode. The content now centers on Steward, DigitalYou, NavRead, clearweight, AI content infrastructure, and other shipped systems.
 
 ### [Visit the live site at pranavsagar.us](https://pranavsagar.us)
 
@@ -40,7 +40,7 @@ The whole thing runs client-side — no server, no database, no CMS. Just a Vite
 | **Skyfall score** | Background music toggle with animated equalizer bars |
 | **Hologram panels** | Bond-style intel overlays that update per page — desktop sidebar or mobile bottom sheet |
 | **Reader mode** | One click switches from the 3D book to a clean, scrollable portfolio view |
-| **11 double-sided pages** | Cover, Intro, About, Gallery, Skills, Education, Certifications, Experience, Projects (4 collections, 14 projects), Contact, Social, Finale |
+| **11 double-sided pages** | Cover, Intro, About, Gallery, Skills, Education, Certifications, Experience, Projects (4 collections, 17 projects), Contact, Social, Finale |
 | **Mobile responsive** | Full touch navigation with swipe support and adapted layouts |
 
 ---
@@ -57,11 +57,11 @@ Projects I ─── II ─── III ─── IV
 Contact ─── Social ─── Finale ─── Back Cover
 ```
 
-**14 projects** organized into four collections:
-- **AI Operators** — Omnyx, OmnyxMail, Omnyx iOS
-- **AI Platforms** — Vedic AI Astrologer, Billionaire Mentors, CrawlBot, KimuntuPro AI
-- **Media & Interfaces** — Spotify Clone, Custom Web Browser, YouTube Shorts Maker, UI Morph
-- **Systems & Utilities** — CRM, Gradium, JackedPranav
+**17 projects** organized into four collections:
+- **Automation & Communication** — Steward, DigitalYou, Omnyx, Omnyx iOS
+- **Knowledge & Decision Tools** — NavRead, clearweight, CRM, Gradium
+- **AI Platforms & RAG** — Vedic AI Astrologer, Billionaire Mentors, CrawlBot, KimuntuPro AI
+- **Media & Interfaces** — AI Content Engine, Spotify Clone, Custom Web Browser, UI Morph, JackedPranav
 
 ---
 

@@ -2,6 +2,8 @@
 
 The production Vite + React + Three.js portfolio for [pranavsagar.us](https://pranavsagar.us).
 
+Current content is aligned to Pranav Sagar's recruiter resume: Steward, DigitalYou, NavRead, clearweight, AI Content Engine, and supporting AI/platform/interface projects.
+
 This app lives inside the `pranavsagar.us` repo as the deployed subproject:
 
 - `book-portfolio/`
@@ -12,6 +14,7 @@ The root `vercel.json` builds this folder and deploys `book-portfolio/dist`.
 
 - Interactive 3D book portfolio
 - Readable portfolio overlay for quick scanning
+- Resume-aligned project collections and recruiter-facing summary
 - Contact form and social links
 - GitHub source link in the top-right utility area
 - Local portfolio media and textures
