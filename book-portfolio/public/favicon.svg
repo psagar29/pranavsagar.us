@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="P favicon">
+  <rect width="64" height="64" rx="14" fill="#ffffff" />
+  <g transform-origin="32 32">
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values="1;1.045;1"
+      dur="2.2s"
+      repeatCount="indefinite"
+    />
+    <text
+      x="32"
+      y="45"
+      text-anchor="middle"
+      font-family="Inter, Arial, Helvetica, sans-serif"
+      font-size="42"
+      font-weight="800"
+      fill="#000000"
+    >
+      P
+    </text>
+  </g>
+</svg>

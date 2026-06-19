@@ -13,6 +13,9 @@ import { pages } from '../lib/bookData.js'
 function SceneContents({ currentPage, deviceProfile, onPageChange }) {
   const { enableEnvironment, enableShadows, isMobile, reducedMotion, shadowMapSize } =
     deviceProfile
+  const isEmbed = typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('embed') === '1'
+  const sceneBg = isEmbed ? '#ffffff' : '#0a0a0f'
   const isClosedBook = currentPage === 0 || currentPage === pages.length
   const scene = isMobile
     ? {
@@ -42,8 +45,8 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
 
   return (
     <>
-      <color attach="background" args={['#0a0a0f']} />
-      <fog attach="fog" args={['#0a0a0f', 6.5, 15.5]} />
+      <color attach="background" args={[sceneBg]} />
+      {!isEmbed && <fog attach="fog" args={['#0a0a0f', 6.5, 15.5]} />}
 
       <Float
         rotation-x={bookTilt}
@@ -104,12 +107,12 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
         }}
       />
 
-      {enableEnvironment && <Environment preset="night" />}
+      {enableEnvironment && !isEmbed && <Environment preset="night" />}
 
       <directionalLight
         castShadow={enableShadows}
-        color="#f5ede0"
-        intensity={0.9}
+        color={isEmbed ? '#ffffff' : '#f5ede0'}
+        intensity={isEmbed ? 1.15 : 0.9}
         position={[1.8, 5.2, 2.8]}
         shadow-bias={-0.0001}
         shadow-mapSize-height={shadowMapSize}
@@ -117,22 +120,25 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
       />
 
       <hemisphereLight
-        color="#f0e8d8"
-        groundColor="#1a1510"
-        intensity={0.3}
+        color={isEmbed ? '#ffffff' : '#f0e8d8'}
+        groundColor={isEmbed ? '#e8eaef' : '#1a1510'}
+        intensity={isEmbed ? 0.85 : 0.3}
       />
 
-      {/* Warm ambient */}
-      <ambientLight color="#1a1510" intensity={0.6} />
-
-      {/* Subtle gold point light from above */}
-      <pointLight
-        color="#c9a96e"
-        intensity={0.4}
-        position={[0, 4.2, 0.5]}
-        decay={2}
-        distance={12}
+      <ambientLight
+        color={isEmbed ? '#ffffff' : '#1a1510'}
+        intensity={isEmbed ? 0.9 : 0.6}
       />
+
+      {!isEmbed && (
+        <pointLight
+          color="#c9a96e"
+          intensity={0.4}
+          position={[0, 4.2, 0.5]}
+          decay={2}
+          distance={12}
+        />
+      )}
 
       {enableShadows && (
         <mesh position-y={-1.5} receiveShadow rotation-x={-Math.PI / 2}>
@@ -150,6 +156,11 @@ function BookScene({ currentPage, deviceProfile, onPageChange }) {
   const camera = isMobile
     ? { position: [0.08, 0.98, 5.15], fov: 32 }
     : { position: [0.2, 1.18, 5.08], fov: 30 }
+  const isEmbed = typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('embed') === '1'
+  const canvasBg = isEmbed
+    ? '#ffffff'
+    : 'radial-gradient(circle at 50% 30%, rgba(40, 32, 18, 0.4) 0%, rgba(15, 13, 10, 0.95) 46%, #0a0a0f 100%)'
 
   return (
     <>
@@ -179,8 +190,7 @@ function BookScene({ currentPage, deviceProfile, onPageChange }) {
         performance={{ min: lowPower ? 0.45 : 0.65 }}
         shadows={enableShadows}
         style={{
-          background:
-            'radial-gradient(circle at 50% 30%, rgba(40, 32, 18, 0.4) 0%, rgba(15, 13, 10, 0.95) 46%, #0a0a0f 100%)',
+          background: canvasBg,
           touchAction: canvasTouchAction,
         }}
       >

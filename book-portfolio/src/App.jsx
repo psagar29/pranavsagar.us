@@ -29,6 +29,17 @@ function App() {
   const [musicMuted, setMusicMuted] = useState(true)
   const [readerOpen, setReaderOpen] = useState(false)
   const musicRef = useRef(null)
+  const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1'
+  useEffect(() => {
+    if (!isEmbed) return
+    const prevBg = document.body.style.background
+    document.body.style.background = '#ffffff'
+    document.documentElement.style.background = '#ffffff'
+    return () => {
+      document.body.style.background = prevBg
+      document.documentElement.style.background = ''
+    }
+  }, [isEmbed])
   const [currentPage, setCurrentPage] = useState(() => {
     const params = new URLSearchParams(window.location.search)
     const requestedPage = Number(params.get('page'))
@@ -83,14 +94,16 @@ function App() {
 
   return (
     <>
-      <Overlay
-        currentPage={currentPage}
-        isMobile={isMobile}
-        musicMuted={musicMuted}
-        onMusicToggle={toggleMusic}
-        onPageChange={setCurrentPage}
-        onOpenReader={() => setReaderOpen(true)}
-      />
+      {!isEmbed && (
+        <Overlay
+          currentPage={currentPage}
+          isMobile={isMobile}
+          musicMuted={musicMuted}
+          onMusicToggle={toggleMusic}
+          onPageChange={setCurrentPage}
+          onOpenReader={() => setReaderOpen(true)}
+        />
+      )}
       <Suspense fallback={null}>
         <BookScene
           currentPage={currentPage}
@@ -98,8 +111,8 @@ function App() {
           onPageChange={setCurrentPage}
         />
       </Suspense>
-      {readerOpen && <BookReader onClose={() => setReaderOpen(false)} />}
-      <BondParticles isMobile={isMobile} />
+      {readerOpen && !isEmbed && <BookReader onClose={() => setReaderOpen(false)} />}
+      {!isEmbed && <BondParticles isMobile={isMobile} />}
     </>
   )
 }
