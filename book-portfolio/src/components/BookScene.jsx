@@ -18,13 +18,21 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
   const sceneBg = isEmbed ? '#ffffff' : '#0a0a0f'
   const isClosedBook = currentPage === 0 || currentPage === pages.length
   const scene = isMobile
-    ? {
-        bookPosition: isClosedBook ? [-0.16, -0.02, 0] : [0.34, -0.12, 0],
-        bookScale: isClosedBook ? 1.02 : 0.98,
-        floatIntensity: 0.16,
-        rotationIntensity: 0.022,
-        speed: 0.14,
-      }
+    ? isEmbed
+      ? {
+          bookPosition: isClosedBook ? [-0.58, -0.05, 0] : [0.08, -0.15, 0],
+          bookScale: isClosedBook ? 0.84 : 0.88,
+          floatIntensity: 0.12,
+          rotationIntensity: 0.016,
+          speed: 0.12,
+        }
+      : {
+          bookPosition: isClosedBook ? [-0.16, -0.02, 0] : [0.34, -0.12, 0],
+          bookScale: isClosedBook ? 1.02 : 0.98,
+          floatIntensity: 0.16,
+          rotationIntensity: 0.022,
+          speed: 0.14,
+        }
     : {
         bookPosition: isClosedBook ? [0.92, -0.02, 0] : [1.5, -0.06, 0],
         bookScale: isClosedBook ? 1.16 : 1.12,
@@ -37,11 +45,17 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
     : isMobile
       ? -Math.PI / 8
       : -Math.PI / 7
-  const orbitTarget = [
-    scene.bookPosition[0] + (isMobile ? 0.02 : 0.04),
-    scene.bookPosition[1] + (isMobile ? 0.12 : 0.16),
-    0,
-  ]
+  const orbitTarget = isMobile && isEmbed
+    ? [
+        scene.bookPosition[0] + (isClosedBook ? 0.34 : 0.26),
+        scene.bookPosition[1] + 0.18,
+        0,
+      ]
+    : [
+        scene.bookPosition[0] + (isMobile ? 0.02 : 0.04),
+        scene.bookPosition[1] + (isMobile ? 0.12 : 0.16),
+        0,
+      ]
 
   return (
     <>
@@ -153,11 +167,13 @@ function SceneContents({ currentPage, deviceProfile, onPageChange }) {
 function BookScene({ currentPage, deviceProfile, onPageChange }) {
   const { antialias, canvasTouchAction, enableShadows, isMobile, lowPower, rendererDpr } =
     deviceProfile
-  const camera = isMobile
-    ? { position: [0.08, 0.98, 5.15], fov: 32 }
-    : { position: [0.2, 1.18, 5.08], fov: 30 }
   const isEmbed = typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('embed') === '1'
+  const camera = isMobile
+    ? isEmbed
+      ? { position: [0.08, 1, 5.95], fov: 35 }
+      : { position: [0.08, 0.98, 5.15], fov: 32 }
+    : { position: [0.2, 1.18, 5.08], fov: 30 }
   const canvasBg = isEmbed
     ? '#ffffff'
     : 'radial-gradient(circle at 50% 30%, rgba(40, 32, 18, 0.4) 0%, rgba(15, 13, 10, 0.95) 46%, #0a0a0f 100%)'
