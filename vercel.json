@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
   "installCommand": "npm ci --prefix book-portfolio",
-  "buildCommand": "npm run build --prefix book-portfolio",
-  "outputDirectory": "book-portfolio/dist"
+  "buildCommand": "npm run build --prefix book-portfolio && rm -rf public_dist && mkdir -p public_dist/comic-book && cp -R premium/. public_dist/ && cp -R book-portfolio/dist/. public_dist/comic-book/",
+  "outputDirectory": "public_dist",
+  "cleanUrls": true
 }
