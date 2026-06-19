@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranav</title>
+  <meta name="description" content="Projects by Pranav Sagar — native systems, AI products, operator tools, and interface experiments." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="32x32" />
+  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand plain" href="/">
+        <span>Pranav</span>
+      </a>
+      <div class="menu" id="menu">
+        <button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open menu"><svg class="menu-chevron" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1.5 2l5.5 6 5.5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="menu-panel" role="menu">
+          <a class="menu-link" href="/"><span>Home</span><span class="menu-link-key">01</span></a>
+          <a class="menu-link active" href="/projects"><span>Projects</span><span class="menu-link-key">02</span></a>
+          <a class="menu-link" href="/experience"><span>Experience</span><span class="menu-link-key">03</span></a>
+          <a class="menu-link" href="/skills"><span>Skills</span><span class="menu-link-key">04</span></a>
+          <a class="menu-link" href="/contact"><span>Contact</span><span class="menu-link-key">05</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container-wide">
+
+      <div class="page-eyebrow">Projects</div>
+      <h1 class="page-title">Things I built — across macOS, web, AI, and content systems.</h1>
+
+      <div class="prose work-intro">
+        <p>Built across native apps, AI systems, research tooling, and media pipelines.</p>
+        <p>Strongest signal: <strong>Steward</strong>, <strong>Scout</strong>, <strong>DigitalYou</strong>, <strong>NavRead</strong>, <strong>Mac Use</strong>, and the AI content engine that helped a YouTube channel reach <strong>35M+ views</strong> in two months.</p>
+      </div>
+
+      <section class="work-collection">
+        <header class="work-collection-meta">
+          <div class="work-collection-name">01 · Operator &amp; Native Systems</div>
+          <p class="work-collection-desc">Desktop automation, local-first native apps, runtimes, and operator tooling across macOS, iOS, and Electron.</p>
+        </header>
+
+        <div class="work-projects">
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Steward</div>
+              <div class="project-stack">Swift · SwiftUI · Python · Supabase · Stripe</div>
+            </div>
+            <p class="project-desc">Local-first macOS automation platform built around self-healing replay across desktop apps. Records workflows, fingerprints targets, and falls back through OCR, screenshot verification, and visual matching when UI state shifts.</p>
+            <a class="project-link plain" href="https://usestewardai.com" target="_blank" rel="noopener">usestewardai.com →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Mac Use</div>
+              <div class="project-stack">Swift · CLI · SDK · MCP · Accessibility API</div>
+            </div>
+            <p class="project-desc">Open-source macOS runtime that turns the Accessibility tree into compact model-readable state and exposes safe desktop actions through a CLI, SDK, and MCP server.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Omnyx</div>
+              <div class="project-stack">Node.js · Swift · AI/ML · macOS</div>
+            </div>
+            <p class="project-desc">Local-first macOS AI operator with accessibility-tree perception, OCR support, and precision desktop control. Same problem class as Steward, different execution model.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Automation Operator</div>
+              <div class="project-stack">Electron · TypeScript · React · Keychain</div>
+            </div>
+            <p class="project-desc">Electron-based control surface for Codex-operated Mac automation with browser OAuth, saved profile metadata, macOS Keychain token storage, and a RustDesk-backed local control bridge.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Subflow</div>
+              <div class="project-stack">Swift · macOS · local STT · translation</div>
+            </div>
+            <p class="project-desc">Native macOS app for live AI subtitles over any app, website, or video using local speech-to-text and translated floating subtitle overlays.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Omnyx iOS</div>
+              <div class="project-stack">Swift · SwiftUI · Firebase · Push</div>
+            </div>
+            <p class="project-desc">Production-ready iOS companion app for AI communication workflows with auth, approvals, dashboard state, deep linking, and push-notification plumbing.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="work-collection">
+        <header class="work-collection-meta">
+          <div class="work-collection-name">02 · Knowledge, AI &amp; Platforms</div>
+          <p class="work-collection-desc">Research agents, communication platforms, retrieval systems, decision tools, and workflow software with real backend depth.</p>
+        </header>
+
+        <div class="work-projects">
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Scout</div>
+              <div class="project-stack">Next.js · TypeScript · Zod · OpenAI</div>
+            </div>
+            <p class="project-desc">Autonomous pre-call research agent for commercial insurance brokers. Pulls public-source evidence, hazard context, and deterministic risk rules into a broker-ready packet.</p>
+            <a class="project-link plain" href="https://broker-scout.vercel.app" target="_blank" rel="noopener">broker-scout.vercel.app →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">DigitalYou</div>
+              <div class="project-stack">Next.js · Firebase · TypeScript · OpenAI · pgvector</div>
+            </div>
+            <p class="project-desc">Multi-tenant AI communication platform for email, calls, SMS, and social with persistent memory, document handling, integrations, analytics surfaces, and real testing discipline.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">NavRead</div>
+              <div class="project-stack">Swift · SwiftUI · SQLite · Apple Vision</div>
+            </div>
+            <p class="project-desc">Local-first macOS reading desk for quotes, PDFs, screenshots, OCR cleanup, semantic retrieval, and AI-assisted knowledge capture over a private library.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">clearweight</div>
+              <div class="project-stack">Next.js · React · TypeScript · Zod</div>
+            </div>
+            <p class="project-desc">Open-source weighted decision matrix where AI proposes structure and the user controls the sliders, gates, and sensitivity analysis.</p>
+            <a class="project-link plain" href="https://clearweight.vercel.app" target="_blank" rel="noopener">clearweight.vercel.app →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">CRM · Google Business Profile</div>
+              <div class="project-stack">Express · Prisma · PostgreSQL · Google OAuth</div>
+            </div>
+            <p class="project-desc">Full-stack Google Business Profile management platform with review flows, photo handling, AI recommendations, and multi-location analytics.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Vedic AI Astrologer</div>
+              <div class="project-stack">Next.js · Supabase · OpenAI · FastAPI</div>
+            </div>
+            <p class="project-desc">AI-powered astrology product with session memory, conversational guidance, and a separate compute path for domain-specific processing.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Billionaire Mentors</div>
+              <div class="project-stack">Next.js · Supabase · Vercel AI · pgvector</div>
+            </div>
+            <p class="project-desc">Multi-mentor retrieval app built around founder and operator personas, with pgvector-backed HNSW search over curated corpora.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">CrawlBot</div>
+              <div class="project-stack">Python · FAISS · RAG · Vector DB</div>
+            </div>
+            <p class="project-desc">Semantic crawling and indexing pipeline that scrapes, embeds, and queries web corpora with FAISS-backed retrieval.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">NavBot</div>
+              <div class="project-stack">FastAPI · SQLite · Python · Risk Systems</div>
+            </div>
+            <p class="project-desc">Prediction-market trading console with venue-specific workflows, risk controls, replayable analytics, and optional AI-assisted forecasting.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Gradium</div>
+              <div class="project-stack">React · Firebase · payments · Vite</div>
+            </div>
+            <p class="project-desc">Academic AI agent product for student workflow automation with auth, pricing, payments, and task-oriented product surfaces.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="work-collection">
+        <header class="work-collection-meta">
+          <div class="work-collection-name">03 · Media &amp; Interface Experiments</div>
+          <p class="work-collection-desc">Content systems, browser experiments, and interface-heavy builds where the surface is part of the product.</p>
+        </header>
+
+        <div class="work-projects">
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">AI Content Engine</div>
+              <div class="project-stack">Remotion · React · Python · FFmpeg</div>
+            </div>
+            <p class="project-desc">Automated video pipeline behind a YouTube channel that reached <strong>35M+ views in two months</strong>. Scripting, TTS, animation, rendering, and throughput were treated like a production system.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">UI Morph</div>
+              <div class="project-stack">Chrome API v3 · JavaScript · CSS · NLP</div>
+            </div>
+            <p class="project-desc">Chrome extension that transforms live websites using natural-language commands, theme overlays, and DOM manipulation across arbitrary pages.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Custom Web Browser</div>
+              <div class="project-stack">Electron · Chromium · JavaScript · C++</div>
+            </div>
+            <p class="project-desc">Personal browser experiment focused on custom tab behavior, privacy-minded UI ideas, and control over the browsing surface instead of default conventions.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">James Bond Comic-Book Portfolio</div>
+              <div class="project-stack">React · Three.js · @react-three/fiber · drei</div>
+            </div>
+            <p class="project-desc">3D page-turning portfolio built as an actual comic-book object in the browser. More playful than practical, but still fun.</p>
+            <a class="project-link plain" href="/comic">Read the comic →</a>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <span>© 2026 Pranav · San Francisco</span>
+      <div class="foot-links">
+        <a href="https://github.com/psagar29" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/pranav-sagar-whythisurlissolong/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.instagram.com/perhapspranav" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://twitter.com/perhapspranav" target="_blank" rel="noopener">Twitter</a>
+        <a href="mailto:pranavsagar0209@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
