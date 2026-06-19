@@ -381,8 +381,9 @@ main {
 
 .home-meta {
   display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 12px 22px;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 16px 20px;
+  align-items: start;
   margin-top: 28px;
   padding-top: 24px;
   border-top: 1px solid var(--divider);
@@ -390,18 +391,23 @@ main {
 }
 
 .home-meta dt {
+  margin: 0;
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  align-self: center;
+  align-self: start;
+  line-height: 1.35;
+  padding-top: 5px;
 }
 
 .home-meta dd {
+  margin: 0;
   color: var(--text-primary);
   font-weight: 500;
   letter-spacing: -0.005em;
+  line-height: 1.45;
 }
 
 .home-meta dd a { font-weight: 600; }
@@ -878,6 +884,26 @@ main {
   padding-left: 4px;
 }
 
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.cert-column-title {
+  margin-bottom: 8px;
+}
+
+.cert-list {
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 /* --- STACK PAGE --- */
 .stack-grid {
   display: flex;
@@ -1114,13 +1140,108 @@ a.contact-link-row:hover .cl-arrow { color: var(--text-primary); }
 /* --- RESPONSIVE --- */
 @media (max-width: 720px) {
   .container, .container-wide { padding: 0 22px; }
-  main { padding: 60px 0 80px; }
-  .home-intro, .contact-card { padding: 28px 24px; }
-  .home-meta { grid-template-columns: 1fr; gap: 4px 0; }
-  .home-meta dt { margin-top: 8px; }
-  .form-row { grid-template-columns: 1fr; }
+  .topbar { padding: 12px 0; }
   .topbar-inner { padding: 0 22px; }
+  main { padding: 60px 0 80px; }
+  .page-title {
+    font-size: clamp(24px, 10.5vw, 36px);
+    line-height: 1.04;
+    margin-bottom: 24px;
+  }
+  .prose p {
+    font-size: 15.5px;
+    line-height: 1.72;
+    margin-bottom: 16px;
+  }
+  .home-intro, .contact-card { padding: 28px 24px; }
+  .home-intro { padding: 26px 22px; }
+  .home-meta {
+    grid-template-columns: 1fr;
+    gap: 6px 0;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+  .home-meta dt {
+    margin-top: 8px;
+    padding-top: 0;
+  }
+  .home-quicklinks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .home-quicklink {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  .form-row { grid-template-columns: 1fr; }
   .exp-when-line { align-items: flex-start; flex-direction: row; gap: 10px; }
-  .project, .exp-item, .stack-block, .lead-card, .signal-card, .case-card, .lab-card, .skill-cluster, .focus-card, .note-card { padding: 22px; }
+  .work-intro { margin-bottom: 32px; }
+  .work-collection { margin-bottom: 40px; }
+  .work-collection-meta { margin-bottom: 18px; }
+  .work-collection-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .project, .exp-item, .stack-block, .lead-card, .signal-card, .case-card, .lab-card, .skill-cluster, .focus-card, .note-card { padding: 20px; }
+  .project-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .project-name { font-size: 16px; }
+  .project-stack {
+    font-size: 9.5px;
+    line-height: 1.7;
+  }
+  .project-desc {
+    font-size: 14px;
+    line-height: 1.68;
+  }
+  .exp-role-line { font-size: 15px; }
+  .exp-org-line {
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .exp-bullets {
+    margin-left: 16px;
+    gap: 5px;
+  }
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .cert-list { font-size: 13px; }
+  .stack-block-head {
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+  .stack-block-name {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .tag-list { gap: 7px; }
+  .tag {
+    font-size: 10px;
+    padding: 5px 9px;
+  }
+  .contact-card { padding: 26px 22px; }
+  .form-submit {
+    width: 100%;
+    justify-content: center;
+  }
+  .contact-link-row {
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cl-val { overflow-wrap: anywhere; }
+  .foot-inner {
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .foot-links { gap: 14px; }
   .case-title, .lab-title { font-size: 21px; }
 }
