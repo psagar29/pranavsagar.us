@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranav</title>
+  <meta name="description" content="An interactive 3D comic-book portfolio with a James Bond theme, built with React + Three.js." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="32x32" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      color: #14171c;
+      overflow: hidden;
+    }
+    .comic-back {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 10;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #4a4f59;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow:
+        3px 3px 9px rgba(155, 168, 188, 0.32),
+        -2px -2px 6px rgba(255, 255, 255, 0.6),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.55);
+      letter-spacing: -0.005em;
+      transition: background 0.2s ease;
+    }
+    .comic-back:hover { background: rgba(255, 255, 255, 0.95); color: #14171c; }
+    .comic-frame {
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+    .comic-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px;
+      text-align: center;
+      color: #4a4f59;
+    }
+    .comic-fallback h2 {
+      font-family: "Instrument Serif", "Inter", serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      color: #14171c;
+      letter-spacing: -0.02em;
+    }
+    .comic-fallback p {
+      max-width: 460px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .comic-fallback a {
+      color: #14171c;
+      font-weight: 600;
+      border-bottom: 1px solid #a9adb7;
+      text-decoration: none;
+      padding-bottom: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="comic-back" href="index.html" aria-label="Back to home">← Back</a>
+
+  <!-- Embedded comic-book portfolio.
+       In production, this loads from /comic-book/ (where book-portfolio's
+       Vite build output is copied during deploy). -->
+  <iframe
+    class="comic-frame"
+    src="comic-book/index.html?embed=1&v=9"
+    title="James Bond Comic Book Portfolio"
+    allow="autoplay; fullscreen"
+    loading="eager"
+  ></iframe>
+
+</body>
+</html>
