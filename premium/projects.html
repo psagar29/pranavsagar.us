@@ -40,7 +40,7 @@
 
       <div class="prose work-intro">
         <p>Most of my work sits somewhere between native apps, backend systems, and AI tools.</p>
-        <p>If you only skim a few, start with <strong>Steward</strong>, <strong>Scout</strong>, <strong>DigitalYou</strong>, <strong>NavRead</strong>, and <strong>Mac Use</strong>. The content pipeline is the odd one out, but it still helped a channel hit <strong>35M+ views</strong> in two months.</p>
+        <p>If you only skim a few, start with <strong>Steward</strong>, <strong>Clanker</strong>, <strong>Scout</strong>, <strong>DigitalYou</strong>, <strong>NavRead</strong>, and <strong>Mac Use</strong>. The content pipeline is the odd one out, but it still helped a channel hit <strong>35M+ views</strong> in two months.</p>
       </div>
 
       <section class="work-collection">
@@ -57,6 +57,22 @@
             </div>
             <p class="project-desc">A macOS automation app that records workflows and keeps them running even when the UI changes. It checks the screen a few different ways instead of breaking the first time a button moves.</p>
             <a class="project-link plain" href="https://usestewardai.com" target="_blank" rel="noopener">usestewardai.com →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Clanker</div>
+              <div class="project-stack">Swift · SwiftUI · macOS · iOS · Encrypted relay</div>
+            </div>
+            <p class="project-desc">A voice operator for Meta Ray-Ban glasses. You speak to the glasses, the request routes through the iPhone and an end-to-end encrypted cloud relay to your paired Mac, and a local runtime carries out the task. Managed model access and a signed private runtime mean no terminal, keys, or pasted secrets for the user.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Build Room</div>
+              <div class="project-stack">Swift · macOS · ACP · TypeScript</div>
+            </div>
+            <p class="project-desc">A local-first macOS canvas for running isolated AI coding sessions side by side. Each session is sandboxed and talks to agents over the Agent Client Protocol, so you can spin up, watch, and compare runs without them stepping on each other.</p>
           </article>
 
           <article class="glass project">
@@ -100,6 +116,15 @@
             <p class="project-desc">The iPhone companion app for Omnyx: auth, approvals, status, deep links, and push notifications. The App Store build is still up, but I pulled the API key and I'm not supporting it now.</p>
             <a class="project-link plain" href="https://apps.apple.com/us/app/omnyx/id6757373911" target="_blank" rel="noopener">App Store →</a>
           </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Recco</div>
+              <div class="project-stack">Swift · SwiftUI · Convex · OpenAI · Deepgram · CV</div>
+            </div>
+            <p class="project-desc">An iPhone AR networking assistant for event floors. Point the camera at someone, say what you're after, and it locks the target, resolves identity, scores the lead, saves it to a memory graph, and drafts the follow-up — all from the AR lens.</p>
+            <a class="project-link plain" href="https://www.youtube.com/watch?v=513qRmC00Q0" target="_blank" rel="noopener">Watch demo →</a>
+          </article>
         </div>
       </section>
 
@@ -134,6 +159,30 @@
             </div>
             <p class="project-desc">A private reading desk for PDFs, screenshots, OCR, notes, and retrieval. Basically a better way to keep research in one place.</p>
             <a class="project-link plain" href="https://github.com/psagar29/navread" target="_blank" rel="noopener">GitHub repo →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">PeekPDF</div>
+              <div class="project-stack">Python · SwiftUI · Docling · llama.cpp · Apple Vision</div>
+            </div>
+            <p class="project-desc">A local-first macOS PDF assistant. Open a PDF and ask questions — extraction, retrieval, and answering all run on-device with citations, and nothing leaves the machine. It answers from whole pages instead of stray snippets, and abstains when the evidence isn't there.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Legalview</div>
+              <div class="project-stack">Next.js · TypeScript · SQLite · React Flow · OpenAI</div>
+            </div>
+            <p class="project-desc">A local-first agreement review tool. Drop in a contract and it converts, renders, and segments the clauses onto an infinite canvas for reviewing highlights, relationships, and arguments. AI extraction is optional and validated against the source text before anything is saved.</p>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Lecture2PDF</div>
+              <div class="project-stack">Next.js · TypeScript · OpenAI · @react-pdf/renderer</div>
+            </div>
+            <p class="project-desc">A study-guide generator for teachers. Paste a Hindi, Hinglish, or English lecture link or raw notes, and it pulls the transcript, isolates the chapter, cleans and translates it, then renders an exam-ready PDF with Q&amp;A, MCQs, tables, and a revision sheet — ready to hand to students.</p>
           </article>
 
           <article class="glass project">
@@ -192,6 +241,24 @@
             </div>
             <p class="project-desc">A student-focused AI product with auth, pricing, payments, and task-oriented workflows.</p>
           </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Vigil</div>
+              <div class="project-stack">Next.js · TypeScript · SSE · Pomerium · Agent orchestration</div>
+            </div>
+            <p class="project-desc">An AI on-call engineer that resolves production incidents autonomously while holding zero standing credentials. Every destructive action needs a single-use, scoped, just-in-time grant, and the gate denies anything with too large a blast radius.</p>
+            <a class="project-link plain" href="https://github.com/psagar29/vigil" target="_blank" rel="noopener">GitHub repo →</a>
+          </article>
+
+          <article class="glass project">
+            <div class="project-head">
+              <div class="project-name">Locus</div>
+              <div class="project-stack">React · Convex · Mapbox · LLM agents · Monte Carlo</div>
+            </div>
+            <p class="project-desc">A voice-driven search-and-rescue command center. LLM agents reason about who the missing person is, a Monte Carlo simulation computes where they likely are and how to search fastest, and a coordinator drives it hands-free by voice — re-planning as new information arrives.</p>
+            <a class="project-link plain" href="https://locus-iota-orcin.vercel.app" target="_blank" rel="noopener">Live demo →</a>
+          </article>
         </div>
       </section>
 
@@ -239,7 +306,7 @@
 
       <article class="glass note-card">
         <p>Not every project here has a public link. Some live in private repos, some came out of client or internal work, and a few are offline because I moved on and did not feel like pretending they were still active.</p>
-        <p style="margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary);">Last updated · June 25, 2026</p>
+        <p style="margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary);">Last updated · July 22, 2026</p>
       </article>
 
     </div>
